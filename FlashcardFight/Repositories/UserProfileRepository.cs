@@ -19,7 +19,7 @@ namespace FlashcardFight.Repositories
                 using (var cmd = conn.CreateCommand())
                 {
                     cmd.CommandText = @"
-                    SELECT up.Id, Up.FirebaseUserId, up.UserName, up.Email, up.CreateDateTime, up.UserTypeId,
+                    SELECT up.Id, Up.FirebaseUserId, up.UserName, up.Email, up.JoinDate, up.UserTypeId,
                            up.Level, up.Experience, up.HP, up.CharacterImageId,  up.Attempts, up.Wins,
                            
                            ut.Name AS UserTypeName,
@@ -44,7 +44,7 @@ namespace FlashcardFight.Repositories
                             FirebaseUserId = DbUtils.GetString(reader, "FirebaseUserId"),
                             UserName = DbUtils.GetString(reader, "UserName"),
                             Email = DbUtils.GetString(reader, "Email"),
-                            JoinDate = DbUtils.GetDateTime(reader, "CreateDateTime"),
+                            JoinDate = DbUtils.GetDateTime(reader, "JoinDate"),
                             UserTypeId = DbUtils.GetInt(reader, "UserTypeId"),
                             UserType = new UserType()
                             {

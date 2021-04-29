@@ -18,7 +18,8 @@ namespace FlashcardFight.Models
         [Required]
         public int CreatorId { get; set; }
 
-        public UserProfile UserProfile { get; set; }
+        [Required]
+        public DateTime CreateDateTime { get; set; }
 
         [Required]
         public int CategoryId { get; set; }
@@ -29,6 +30,8 @@ namespace FlashcardFight.Models
         public int DifficultyId { get; set; }
 
         public Difficulty Difficulty { get; set; }
+
+        public string Title { get; set; }
 
     }
 }

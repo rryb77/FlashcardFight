@@ -50,10 +50,12 @@ GO
 
 CREATE TABLE [FlashCardSet] (
   [Id] int PRIMARY KEY IDENTITY NOT NULL,
+  [Title] nvarchar(200) NOT NULL,
   [BossImageId] int NOT NULL,
   [CreatorId] int NOT NULL,
   [CategoryId] int NOT NULL,
-  [DifficultyId] int NOT NULL
+  [DifficultyId] int NOT NULL,
+  [CreateDateTime] date NOT NULL
 )
 GO
 
@@ -152,7 +154,7 @@ GO
 ALTER TABLE [FlashCardSet] ADD FOREIGN KEY ([CategoryId]) REFERENCES [Category] ([Id])
 GO
 
-ALTER TABLE [Items] ADD FOREIGN KEY ([UserId]) REFERENCES [UserProfile] ([Id])
+ALTER TABLE [Item] ADD FOREIGN KEY ([UserId]) REFERENCES [UserProfile] ([Id])
 GO
 
 ALTER TABLE [UserProfile] ADD FOREIGN KEY ([CharacterImageId]) REFERENCES [CharacterImage] ([Id])
@@ -161,7 +163,7 @@ GO
 ALTER TABLE [FlashCardSet] ADD FOREIGN KEY ([BossImageId]) REFERENCES [BossImage] ([Id])
 GO
 
-ALTER TABLE [Items] ADD FOREIGN KEY ([ImageLocationId]) REFERENCES [ItemImage] ([Id])
+ALTER TABLE [Item] ADD FOREIGN KEY ([ImageLocationId]) REFERENCES [ItemImage] ([Id])
 GO
 
 ALTER TABLE [UserAchievement] ADD FOREIGN KEY ([UserId]) REFERENCES [UserProfile] ([Id])
