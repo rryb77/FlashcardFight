@@ -35,6 +35,12 @@ namespace FlashcardFight.Controllers
             return CreatedAtAction("GetById", new { id = flashCardSet.Id }, flashCardSet);
         }
 
+        [HttpGet]
+        public IActionResult Get()
+        {
+            return Ok(_flashCardSetRepository.GetAll());
+        }
+
         [HttpGet("{id}")]
         public IActionResult GetById(int id)
         {
