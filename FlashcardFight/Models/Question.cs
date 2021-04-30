@@ -16,5 +16,7 @@ namespace FlashcardFight.Models
 
         [Required]
         public string QuestionText { get; set; }
+
+        public List<Answer> Answers { get; set; }
     }
 }

@@ -47,6 +47,12 @@ namespace FlashcardFight.Controllers
             return Ok(_flashCardSetRepository.GetById(id));
         }
 
+        [HttpGet("GetWithQuestionsAndAnswers")]
+        public IActionResult GetByIdWithQuestionsAndAnswers(int id)
+        {
+            return Ok(_flashCardSetRepository.GetByIdWithQuestionsAndAnswers(id));
+        }
+
         private UserProfile GetCurrentUserProfile()
         {
             var firebaseUserId = User.FindFirst(ClaimTypes.NameIdentifier).Value;

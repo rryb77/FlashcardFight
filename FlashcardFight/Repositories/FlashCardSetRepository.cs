@@ -112,6 +112,81 @@ namespace FlashcardFight.Repositories
             }
         }
 
+        public FlashCardSet GetByIdWithQuestionsAndAnswers(int id)
+        {
+            using (var conn = Connection)
+            {
+                conn.Open();
+                using (var cmd = conn.CreateCommand())
+                {
+                    cmd.CommandText = @"
+                    SELECT f.Id AS SetId, f.Title, f.Description, f.CreateDateTime,
+                        c.id As CategoryId, c.Name AS CategoryName,
+                        d.id AS DifficultyId, d.Name AS DifficultyName,
+                        b.id AS BossImageId, b.ImageLocation AS BossImageLocation,
+                        u.id AS UserId, u.UserName,
+                        q.Id AS QuestionId, q.QuestionText,
+                        a.Id AS AnswerId, a.AnswerText, a.Correct
+                    FROM FlashCardSet f
+                    LEFT JOIN Category c ON c.id = f.CategoryId
+                    LEFT JOIN Difficulty d ON d.id = f.DifficultyId
+                    LEFT JOIN BossImage b ON b.id = f.BossImageId
+                    LEFT JOIN UserProfile u ON u.Id = f.CreatorId
+                    LEFT JOIN Question q ON q.FlashCardSetId = f.Id
+                    LEFT JOIN Answer a ON a.QuestionId = q.Id
+                    WHERE f.Id = @Id AND q.FlashCardSetId = f.Id AND a.QuestionId = q.Id
+                    ";
+
+                    DbUtils.AddParameter(cmd, "Id", id);
+
+                    var reader = cmd.ExecuteReader();
+
+                    FlashCardSet flashCardSet = null;
+
+                    while (reader.Read())
+                    {
+
+                        if (flashCardSet == null)
+                        {
+                            flashCardSet = NewFlashCardSetFromReader(reader);
+                            flashCardSet.Questions = new List<Question>();
+                        }
+
+                        var questionId = DbUtils.GetInt(reader, "QuestionId");
+                        var existingQuestion = flashCardSet.Questions.FirstOrDefault(q => q.Id == questionId);
+                        
+                        if(existingQuestion == null)
+                        {
+                            existingQuestion = new Question()
+                            {
+                                Id = DbUtils.GetInt(reader, "QuestionId"),
+                                FlashCardSetId = DbUtils.GetInt(reader, "SetId"),
+                                QuestionText = DbUtils.GetString(reader, "QuestionText"),
+                                Answers = new List<Answer>()
+                            };
+
+                            flashCardSet.Questions.Add(existingQuestion);                            
+                        }
+
+
+                        var answer = new Answer()
+                        {
+                            Id = DbUtils.GetInt(reader, "AnswerId"),
+                            QuestionId = DbUtils.GetInt(reader, "QuestionId"),
+                            AnswerText = DbUtils.GetString(reader, "AnswerText"),
+                            Correct = DbUtils.GetBoolean(reader, "Correct")
+                        };
+
+                        existingQuestion.Answers.Add(answer);
+                       
+                    }
+
+                    reader.Close();
+                    return flashCardSet;
+                }
+            }
+        }
+
         private FlashCardSet NewFlashCardSetFromReader(SqlDataReader reader)
         {
             return new FlashCardSet()
