@@ -146,15 +146,20 @@ namespace FlashcardFight.Repositories
                     while (reader.Read())
                     {
 
+                        // Create the flashCardSet once, and add the list of questions
                         if (flashCardSet == null)
                         {
                             flashCardSet = NewFlashCardSetFromReader(reader);
                             flashCardSet.Questions = new List<Question>();
                         }
 
+                        // Grab the question id
                         var questionId = DbUtils.GetInt(reader, "QuestionId");
+
+                        // Check to see if this question is already in the flash
                         var existingQuestion = flashCardSet.Questions.FirstOrDefault(q => q.Id == questionId);
                         
+                        // If the question doesn't exist then create it, and then add it to the flashcard set
                         if(existingQuestion == null)
                         {
                             existingQuestion = new Question()
@@ -168,7 +173,7 @@ namespace FlashcardFight.Repositories
                             flashCardSet.Questions.Add(existingQuestion);                            
                         }
 
-
+                        // Create the answer object for the question
                         var answer = new Answer()
                         {
                             Id = DbUtils.GetInt(reader, "AnswerId"),
@@ -177,6 +182,7 @@ namespace FlashcardFight.Repositories
                             Correct = DbUtils.GetBoolean(reader, "Correct")
                         };
 
+                        // Add answers to the existing question until a new one is created, then repeat.
                         existingQuestion.Answers.Add(answer);
                        
                     }
