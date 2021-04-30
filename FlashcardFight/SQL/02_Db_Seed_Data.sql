@@ -26,5 +26,5 @@ insert into [UserProfile] ([ID], [FirebaseUserId], [UserName], [Email], [JoinDat
 set identity_insert [UserProfile] off
 
 set identity_insert [FlashCardSet] on
-insert into [FlashCardSet] ([ID], [Title], [CreateDateTime], [BossImageId], [CreatorId], [CategoryId], [DifficultyId]) VALUES (1, 'Initial Set', '2020-04-23', 1, 1, 1, 1)
+insert into [FlashCardSet] ([ID], [Title], [Description], [CreateDateTime], [BossImageId], [CreatorId], [CategoryId], [DifficultyId]) VALUES (1, 'Initial Set', 'This is just the initial set', '2020-04-23', 1, 1, 1, 1)
 set identity_insert [FlashCardSet] off

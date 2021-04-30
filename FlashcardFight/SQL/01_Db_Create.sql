@@ -51,6 +51,7 @@ GO
 CREATE TABLE [FlashCardSet] (
   [Id] int PRIMARY KEY IDENTITY NOT NULL,
   [Title] nvarchar(200) NOT NULL,
+  [Description] nvarchar(500) NOT NULL,
   [BossImageId] int NOT NULL,
   [CreatorId] int NOT NULL,
   [CategoryId] int NOT NULL,

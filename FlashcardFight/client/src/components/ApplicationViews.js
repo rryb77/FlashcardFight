@@ -3,6 +3,7 @@ import { Switch, Route, Redirect } from "react-router-dom";
 import { UserProfileContext } from "../providers/UserProfileProvider";
 import Login from "./Login";
 import Register from "./Register";
+import FlashCardForm from "./flashcardsets/FlashCardForm"
 
 export default function ApplicationViews() {
   const { isLoggedIn } = useContext(UserProfileContext);
@@ -20,6 +21,10 @@ export default function ApplicationViews() {
 
         <Route path="/register">
           <Register />
+        </Route>
+
+        <Route path="/create">
+          <FlashCardForm/>
         </Route>
       </Switch>
     </main>

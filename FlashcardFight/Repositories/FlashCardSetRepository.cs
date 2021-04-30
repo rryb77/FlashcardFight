@@ -20,12 +20,13 @@ namespace FlashcardFight.Repositories
                 using(var cmd = conn.CreateCommand())
                 {
                     cmd.CommandText = @"
-                    INSERT INTO FlashCardSet (Title, BossImageId, CreatorId, CategoryId, DifficultyId, CreateDateTime)
+                    INSERT INTO FlashCardSet (Title, Description, BossImageId, CreatorId, CategoryId, DifficultyId, CreateDateTime)
                     OUTPUT INSERTED.ID
-                    VALUES (@Title, @BossImageId, @CreatorId, @CategoryId, @DifficultyId, @CreateDateTime)
+                    VALUES (@Title, @Description, @BossImageId, @CreatorId, @CategoryId, @DifficultyId, @CreateDateTime)
                     ";
 
                     DbUtils.AddParameter(cmd, "@Title", flashCardSet.Title);
+                    DbUtils.AddParameter(cmd, "@Description", flashCardSet.Description);
                     DbUtils.AddParameter(cmd, "@BossImageId", flashCardSet.BossImageId);
                     DbUtils.AddParameter(cmd, "@CreatorId", flashCardSet.CreatorId);
                     DbUtils.AddParameter(cmd, "@CategoryId", flashCardSet.CategoryId);
