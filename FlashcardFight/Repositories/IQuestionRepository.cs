@@ -4,6 +4,6 @@ namespace FlashcardFight.Repositories
 {
     public interface IQuestionRepository
     {
-        int AddQuestion(Question question);
+        void AddQuestion(Question question);
     }
 }

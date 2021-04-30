@@ -5,7 +5,7 @@ export const FlashCardSetContext = React.createContext();
 
 export const FlashCardSetProvider = (props) => {
     const apiUrl = "/api/FlashCardSet";
-    const [flashcardSetId, setFlashCardSetId] = useState(0);
+    const [flashcardSet, setFlashcardSet] = useState({});
     const { getToken } = useContext(UserProfileContext);
 
     const addSet = (set) => {
@@ -19,12 +19,11 @@ export const FlashCardSetProvider = (props) => {
                 body: JSON.stringify(set)
             })
             .then((res) => res.json())
-            .then(setFlashCardSetId)
         )
     }
 
     return (
-        <FlashCardSetContext.Provider value={{addSet, flashcardSetId}}>
+        <FlashCardSetContext.Provider value={{addSet, flashcardSet, setFlashcardSet}}>
             {props.children}
         </FlashCardSetContext.Provider>
     )

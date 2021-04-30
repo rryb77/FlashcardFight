@@ -17,7 +17,7 @@ export const DifficultyProvider = (props) => {
             }
           })
           .then((res) => res.json())
-          .then(setDifficulties))
+        )
     }
 
     const getDifficultyById = (id) => {
@@ -33,7 +33,7 @@ export const DifficultyProvider = (props) => {
     }
 
     return (
-        <DifficultyContext.Provider value={{getAllDifficulties, getDifficultyById, difficulties}}>
+        <DifficultyContext.Provider value={{getAllDifficulties, getDifficultyById, difficulties, setDifficulties}}>
             {props.children}
         </DifficultyContext.Provider>
     )

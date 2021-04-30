@@ -17,7 +17,7 @@ export const CategoryProvider = (props) => {
             }
           })
           .then((res) => res.json())
-          .then(setCategories))
+        )
     }
 
     const getCategoryById = (id) => {
@@ -33,7 +33,7 @@ export const CategoryProvider = (props) => {
     }
 
     return (
-        <CategoryContext.Provider value={{getAllCategories, getCategoryById, categories}}>
+        <CategoryContext.Provider value={{getAllCategories, getCategoryById, categories, setCategories}}>
             {props.children}
         </CategoryContext.Provider>
     )

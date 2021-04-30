@@ -5,7 +5,7 @@ export const QuestionContext = React.createContext();
 
 export const QuestionProvider = (props) => {
     const apiUrl = "/api/question";
-    const [questionId, setQuestionId] = useState(0);
+    const [question, setQuestion] = useState(0);
     const { getToken } = useContext(UserProfileContext);
 
     const addQuestion = (set) => {
@@ -19,12 +19,11 @@ export const QuestionProvider = (props) => {
                 body: JSON.stringify(set)
             })
             .then((res) => res.json())
-            .then(setQuestionId)
         )
     }
 
     return (
-        <QuestionContext.Provider value={{addQuestion, questionId}}>
+        <QuestionContext.Provider value={{addQuestion, question, setQuestion}}>
             {props.children}
         </QuestionContext.Provider>
     )

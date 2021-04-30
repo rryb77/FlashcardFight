@@ -17,6 +17,7 @@ namespace FlashcardFight.Models
 
         [Required]
         public int CreatorId { get; set; }
+        public UserProfile UserProfile { get; set; }
 
         [Required]
         public DateTime CreateDateTime { get; set; }

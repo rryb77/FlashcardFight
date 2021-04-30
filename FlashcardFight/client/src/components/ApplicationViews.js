@@ -4,6 +4,7 @@ import { UserProfileContext } from "../providers/UserProfileProvider";
 import Login from "./Login";
 import Register from "./Register";
 import FlashCardForm from "./flashcardsets/FlashCardForm"
+import QuestionForm from "./questions/QuestionForm"
 
 export default function ApplicationViews() {
   const { isLoggedIn } = useContext(UserProfileContext);
@@ -23,8 +24,12 @@ export default function ApplicationViews() {
           <Register />
         </Route>
 
-        <Route path="/create">
+        <Route path="/create" exact>
           <FlashCardForm/>
+        </Route>
+
+        <Route path="/create/questions">
+          <QuestionForm/>
         </Route>
       </Switch>
     </main>

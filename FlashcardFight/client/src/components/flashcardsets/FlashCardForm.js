@@ -18,9 +18,9 @@ import { CardHeader } from "reactstrap";
 
 export const FlashCardForm = () => {
     // Context
-    const {addSet} = useContext(FlashCardSetContext);
-    const { categories, getAllCategories } = useContext(CategoryContext);
-    const { difficulties, getAllDifficulties } = useContext(DifficultyContext);
+    const {addSet, flashcardSet, setFlashcardSet} = useContext(FlashCardSetContext);
+    const { categories, getAllCategories, setCategories } = useContext(CategoryContext);
+    const { difficulties, getAllDifficulties, setDifficulties } = useContext(DifficultyContext);
 
     const history = useHistory();
 
@@ -36,25 +36,32 @@ export const FlashCardForm = () => {
     // Onload
     useEffect(() => {
         getAllCategories()
+            .then(setCategories)
             .then(getAllDifficulties)
+            .then(setDifficulties)
     }, [])
+
+    useEffect(() => {
+        if(flashcardSet.id > 0)
+        {
+            console.log(flashcardSet)
+            history.push(`create/questions`)
+        }
+        
+    },[flashcardSet])
 
     // Submit form
     const submit = () => {
         
-        const flashCardSet = {
+        const newFlashCardSet = {
             title: title,
             description: description,
-            category: category,
-            difficulty: difficulty
+            categoryId: category,
+            difficultyId: difficulty
         }
 
-        addSet(flashCardSet).then(() => history.push(`/`))
-    }
-
-    if(categories === null || difficulties === null)
-    {
-        return null;
+        addSet(newFlashCardSet)
+            .then(setFlashcardSet)        
     }
 
     return (
@@ -81,12 +88,14 @@ export const FlashCardForm = () => {
                                 <Label for="category">Category</Label><br></br>
                                 <select id="category" onChange={(e) => setCategory(e.target.value)}>
                                     <option value="0">Select a category </option>
-                                    {
+                                    {categories.length > 0 ?                                   
                                         categories.map(c => (
                                             <option key={c.id} value={c.id}>
                                                 {c.name}
                                             </option>
                                         ))
+                                        :
+                                        null
                                     }
                                 </select>
                             </FormGroup>
@@ -95,19 +104,24 @@ export const FlashCardForm = () => {
                                 <Label for="difficulty">Difficulty</Label><br></br>
                                 <select id="difficulty" onChange={(e) => setDifficulty(e.target.value)}>
                                     <option value="0">Select a difficulty </option>
-                                    {
-                                        difficulties.map(c => (
-                                            <option key={c.id} value={c.id}>
-                                                {c.name}
+                                    {difficulties.length > 0 ?
+                                        difficulties.map(d => (
+                                            <option key={d.id} value={d.id}>
+                                                {d.name}
                                             </option>
                                         ))
+                                        :
+                                        null
                                     }
                                 </select>
                             </FormGroup>
                         </Form>
-                        <Button color="info" onClick={submit}>
+                        <Button 
+                            color="info"
+                            disabled={isLoading} 
+                            onClick={submit}>
                             SUBMIT
-                    </Button>
+                        </Button>
                     </CardBody>
                 </Card>
             </div>

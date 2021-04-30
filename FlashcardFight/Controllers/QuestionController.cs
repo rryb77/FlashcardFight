@@ -23,7 +23,13 @@ namespace FlashcardFight.Controllers
         public IActionResult Post(Question question)
         {
             _questionRepository.AddQuestion(question);
-            return CreatedAtAction("Get", new { id = question.Id }, question);
+            return CreatedAtAction("GetById", new { id = question.Id }, question);
+        }
+
+        [HttpGet("{id}")]
+        public IActionResult GetById(int id)
+        {
+            return null;
         }
     }
 }

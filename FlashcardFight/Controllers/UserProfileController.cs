@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 
 namespace FlashcardFight.Controllers
@@ -14,35 +15,35 @@ namespace FlashcardFight.Controllers
     public class UserProfileController : ControllerBase
     {
 
-            private readonly IUserProfileRepository _userProfileRepository;
-            public UserProfileController(IUserProfileRepository userProfileRepository)
-            {
-                _userProfileRepository = userProfileRepository;
-            }
+        private readonly IUserProfileRepository _userProfileRepository;
+        public UserProfileController(IUserProfileRepository userProfileRepository)
+        {
+            _userProfileRepository = userProfileRepository;
+        }
 
-            [HttpGet("{firebaseUserId}")]
-            public IActionResult GetUserProfile(string firebaseUserId)
-            {
-                var profile = _userProfileRepository.GetByFirebaseUserId(firebaseUserId);
-                return Ok(profile);
-            }
+        [HttpGet("{firebaseUserId}")]
+        public IActionResult GetUserProfile(string firebaseUserId)
+        {
+            var profile = _userProfileRepository.GetByFirebaseUserId(firebaseUserId);
+            return Ok(profile);
+        }
 
-            [HttpPost]
-            public IActionResult Post(UserProfile userProfile)
-            {
-                userProfile.JoinDate = DateTime.Now;
-                userProfile.UserTypeId = 1;
-                userProfile.Level = 1;
-                userProfile.Experience = 0;
-                userProfile.HP = 500;
-                userProfile.CharacterImageId = 1;
-                userProfile.Attempts = 0;
-                userProfile.Wins = 0;
-                _userProfileRepository.Add(userProfile);
-                return CreatedAtAction(
-                    nameof(GetUserProfile),
-                    new { firebaseUserId = userProfile.FirebaseUserId },
-                    userProfile);
-            }
+        [HttpPost]
+        public IActionResult Post(UserProfile userProfile)
+        {
+            userProfile.JoinDate = DateTime.Now;
+            userProfile.UserTypeId = 1;
+            userProfile.Level = 1;
+            userProfile.Experience = 0;
+            userProfile.HP = 500;
+            userProfile.CharacterImageId = 1;
+            userProfile.Attempts = 0;
+            userProfile.Wins = 0;
+            _userProfileRepository.Add(userProfile);
+            return CreatedAtAction(
+                nameof(GetUserProfile),
+                new { firebaseUserId = userProfile.FirebaseUserId },
+                userProfile);
+        }
     }
 }

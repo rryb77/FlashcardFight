@@ -12,7 +12,7 @@ namespace FlashcardFight.Repositories
     {
         public QuestionRepository(IConfiguration configuration) : base(configuration) { }
 
-        public int AddQuestion(Question question)
+        public void AddQuestion(Question question)
         {
             using (var conn = Connection)
             {
@@ -21,13 +21,14 @@ namespace FlashcardFight.Repositories
                 {
                     cmd.CommandText = @"
                     INSERT INTO Question (FlashCardSetId, QuestionText)
+                    OUTPUT INSERTED.ID
                     VALUES (@FlashCardSetId, @QuestionText)
                     ";
 
                     DbUtils.AddParameter(cmd, "@FlashCardSetId", question.FlashCardSetId);
                     DbUtils.AddParameter(cmd, "@QuestionText", question.QuestionText);
 
-                    return question.Id = (int)cmd.ExecuteScalar();
+                    question.Id = (int)cmd.ExecuteScalar();
                 }
             }
         }
