@@ -7,6 +7,7 @@ export const QuestionProvider = (props) => {
     const apiUrl = "/api/question";
     const [question, setQuestion] = useState(0);
     const { getToken } = useContext(UserProfileContext);
+    let [theCount, setTheCount] = useState(0);
 
     const addQuestion = (set) => {
         return getToken().then((token) =>
@@ -23,7 +24,7 @@ export const QuestionProvider = (props) => {
     }
 
     return (
-        <QuestionContext.Provider value={{addQuestion, question, setQuestion}}>
+        <QuestionContext.Provider value={{addQuestion, question, setQuestion, theCount, setTheCount}}>
             {props.children}
         </QuestionContext.Provider>
     )

@@ -55,7 +55,7 @@ namespace FlashcardFight.Controllers
             return Ok(_flashCardSetRepository.GetAllByUserId(id));
         }
 
-        [HttpGet("GetWithQuestionsAndAnswers")]
+        [HttpGet("GetWithQuestionsAndAnswers/{id}")]
         public IActionResult GetByIdWithQuestionsAndAnswers(int id)
         {
             return Ok(_flashCardSetRepository.GetByIdWithQuestionsAndAnswers(id));

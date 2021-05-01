@@ -7,6 +7,7 @@ import FlashCardForm from "./flashcardsets/FlashCardForm"
 import QuestionForm from "./questions/QuestionForm"
 import FlashCardList from "./flashcardsets/FlashCardList"
 import FlashCardUserList from "./flashcardsets/FlashCardUserList";
+import StudySet from "./studysets/StudySet";
 
 export default function ApplicationViews() {
   const { isLoggedIn } = useContext(UserProfileContext);
@@ -40,6 +41,10 @@ export default function ApplicationViews() {
 
         <Route path="/mysets">
           <FlashCardUserList/>
+        </Route>
+        
+        <Route path="/study/:id">
+          <StudySet/>
         </Route>
       </Switch>
     </main>
