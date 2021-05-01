@@ -7,6 +7,7 @@ namespace FlashcardFight.Repositories
     {
         int Add(FlashCardSet flashCardSet);
         List<FlashCardSet> GetAll();
+        List<FlashCardSet> GetAllByUserId(int id);
         FlashCardSet GetById(int id);
         FlashCardSet GetByIdWithQuestionsAndAnswers(int id);
     }

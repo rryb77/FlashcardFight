@@ -6,6 +6,7 @@ import Register from "./Register";
 import FlashCardForm from "./flashcardsets/FlashCardForm"
 import QuestionForm from "./questions/QuestionForm"
 import FlashCardList from "./flashcardsets/FlashCardList"
+import FlashCardUserList from "./flashcardsets/FlashCardUserList";
 
 export default function ApplicationViews() {
   const { isLoggedIn } = useContext(UserProfileContext);
@@ -35,6 +36,10 @@ export default function ApplicationViews() {
 
         <Route path="/flashcards">
           <FlashCardList/>
+        </Route>
+
+        <Route path="/mysets">
+          <FlashCardUserList/>
         </Route>
       </Switch>
     </main>

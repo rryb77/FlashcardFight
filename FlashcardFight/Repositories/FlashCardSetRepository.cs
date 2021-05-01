@@ -112,6 +112,45 @@ namespace FlashcardFight.Repositories
             }
         }
 
+        public List<FlashCardSet> GetAllByUserId(int id)
+        {
+            using (var conn = Connection)
+            {
+                conn.Open();
+                using (var cmd = conn.CreateCommand())
+                {
+                    cmd.CommandText = @"
+                    SELECT f.Id AS SetId, f.Title, f.Description, f.CreateDateTime,
+                        c.id As CategoryId, c.Name AS CategoryName,
+                        d.id AS DifficultyId, d.Name AS DifficultyName,
+                        b.id AS BossImageId, b.ImageLocation AS BossImageLocation,
+                        u.id AS UserId, u.UserName
+                    FROM FlashCardSet f
+                    LEFT JOIN Category c ON c.id = f.CategoryId
+                    LEFT JOIN Difficulty d ON d.id = f.DifficultyId
+                    LEFT JOIN BossImage b ON b.id = f.BossImageId
+                    LEFT JOIN UserProfile u ON u.Id = f.CreatorId
+                    WHERE f.CreatorId = @Id
+                    ORDER BY f.CreateDateTime
+                    ";
+
+                    DbUtils.AddParameter(cmd, "Id", id);
+
+                    var reader = cmd.ExecuteReader();
+
+                    var flashCardSets = new List<FlashCardSet>();
+
+                    while (reader.Read())
+                    {
+                        flashCardSets.Add(NewFlashCardSetFromReader(reader));
+                    }
+
+                    reader.Close();
+                    return flashCardSets;
+                }
+            }
+        }
+
         public FlashCardSet GetByIdWithQuestionsAndAnswers(int id)
         {
             using (var conn = Connection)

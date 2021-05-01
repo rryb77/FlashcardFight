@@ -36,8 +36,21 @@ export const FlashCardSetProvider = (props) => {
         ))
     }
 
+    const getAllUserFlashcards = () => {
+        return getToken().then((token =>
+            fetch(`${apiUrl}/UserSets`, {
+                method: "GET",
+                headers: {
+                  Authorization: `Bearer ${token}`,
+                  "Content-Type": "application/json"
+                }
+              })
+              .then((res) => res.json())
+        ))
+    }
+
     return (
-        <FlashCardSetContext.Provider value={{addSet, flashcardSet, setFlashcardSet, flashcards, setFlashcards, getAllFlashcards}}>
+        <FlashCardSetContext.Provider value={{addSet, flashcardSet, setFlashcardSet, flashcards, setFlashcards, getAllFlashcards, getAllUserFlashcards}}>
             {props.children}
         </FlashCardSetContext.Provider>
     )

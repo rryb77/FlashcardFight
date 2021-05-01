@@ -47,6 +47,14 @@ namespace FlashcardFight.Controllers
             return Ok(_flashCardSetRepository.GetById(id));
         }
 
+        [HttpGet("UserSets")]
+        public IActionResult GetUserSet()
+        {
+            //var currentUserProfile = GetCurrentUserProfile();
+            int id = 1;
+            return Ok(_flashCardSetRepository.GetAllByUserId(id));
+        }
+
         [HttpGet("GetWithQuestionsAndAnswers")]
         public IActionResult GetByIdWithQuestionsAndAnswers(int id)
         {
