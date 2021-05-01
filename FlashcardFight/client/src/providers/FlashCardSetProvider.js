@@ -6,6 +6,7 @@ export const FlashCardSetContext = React.createContext();
 export const FlashCardSetProvider = (props) => {
     const apiUrl = "/api/FlashCardSet";
     const [flashcardSet, setFlashcardSet] = useState({});
+    const [flashcards, setFlashcards] = useState([]);
     const { getToken } = useContext(UserProfileContext);
 
     const addSet = (set) => {
@@ -22,8 +23,21 @@ export const FlashCardSetProvider = (props) => {
         )
     }
 
+    const getAllFlashcards = () => {
+        return getToken().then((token =>
+            fetch(`${apiUrl}`, {
+                method: "GET",
+                headers: {
+                  Authorization: `Bearer ${token}`,
+                  "Content-Type": "application/json"
+                }
+              })
+              .then((res) => res.json())
+        ))
+    }
+
     return (
-        <FlashCardSetContext.Provider value={{addSet, flashcardSet, setFlashcardSet}}>
+        <FlashCardSetContext.Provider value={{addSet, flashcardSet, setFlashcardSet, flashcards, setFlashcards, getAllFlashcards}}>
             {props.children}
         </FlashCardSetContext.Provider>
     )

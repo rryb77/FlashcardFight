@@ -15,6 +15,8 @@ import { DifficultyContext } from '../../providers/DifficultyProvider';
 import {FlashCardSetContext} from '../../providers/FlashCardSetProvider'
 import { useHistory } from 'react-router-dom';
 import { CardHeader } from "reactstrap";
+import { Container } from "nes-react"
+
 
 export const FlashCardForm = () => {
     // Context
@@ -41,14 +43,14 @@ export const FlashCardForm = () => {
             .then(setDifficulties)
     }, [])
 
-    useEffect(() => {
-        if(flashcardSet.id > 0)
-        {
-            console.log(flashcardSet)
-            history.push(`create/questions`)
-        }
+    // useEffect(() => {
+    //     if(flashcardSet.id > 0)
+    //     {
+    //         console.log(flashcardSet)
+    //         history.push(`create/questions`)
+    //     }
         
-    },[flashcardSet])
+    // },[flashcardSet])
 
     // Submit form
     const submit = () => {
@@ -61,14 +63,14 @@ export const FlashCardForm = () => {
         }
 
         addSet(newFlashCardSet)
-            .then(setFlashcardSet)        
+            .then(setFlashcardSet)
+            .then(() => history.push(`create/questions`))        
     }
 
     return (
         <div className="container pt-4">
             <div className="row justify-content-center">
-                <Card className="col-sm-12 col-lg-6">
-                    <CardBody>
+                <Container>
                         <Form>
                             <FormGroup>
                                 <Label for="title">Title</Label>
@@ -80,50 +82,53 @@ export const FlashCardForm = () => {
                                     id="content"
                                     onChange={(e) => setDescription(e.target.value)}
                                     value={description}
-                                    rows="10"
+                                    rows="5"
                                 />
                             </FormGroup>
                             <FormGroup>
 
                                 <Label for="category">Category</Label><br></br>
-                                <select id="category" onChange={(e) => setCategory(e.target.value)}>
-                                    <option value="0">Select a category </option>
-                                    {categories.length > 0 ?                                   
-                                        categories.map(c => (
-                                            <option key={c.id} value={c.id}>
-                                                {c.name}
-                                            </option>
-                                        ))
-                                        :
-                                        null
-                                    }
-                                </select>
+                                <div class="nes-select">
+                                    <select required id="category" onChange={(e) => setCategory(e.target.value)}>
+                                        <option value="" disabled selected hidden>Select...</option>
+                                        {categories.length > 0 ?                                   
+                                            categories.map(c => (
+                                                <option key={c.id} value={c.id}>
+                                                    {c.name}
+                                                </option>
+                                            ))
+                                            :
+                                            null
+                                        }
+                                    </select>
+                                </div>
                             </FormGroup>
                             <FormGroup>
 
-                                <Label for="difficulty">Difficulty</Label><br></br>
-                                <select id="difficulty" onChange={(e) => setDifficulty(e.target.value)}>
-                                    <option value="0">Select a difficulty </option>
-                                    {difficulties.length > 0 ?
-                                        difficulties.map(d => (
-                                            <option key={d.id} value={d.id}>
-                                                {d.name}
-                                            </option>
-                                        ))
-                                        :
-                                        null
-                                    }
-                                </select>
+                                <Label for="difficulty">Skill Level</Label><br></br>
+                                <div class="nes-select">
+                                    <select required id="difficulty" onChange={(e) => setDifficulty(e.target.value)}>
+                                        <option value="" disabled selected hidden>Select...</option>
+                                        {difficulties.length > 0 ?
+                                            difficulties.map(d => (
+                                                <option key={d.id} value={d.id}>
+                                                    {d.name}
+                                                </option>
+                                            ))
+                                            :
+                                            null
+                                        }
+                                    </select>
+                                </div>
                             </FormGroup>
                         </Form>
-                        <Button 
-                            color="info"
+                        <button 
+                            class="nes-btn is-primary nes-pointer"
                             disabled={isLoading} 
                             onClick={submit}>
                             SUBMIT
-                        </Button>
-                    </CardBody>
-                </Card>
+                        </button>
+                </Container>
             </div>
         </div>
     )
