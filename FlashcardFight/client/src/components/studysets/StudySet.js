@@ -12,59 +12,70 @@ const StudySet = () => {
     const [question, setQuestion] = useState({})
     const [answer, setAnswer] = useState({})
     const [hiddenAnswer, setHiddenAnswer] = useState(true)
+    let [amountCorrect, setAmountCorrect] = useState(0)
 
+    // Initial load
     useEffect(() => {
         getFlashcardSetWithQandA(id)
             .then(setStudySet)
     },[])
 
+    // Isolate the list of questions with answers
     let questions = studySet.questions;
 
+    // When questions state changes...
     useEffect(() => {
-        if(questions !== undefined)
+        // if questions isn't undefined and ONLY when the count is equal to 0 then..
+        if(questions !== undefined && theCount === 0)
         {
             setQuestion(questions[theCount])
         }
     },[questions])
 
-    const history = useHistory();
-
-    const showAnswer = () => {
-        setHiddenAnswer(false)
-    }
-
-    const showQuestion = () => {
-        setHiddenAnswer(true)
-    }
-
-    const userCorrect = () => {
-        
-        if(theCount < questions.length)
+    // When theCount state changes...
+    useEffect(() => {
+        // If it is greater than 0 and less than the amount of questions the user has to study...
+        if(theCount > 0 && theCount < questions?.length)
         {
-            setTheCount(theCount++)
             setQuestion(questions[theCount])
+            console.log(amountCorrect)
         }
+        else
+        {
+            console.log(amountCorrect)
+        }
+    },[theCount])
+
+    const history = useHistory();  
+
+    // Show and hide the answer for the user
+    const showHide = () => {
+        setHiddenAnswer(!hiddenAnswer)
+    }
+
+    // User was correct so increase the count to show the next question
+    const userCorrect = () => {
+        setTheCount(theCount++)
+        setAmountCorrect(amountCorrect++)
     }
 
     const userWrong = () => {
-
+        setTheCount(theCount++)
     }
     
     const correct = question?.answers?.find(a => a.correct === true)
-
-    console.log(question)
 
     return (
         <Container>
             {hiddenAnswer ?
             <div id="question">
-                 Question: {question.questionText}<br></br><br></br><button className="nes-btn" onClick={showAnswer}>Show Answer</button>
+                 Question: {question.questionText}<br></br><br></br><button className="nes-btn" onClick={showHide}>Show Answer</button>
                  <button className="right nes-btn is-success" onClick={userCorrect}>I was right</button> {' '}
                  <button className="right nes-btn is-error" onClick={userWrong}>I was wrong</button>   
             </div>
             :
             <div id="question">
-                 Answer: {correct.answerText}<br></br><br></br><button className="nes-btn" onClick={showQuestion}>Hide Answer</button>
+                 Answer: {correct.answerText}<br></br><br></br><button className="nes-btn" onClick={showHide}>Hide Answer</button>
                  <button className="right nes-btn is-success" onClick={userCorrect}>I was right</button> {' '}
                  <button className="right nes-btn is-error" onClick={userWrong}>I was wrong</button>       
             </div>
