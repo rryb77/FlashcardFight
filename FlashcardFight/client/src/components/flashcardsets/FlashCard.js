@@ -1,6 +1,6 @@
 import React from "react";
 import {
-    
+    Badge,
     Card,
     CardBody,
     CardFooter,
@@ -22,8 +22,23 @@ const FlashCard = ({flashcard}) => {
     
     const history = useHistory();
 
+    let difficultyCSS = ""
+
     const study = (id) => {
         history.push(`study/${id}`);
+    }
+
+    if(flashcard.difficulty.name === "Beginner")
+    {
+        difficultyCSS = "success"
+    }
+    else if(flashcard.difficulty.name === "Intermediate")
+    {
+        difficultyCSS = "warning"
+    }
+    else
+    {
+        difficultyCSS = "danger"
     }
 
     if(currentUser.id === flashcard.creatorId)
@@ -34,15 +49,17 @@ const FlashCard = ({flashcard}) => {
                 {/* <Link className="postLink" to={`/posts/${post.id}`}> */}
                     <CardBody>
                         <CardTitle tag="h2">
-                            <strong> {flashcard.title}</strong>
+                            <strong> {flashcard.title}</strong><br></br>
+                            <Badge color={`${difficultyCSS} pill nes-badge`}>{flashcard.difficulty.name}</Badge>
                         </CardTitle>
                         <CardSubtitle tag="h6" className="mb-2 text-muted">
+                            <br></br>
                             Author: {flashcard.userProfile.userName}
                         </CardSubtitle>
                         <CardSubtitle tag="h6" className="mb-2 text-muted">
                             Category: {flashcard.category.name}
                         </CardSubtitle>
-                        
+                        <br></br>
                         Description: {flashcard.description}
                     </CardBody>
                     <CardFooter>
@@ -59,15 +76,17 @@ const FlashCard = ({flashcard}) => {
             {/* <Link className="postLink" to={`/posts/${post.id}`}> */}
                 <CardBody>
                     <CardTitle tag="h2">
-                        <strong> {flashcard.title}</strong>
+                        <strong> {flashcard.title}</strong><br></br>
+                        <Badge color={`${difficultyCSS} pill nes-badge`}>{flashcard.difficulty.name}</Badge>
                     </CardTitle>
                     <CardSubtitle tag="h6" className="mb-2 text-muted">
+                        <br></br>
                         Author: {flashcard.userProfile.userName}
                     </CardSubtitle>
                     <CardSubtitle tag="h6" className="mb-2 text-muted">
                         Category: {flashcard.category.name}
                     </CardSubtitle>
-                    
+                    <br></br>
                     Description: {flashcard.description}
                 </CardBody>
 

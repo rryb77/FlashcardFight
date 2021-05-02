@@ -2,3 +2,8 @@
   float: right;
   margin-left: 20px;
 }
+
+.pill {
+  font-size: x-small;
+  width: 150px;
+}
