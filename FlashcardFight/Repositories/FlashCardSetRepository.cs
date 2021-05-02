@@ -51,7 +51,7 @@ namespace FlashcardFight.Repositories
                         c.id As CategoryId, c.Name AS CategoryName,
                         d.id AS DifficultyId, d.Name AS DifficultyName,
                         b.id AS BossImageId, b.ImageLocation AS BossImageLocation,
-                        u.id AS UserId, u.UserName
+                        u.id AS UserId, u.UserName, u.Email
                     FROM FlashCardSet f
                     LEFT JOIN Category c ON c.id = f.CategoryId
                     LEFT JOIN Difficulty d ON d.id = f.DifficultyId
@@ -88,7 +88,7 @@ namespace FlashcardFight.Repositories
                         c.id As CategoryId, c.Name AS CategoryName,
                         d.id AS DifficultyId, d.Name AS DifficultyName,
                         b.id AS BossImageId, b.ImageLocation AS BossImageLocation,
-                        u.id AS UserId, u.UserName
+                        u.id AS UserId, u.UserName, u.Email
                     FROM FlashCardSet f
                     LEFT JOIN Category c ON c.id = f.CategoryId
                     LEFT JOIN Difficulty d ON d.id = f.DifficultyId
@@ -124,7 +124,7 @@ namespace FlashcardFight.Repositories
                         c.id As CategoryId, c.Name AS CategoryName,
                         d.id AS DifficultyId, d.Name AS DifficultyName,
                         b.id AS BossImageId, b.ImageLocation AS BossImageLocation,
-                        u.id AS UserId, u.UserName
+                        u.id AS UserId, u.UserName, u.Email
                     FROM FlashCardSet f
                     LEFT JOIN Category c ON c.id = f.CategoryId
                     LEFT JOIN Difficulty d ON d.id = f.DifficultyId
@@ -163,7 +163,7 @@ namespace FlashcardFight.Repositories
                         c.id As CategoryId, c.Name AS CategoryName,
                         d.id AS DifficultyId, d.Name AS DifficultyName,
                         b.id AS BossImageId, b.ImageLocation AS BossImageLocation,
-                        u.id AS UserId, u.UserName,
+                        u.id AS UserId, u.UserName, u.Email,
                         q.Id AS QuestionId, q.QuestionText,
                         a.Id AS AnswerId, a.AnswerText, a.Correct
                     FROM FlashCardSet f
@@ -276,7 +276,8 @@ namespace FlashcardFight.Repositories
                 UserProfile = new UserProfile()
                 {
                     Id = DbUtils.GetInt(reader, "UserId"),
-                    UserName = DbUtils.GetString(reader, "UserName")
+                    UserName = DbUtils.GetString(reader, "UserName"),
+                    Email = DbUtils.GetString(reader, "Email"),
                 },
                 CategoryId = DbUtils.GetInt(reader, "CategoryId"),
                 Category = new Category()

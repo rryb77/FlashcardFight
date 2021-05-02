@@ -60,9 +60,9 @@ namespace FlashcardFight.Controllers
             return Ok(_flashCardSetRepository.GetByIdWithQuestionsAndAnswers(id));
         }
 
-        [HttpPut]
+        [HttpPut("{id}")]
         public IActionResult Put(FlashCardSet flashCardSet)
-        {
+        {   
             _flashCardSetRepository.UpdateFlashcard(flashCardSet);
             return NoContent();
         }

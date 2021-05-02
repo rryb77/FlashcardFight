@@ -29,6 +29,19 @@ export const FlashCardSetProvider = (props) => {
         )
     }
 
+    const updateSet = (set) => {
+        return getToken().then((token) =>
+            fetch(`${apiUrl}/${set.id}`, {
+                method: "PUT",
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify(set)
+            })
+        )
+    }
+
     const getAllFlashcards = () => {
         return getToken().then((token =>
             fetch(`${apiUrl}`, {
@@ -69,7 +82,8 @@ export const FlashCardSetProvider = (props) => {
     }
 
     return (
-        <FlashCardSetContext.Provider value={{addSet, flashcardSet, setFlashcardSet, flashcards, setFlashcards, getAllFlashcards, getAllUserFlashcards, getFlashcardSetWithQandA, flashcardSetData, setFlashcardSetData}}>
+        <FlashCardSetContext.Provider value={{addSet, flashcardSet, setFlashcardSet, flashcards, setFlashcards, getAllFlashcards, 
+                                              updateSet, getAllUserFlashcards, getFlashcardSetWithQandA, flashcardSetData, setFlashcardSetData}}>
             {props.children}
         </FlashCardSetContext.Provider>
     )

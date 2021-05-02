@@ -22,7 +22,7 @@ import {
 
 const FlashCardEdit = () => {
 
-    const { getFlashcardSetWithQandA, flashcardSetData } = useContext(FlashCardSetContext);
+    const { getFlashcardSetWithQandA, updateSet } = useContext(FlashCardSetContext);
     const { categories, getAllCategories, setCategories } = useContext(CategoryContext);
     const { difficulties, getAllDifficulties, setDifficulties } = useContext(DifficultyContext);
     const [flashcardSet, setFlashcardSet] = useState({});
@@ -37,7 +37,6 @@ const FlashCardEdit = () => {
     // flashcard set details form field states
     const [title, setTitle] = useState("");
     const [description, setDescription] = useState("");
-    const [imageLocation, setImageLocation] = useState("");
     const [category, setCategory] = useState("");
     const [difficulty, setDifficulty] = useState("");
 
@@ -57,11 +56,23 @@ const FlashCardEdit = () => {
         setTitle(flashcardSet.title)
         setDescription(flashcardSet.description)
         setCategory(flashcardSet.categoryId)
-        setDifficulty(flashcardSet.dictionaryId)
+        setDifficulty(flashcardSet.difficultyId)
     }, [flashcardSet])
 
     const saveEdit = () => {
+        const updatedSet = {
+            ...flashcardSet
+        }
 
+        updatedSet.title = title
+        updatedSet.description = description
+        updatedSet.categoryId = parseInt(category)
+        updatedSet.difficultyId = parseInt(difficulty)
+
+        updateSet(updatedSet)
+            .then(() => getFlashcardSetWithQandA(id))
+            .then(setFlashcardSet)
+        toggleFlashcardModal()
     }
 
     if(flashcardSet.id === undefined)
@@ -115,7 +126,7 @@ const FlashCardEdit = () => {
                                 <Label for="category">Category</Label><br></br>
                                 <div className="nes-select">
                                     <select required id="category" onChange={(e) => setCategory(e.target.value)}>
-                                        <option value={`${flashcardSet.categoryId}`} disabled hidden>{flashcardSet.category.name}</option>
+                                        <option value={`${flashcardSet.categoryId}`} disabled selected hidden>{flashcardSet.category.name}</option>
                                         {categories.length > 0 ?                                   
                                             categories.map(c => (
                                                 <option key={c.id} value={c.id}>
@@ -133,7 +144,7 @@ const FlashCardEdit = () => {
                                 <Label for="difficulty">Skill Level</Label><br></br>
                                 <div className="nes-select">
                                     <select required id="difficulty" onChange={(e) => setDifficulty(e.target.value)}>
-                                        <option value={`${flashcardSet.difficultyId}`} disabled hidden>{flashcardSet.difficulty.name}</option>
+                                        <option value={`${flashcardSet.difficultyId}`} disabled selected hidden>{flashcardSet.difficulty.name}</option>
                                         {difficulties.length > 0 ?
                                             difficulties.map(d => (
                                                 <option key={d.id} value={d.id}>
