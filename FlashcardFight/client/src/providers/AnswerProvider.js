@@ -20,8 +20,21 @@ export const AnswerProvider = (props) => {
         )
     }
 
+    const updateAnswers = (answers) => {
+        return getToken().then((token) =>
+            fetch(`${apiUrl}`, {
+                method: "PUT",
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify(answers)
+            })
+        )
+    }
+
     return (
-        <AnswerContext.Provider value={{addAnswers}}>
+        <AnswerContext.Provider value={{addAnswers, updateAnswers}}>
             {props.children}
         </AnswerContext.Provider>
     )

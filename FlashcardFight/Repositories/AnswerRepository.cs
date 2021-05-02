@@ -54,10 +54,10 @@ namespace FlashcardFight.Repositories
                         cmd.CommandText = $@"
                         UPDATE Answer 
                             SET AnswerText = @AnswerText{i}
-                        WHERE id = @id
+                        WHERE id = @id{i}
                         ";
 
-                        DbUtils.AddParameter(cmd, "@id", answers[i].Id);
+                        DbUtils.AddParameter(cmd, $"@id{i}", answers[i].Id);
                         DbUtils.AddParameter(cmd, $"@AnswerText{i}", answers[i].AnswerText);
 
                         cmd.ExecuteNonQuery();

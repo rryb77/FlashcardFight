@@ -10,7 +10,7 @@ export const QuestionProvider = (props) => {
     let [theCount, setTheCount] = useState(0);
     let [amountCorrect, setAmountCorrect] = useState(0)
 
-    const addQuestion = (set) => {
+    const addQuestion = (question) => {
         return getToken().then((token) =>
             fetch(`${apiUrl}`, {
                 method: "POST",
@@ -18,14 +18,28 @@ export const QuestionProvider = (props) => {
                     Authorization: `Bearer ${token}`,
                     "Content-Type": "application/json",
                 },
-                body: JSON.stringify(set)
+                body: JSON.stringify(question)
             })
             .then((res) => res.json())
         )
     }
 
+    const updateQuestion = (question) => {
+        return getToken().then((token) =>
+            fetch(`${apiUrl}`, {
+                method: "PUT",
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify(question)
+            })
+        )
+    }
+
+
     return (
-        <QuestionContext.Provider value={{addQuestion, question, setQuestion, theCount, setTheCount, amountCorrect, setAmountCorrect}}>
+        <QuestionContext.Provider value={{addQuestion, question, setQuestion, theCount, setTheCount, amountCorrect, setAmountCorrect, updateQuestion}}>
             {props.children}
         </QuestionContext.Provider>
     )

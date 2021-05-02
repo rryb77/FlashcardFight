@@ -2,6 +2,8 @@ import React, { useContext, useEffect, useState } from "react";
 import { useHistory, useParams } from "react-router-dom";
 import { FlashCardSetContext } from '../../providers/FlashCardSetProvider';
 import { CategoryContext } from '../../providers/CategoryProvider';
+import { QuestionContext } from '../../providers/QuestionProvider';
+import { AnswerContext } from '../../providers/AnswerProvider';
 import { DifficultyContext } from '../../providers/DifficultyProvider';
 import { Container } from "nes-react"
 import {
@@ -26,6 +28,10 @@ const FlashCardEdit = () => {
     const { getFlashcardSetWithQandA, updateSet } = useContext(FlashCardSetContext);
     const { categories, getAllCategories, setCategories } = useContext(CategoryContext);
     const { difficulties, getAllDifficulties, setDifficulties } = useContext(DifficultyContext);
+    const { updateQuestion } = useContext(QuestionContext);
+    const { updateAnswers } = useContext(AnswerContext);
+    
+    // flashcard set state
     const [flashcardSet, setFlashcardSet] = useState({});
 
     // Imported react router hooks
@@ -36,7 +42,7 @@ const FlashCardEdit = () => {
     const [flashcardModal, setFlashcardModal] = useState(false);
     const toggleFlashcardModal = () => setFlashcardModal(!flashcardModal);
 
-    // flashcard set form field states
+    // flashcard form field states
     const [title, setTitle] = useState("");
     const [description, setDescription] = useState("");
     const [category, setCategory] = useState("");
@@ -98,7 +104,7 @@ const FlashCardEdit = () => {
     const questionEdit = (id) => {
         
         question = flashcardSet.questions.find(q => q.id === id)
-        console.log(question)
+
         setQuestionId(question.id)
         setUserQuestion(question.questionText)
         setCorrectAnswer(question.answers[0].answerText)
@@ -112,6 +118,8 @@ const FlashCardEdit = () => {
     // Save Q and A edits
     const saveQAndAdEdit = (qId) => {
         
+        question = flashcardSet.questions.find(q => q.id === qId)
+
         const newQ = {
             Id: qId,
             FlashCardSetId: parseInt(id),
@@ -119,24 +127,28 @@ const FlashCardEdit = () => {
         }
 
         const newCorrectAnswer = {
+            Id: question.answers[0].id,
             questionId: qId,
             answerText: correctAnswer,
             correct: true
         }
 
         const newWrongAnswer1 = {
+            Id: question.answers[1].id,
             questionId: qId,
             answerText: wrongAnswer1,
             correct: false
         }
 
         const newWrongAnswer2 = {
+            Id: question.answers[2].id,
             questionId: qId,
             answerText: wrongAnswer2,
             correct: false
         }
 
         const newWrongAnswer3 = {
+            Id: question.answers[3].id,
             questionId: qId,
             answerText: wrongAnswer3,
             correct: false
@@ -144,8 +156,11 @@ const FlashCardEdit = () => {
 
         const answers = [newCorrectAnswer, newWrongAnswer1, newWrongAnswer2, newWrongAnswer3]
 
-        console.log(newQ)
-        console.log(answers)
+        updateQuestion(newQ)
+            .then(() => updateAnswers(answers))
+            .then(() => getFlashcardSetWithQandA(id))
+            .then(setFlashcardSet)
+            .then(toggleQAndAModal)
     }
 
     // If flashcardSet hasn't mounted yet then return null
