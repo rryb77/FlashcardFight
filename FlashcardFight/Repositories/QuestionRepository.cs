@@ -32,5 +32,28 @@ namespace FlashcardFight.Repositories
                 }
             }
         }
+
+        public void UpdateQuestion(Question question)
+        {
+            using(var conn = Connection)
+            {
+                conn.Open();
+                using(var cmd = conn.CreateCommand())
+                {
+                    cmd.CommandText = @"
+                    UPDATE Question
+                        Set QuestionText = @QuestionText
+                    WHERE id = @id
+                    ";
+
+                    DbUtils.AddParameter(cmd, "@id", question.Id);
+                    DbUtils.AddParameter(cmd, "@QuestionText", question.QuestionText);
+
+                    cmd.ExecuteNonQuery();
+                }
+            }
+        }
+
+
     }
 }

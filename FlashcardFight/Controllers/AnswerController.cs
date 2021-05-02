@@ -25,5 +25,12 @@ namespace FlashcardFight.Controllers
             _answerRepository.AddAnswers(answers);
             return NoContent();
         }
+
+        [HttpPut]
+        public IActionResult Put(List<Answer> answers)
+        {
+            _answerRepository.UpdateAnswers(answers);
+            return NoContent();
+        }
     }
 }

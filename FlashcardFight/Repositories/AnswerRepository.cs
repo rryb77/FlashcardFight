@@ -39,5 +39,32 @@ namespace FlashcardFight.Repositories
                 }
             }
         }
+
+        public void UpdateAnswers(List<Answer> answers)
+        {
+            using(var conn = Connection)
+            {
+                conn.Open();
+                using(var cmd = conn.CreateCommand())
+                {
+                    int i = 0;
+
+                    foreach(Answer answer in answers)
+                    {
+                        cmd.CommandText = $@"
+                        UPDATE Answer 
+                            SET AnswerText = @AnswerText{i}
+                        WHERE id = @id
+                        ";
+
+                        DbUtils.AddParameter(cmd, "@id", answers[i].Id);
+                        DbUtils.AddParameter(cmd, $"@AnswerText{i}", answers[i].AnswerText);
+
+                        cmd.ExecuteNonQuery();
+                        i++;
+                    }
+                }
+            }
+        }
     }
 }

@@ -31,5 +31,12 @@ namespace FlashcardFight.Controllers
         {
             return null;
         }
+
+        [HttpPut]
+        public IActionResult Put(Question question)
+        {
+            _questionRepository.UpdateQuestion(question);
+            return NoContent();
+        }
     }
 }
