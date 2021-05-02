@@ -8,6 +8,7 @@ import QuestionForm from "./questions/QuestionForm"
 import FlashCardList from "./flashcardsets/FlashCardList"
 import FlashCardUserList from "./flashcardsets/FlashCardUserList";
 import StudySet from "./studysets/StudySet";
+import BattleSet from "./battlesets/BattleSet";
 import StudyResults from "./studysets/StudyResults";
 
 export default function ApplicationViews() {
@@ -50,6 +51,10 @@ export default function ApplicationViews() {
 
         <Route path="/study/:id/results">
           <StudyResults/>
+        </Route>
+
+        <Route path="/battle/:id">
+          <BattleSet/>
         </Route>
       </Switch>
     </main>
