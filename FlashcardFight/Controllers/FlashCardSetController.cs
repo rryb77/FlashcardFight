@@ -50,15 +50,21 @@ namespace FlashcardFight.Controllers
         [HttpGet("UserSets")]
         public IActionResult GetUserSet()
         {
-            //var currentUserProfile = GetCurrentUserProfile();
-            int id = 1;
-            return Ok(_flashCardSetRepository.GetAllByUserId(id));
+            var currentUserProfile = GetCurrentUserProfile();
+            return Ok(_flashCardSetRepository.GetAllByUserId(currentUserProfile.Id));
         }
 
         [HttpGet("GetWithQuestionsAndAnswers/{id}")]
         public IActionResult GetByIdWithQuestionsAndAnswers(int id)
         {
             return Ok(_flashCardSetRepository.GetByIdWithQuestionsAndAnswers(id));
+        }
+
+        [HttpPut]
+        public IActionResult Put(FlashCardSet flashCardSet)
+        {
+            _flashCardSetRepository.UpdateFlashcard(flashCardSet);
+            return NoContent();
         }
 
         private UserProfile GetCurrentUserProfile()

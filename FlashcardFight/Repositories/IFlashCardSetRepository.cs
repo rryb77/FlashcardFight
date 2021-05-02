@@ -10,5 +10,6 @@ namespace FlashcardFight.Repositories
         List<FlashCardSet> GetAllByUserId(int id);
         FlashCardSet GetById(int id);
         FlashCardSet GetByIdWithQuestionsAndAnswers(int id);
+        void UpdateFlashcard(FlashCardSet flashCardSet);
     }
 }

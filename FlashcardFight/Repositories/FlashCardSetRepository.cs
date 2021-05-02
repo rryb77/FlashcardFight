@@ -232,6 +232,33 @@ namespace FlashcardFight.Repositories
             }
         }
 
+        public void UpdateFlashcard(FlashCardSet flashCardSet)
+        {
+            using (var conn = Connection)
+            {
+                conn.Open();
+                using(var cmd = conn.CreateCommand())
+                {
+                    cmd.CommandText = @"
+                    UPDATE FlashCardSet
+                        SET Title = @Title,
+                            Description = @Description,
+                            CategoryId = @CategoryId, 
+                            DifficultyId = @DifficultyId
+                    WHERE id = @id
+                    ";
+
+                    cmd.Parameters.AddWithValue("@id", flashCardSet.Id);
+                    cmd.Parameters.AddWithValue("@Title", flashCardSet.Title);
+                    cmd.Parameters.AddWithValue("@Description", flashCardSet.Description);
+                    cmd.Parameters.AddWithValue("@CategoryId", flashCardSet.CategoryId);
+                    cmd.Parameters.AddWithValue("@DifficultyId", flashCardSet.DifficultyId);
+
+                    cmd.ExecuteNonQuery();
+                }
+            }
+        }
+
         private FlashCardSet NewFlashCardSetFromReader(SqlDataReader reader)
         {
             return new FlashCardSet()
