@@ -8,6 +8,7 @@ import QuestionForm from "./questions/QuestionForm"
 import FlashCardList from "./flashcardsets/FlashCardList"
 import FlashCardUserList from "./flashcardsets/FlashCardUserList";
 import StudySet from "./studysets/StudySet";
+import StudyResults from "./studysets/StudyResults";
 
 export default function ApplicationViews() {
   const { isLoggedIn } = useContext(UserProfileContext);
@@ -43,8 +44,12 @@ export default function ApplicationViews() {
           <FlashCardUserList/>
         </Route>
         
-        <Route path="/study/:id">
+        <Route path="/study/:id" exact>
           <StudySet/>
+        </Route>
+
+        <Route path="/study/:id/results">
+          <StudyResults/>
         </Route>
       </Switch>
     </main>

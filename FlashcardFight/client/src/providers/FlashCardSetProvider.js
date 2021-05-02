@@ -8,6 +8,12 @@ export const FlashCardSetProvider = (props) => {
     const [flashcardSet, setFlashcardSet] = useState({});
     const [flashcards, setFlashcards] = useState([]);
     const { getToken } = useContext(UserProfileContext);
+    const [flashcardSetData, setFlashcardSetData] = useState({
+        questionAmount: 0,
+        correctAnswers: 0,
+        wrongAnswers: 0,
+        setId: 0
+    })
 
     const addSet = (set) => {
         return getToken().then((token) =>
@@ -63,7 +69,7 @@ export const FlashCardSetProvider = (props) => {
     }
 
     return (
-        <FlashCardSetContext.Provider value={{addSet, flashcardSet, setFlashcardSet, flashcards, setFlashcards, getAllFlashcards, getAllUserFlashcards, getFlashcardSetWithQandA}}>
+        <FlashCardSetContext.Provider value={{addSet, flashcardSet, setFlashcardSet, flashcards, setFlashcards, getAllFlashcards, getAllUserFlashcards, getFlashcardSetWithQandA, flashcardSetData, setFlashcardSetData}}>
             {props.children}
         </FlashCardSetContext.Provider>
     )

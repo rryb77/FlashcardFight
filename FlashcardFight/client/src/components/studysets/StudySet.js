@@ -2,17 +2,16 @@ import React, { useContext, useEffect, useState } from "react";
 import { useHistory, useParams } from "react-router-dom";
 import { FlashCardSetContext } from '../../providers/FlashCardSetProvider';
 import { QuestionContext } from '../../providers/QuestionProvider';
-import { Container, Radio, Label } from "nes-react";
+import { Container } from "nes-react";
 
 const StudySet = () => {
-    const { getFlashcardSetWithQandA } = useContext(FlashCardSetContext);
+    const { getFlashcardSetWithQandA, flashcardSetData } = useContext(FlashCardSetContext);
     let { theCount, setTheCount } = useContext(QuestionContext);
     const {id} = useParams();
     const [studySet, setStudySet] = useState({})
     const [question, setQuestion] = useState({})
-    const [answer, setAnswer] = useState({})
     const [hiddenAnswer, setHiddenAnswer] = useState(true)
-    let [amountCorrect, setAmountCorrect] = useState(0)
+    const history = useHistory();  
 
     // Initial load
     useEffect(() => {
@@ -28,7 +27,9 @@ const StudySet = () => {
         // if questions isn't undefined and ONLY when the count is equal to 0 then..
         if(questions !== undefined && theCount === 0)
         {
-            setQuestion(questions[theCount])
+            flashcardSetData.questionAmount = questions.length;
+            flashcardSetData.setId = id;
+            setQuestion(questions[theCount]);
         }
     },[questions])
 
@@ -38,15 +39,13 @@ const StudySet = () => {
         if(theCount > 0 && theCount < questions?.length)
         {
             setQuestion(questions[theCount])
-            console.log(amountCorrect)
+            console.log(flashcardSetData)
         }
-        else
+        else if(theCount === questions?.length)
         {
-            console.log(amountCorrect)
+            history.push(`${id}/results`)
         }
     },[theCount])
-
-    const history = useHistory();  
 
     // Show and hide the answer for the user
     const showHide = () => {
@@ -56,11 +55,12 @@ const StudySet = () => {
     // User was correct so increase the count to show the next question
     const userCorrect = () => {
         setTheCount(theCount++)
-        setAmountCorrect(amountCorrect++)
+        flashcardSetData.correctAnswers += 1;
     }
 
     const userWrong = () => {
         setTheCount(theCount++)
+        flashcardSetData.wrongAnswers += 1;
     }
     
     const correct = question?.answers?.find(a => a.correct === true)
@@ -69,13 +69,13 @@ const StudySet = () => {
         <Container>
             {hiddenAnswer ?
             <div id="question">
-                 Question: {question.questionText}<br></br><br></br><button className="nes-btn" onClick={showHide}>Show Answer</button>
+                 Question: {question?.questionText}<br></br><br></br><button className="nes-btn" onClick={showHide}>Show Answer</button>
                  <button className="right nes-btn is-success" onClick={userCorrect}>I was right</button> {' '}
                  <button className="right nes-btn is-error" onClick={userWrong}>I was wrong</button>   
             </div>
             :
             <div id="question">
-                 Answer: {correct.answerText}<br></br><br></br><button className="nes-btn" onClick={showHide}>Hide Answer</button>
+                 Answer: {correct?.answerText}<br></br><br></br><button className="nes-btn" onClick={showHide}>Hide Answer</button>
                  <button className="right nes-btn is-success" onClick={userCorrect}>I was right</button> {' '}
                  <button className="right nes-btn is-error" onClick={userWrong}>I was wrong</button>       
             </div>

@@ -29,6 +29,7 @@ const FlashCard = ({flashcard}) => {
     if(currentUser.id === flashcard.creatorId)
     {
         return (
+
             <Card className="m-4">
                 {/* <Link className="postLink" to={`/posts/${post.id}`}> */}
                     <CardBody>
@@ -45,8 +46,8 @@ const FlashCard = ({flashcard}) => {
                         Description: {flashcard.description}
                     </CardBody>
                     <CardFooter>
-                        <Button type="button" class="nes-btn is-success nes-cursor" onClick={() => study(flashcard.id)}>Study</Button> {'  '} <Button class="nes-btn is-warning nes-cursor">Battle</Button>
-                        <Button type="button" class="right nes-btn is-normal nes-cursor">Edit</Button> {'  '} <Button class="right nes-btn is-error nes-cursor">Delete</Button>
+                        <Button type="button" className="nes-btn is-success nes-cursor" onClick={() => study(flashcard.id)}>Study</Button> {'  '} <Button className="nes-btn is-warning nes-cursor">Battle</Button>
+                        <Button type="button" className="right nes-btn is-normal nes-cursor">Edit</Button> {'  '} <Button className="right nes-btn is-error nes-cursor">Delete</Button>
                     </CardFooter>
                 {/* </Link> */}
             </Card>
@@ -71,7 +72,7 @@ const FlashCard = ({flashcard}) => {
                 </CardBody>
 
                 <CardFooter>
-                        <Button class="right nes-btn is-error nes-cursor">Add to Collection</Button>
+                        <Button className="right nes-btn is-error nes-cursor">Add to Collection</Button>
                 </CardFooter>
             {/* </Link> */}
         </Card>

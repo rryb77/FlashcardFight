@@ -43,15 +43,6 @@ export const FlashCardForm = () => {
             .then(setDifficulties)
     }, [])
 
-    // useEffect(() => {
-    //     if(flashcardSet.id > 0)
-    //     {
-    //         console.log(flashcardSet)
-    //         history.push(`create/questions`)
-    //     }
-        
-    // },[flashcardSet])
-
     // Submit form
     const submit = () => {
         
@@ -88,7 +79,7 @@ export const FlashCardForm = () => {
                             <FormGroup>
 
                                 <Label for="category">Category</Label><br></br>
-                                <div class="nes-select">
+                                <div className="nes-select">
                                     <select required id="category" onChange={(e) => setCategory(e.target.value)}>
                                         <option value="" disabled selected hidden>Select...</option>
                                         {categories.length > 0 ?                                   
@@ -106,7 +97,7 @@ export const FlashCardForm = () => {
                             <FormGroup>
 
                                 <Label for="difficulty">Skill Level</Label><br></br>
-                                <div class="nes-select">
+                                <div className="nes-select">
                                     <select required id="difficulty" onChange={(e) => setDifficulty(e.target.value)}>
                                         <option value="" disabled selected hidden>Select...</option>
                                         {difficulties.length > 0 ?
@@ -123,7 +114,7 @@ export const FlashCardForm = () => {
                             </FormGroup>
                         </Form>
                         <button 
-                            class="nes-btn is-primary nes-pointer"
+                            className="nes-btn is-primary nes-pointer"
                             disabled={isLoading} 
                             onClick={submit}>
                             SUBMIT
