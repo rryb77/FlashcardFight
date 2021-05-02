@@ -47,13 +47,15 @@ const FlashCardEdit = () => {
     const toggleQAndAModal = () => setQAndAModal(!qAndAModal);
 
     // question and answers field states
+    const [questionId, setQuestionId] = useState(0);
     const [userQuestion, setUserQuestion] = useState("");
     const [correctAnswer, setCorrectAnswer] = useState("");
     const [wrongAnswer1, setWrongAnswer1] = useState("");
     const [wrongAnswer2, setWrongAnswer2] = useState("");
     const [wrongAnswer3, setWrongAnswer3] = useState("");
 
-    
+
+    let question = {}
 
     // Initial load
     useEffect(() => {
@@ -92,9 +94,58 @@ const FlashCardEdit = () => {
         toggleFlashcardModal()
     }
 
-    // Save Q and A edits
-    const saveQAndAdEdit = () => {
+    // Edit a question and its answers
+    const questionEdit = (id) => {
         
+        question = flashcardSet.questions.find(q => q.id === id)
+        console.log(question)
+        setQuestionId(question.id)
+        setUserQuestion(question.questionText)
+        setCorrectAnswer(question.answers[0].answerText)
+        setWrongAnswer1(question.answers[1].answerText)
+        setWrongAnswer2(question.answers[2].answerText)
+        setWrongAnswer3(question.answers[3].answerText)
+
+        toggleQAndAModal()
+    }
+
+    // Save Q and A edits
+    const saveQAndAdEdit = (qId) => {
+        
+        const newQ = {
+            Id: qId,
+            FlashCardSetId: parseInt(id),
+            QuestionText: userQuestion
+        }
+
+        const newCorrectAnswer = {
+            questionId: qId,
+            answerText: correctAnswer,
+            correct: true
+        }
+
+        const newWrongAnswer1 = {
+            questionId: qId,
+            answerText: wrongAnswer1,
+            correct: false
+        }
+
+        const newWrongAnswer2 = {
+            questionId: qId,
+            answerText: wrongAnswer2,
+            correct: false
+        }
+
+        const newWrongAnswer3 = {
+            questionId: qId,
+            answerText: wrongAnswer3,
+            correct: false
+        }
+
+        const answers = [newCorrectAnswer, newWrongAnswer1, newWrongAnswer2, newWrongAnswer3]
+
+        console.log(newQ)
+        console.log(answers)
     }
 
     // If flashcardSet hasn't mounted yet then return null
@@ -123,7 +174,7 @@ const FlashCardEdit = () => {
                         flashcardSet.questions.map(q => {
                             return (
                             <div>
-                                <button className="nes-btn">Edit</button> {' '} <button className="nes-btn is-error">Delete</button> {q.questionText} <p></p>
+                                <button className="nes-btn" onClick={() => questionEdit(q.id)}>Edit</button> {' '} <button className="nes-btn is-error">Delete</button> {q.questionText} <p></p>
                             </div>
                             )
                         })
@@ -196,59 +247,55 @@ const FlashCardEdit = () => {
                     <ModalHeader toggle={toggleQAndAModal}>Q/A Edit</ModalHeader>
                     <ModalBody>
                         <Form>
-                                <FormGroup>
-                                    <Label for="title">Title</Label>
-                                    <Input id="title" onChange={(e) => setTitle(e.target.value)} value={title} />
-                                </FormGroup>
-                                <FormGroup>
-                                    <Label for="title">Description</Label>
-                                    <Input type="textarea"
-                                    id="description"
-                                    onChange={(e) => setDescription(e.target.value)}
-                                    value={description}
+                            <FormGroup>
+                                <Label for="question">Question</Label>
+                                <Input type="textarea"
+                                    id="question"
+                                    onChange={(e) => setUserQuestion(e.target.value)}
+                                    value={userQuestion}
                                     rows="5"
                                 />
-                                </FormGroup>
-                                <FormGroup>
-
-                                <Label for="category">Category</Label><br></br>
-                                <div className="nes-select">
-                                    <select required id="category" onChange={(e) => setCategory(e.target.value)}>
-                                        <option value={`${flashcardSet.categoryId}`} disabled selected hidden>{flashcardSet.category.name}</option>
-                                        {categories.length > 0 ?                                   
-                                            categories.map(c => (
-                                                <option key={c.id} value={c.id}>
-                                                    {c.name}
-                                                </option>
-                                            ))
-                                            :
-                                            null
-                                        }
-                                    </select>
-                                </div>
                             </FormGroup>
                             <FormGroup>
-
-                                <Label for="difficulty">Skill Level</Label><br></br>
-                                <div className="nes-select">
-                                    <select required id="difficulty" onChange={(e) => setDifficulty(e.target.value)}>
-                                        <option value={`${flashcardSet.difficultyId}`} disabled selected hidden>{flashcardSet.difficulty.name}</option>
-                                        {difficulties.length > 0 ?
-                                            difficulties.map(d => (
-                                                <option key={d.id} value={d.id}>
-                                                    {d.name}
-                                                </option>
-                                            ))
-                                            :
-                                            null
-                                        }
-                                    </select>
-                                </div>
+                                <Label for="correctAnswer">Correct Answer</Label>
+                                <Input type="textarea"
+                                    id="correctAnswer"
+                                    onChange={(e) => setCorrectAnswer(e.target.value)}
+                                    value={correctAnswer}
+                                    rows="2"
+                                />
+                            </FormGroup>
+                            <FormGroup>
+                                <Label for="wrongAnswer1">Wrong Answer</Label>
+                                <Input type="textarea"
+                                    id="wrongAnswer1"
+                                    onChange={(e) => setWrongAnswer1(e.target.value)}
+                                    value={wrongAnswer1}
+                                    rows="2"
+                                />
+                            </FormGroup>
+                            <FormGroup>
+                                <Label for="wrongAnswer2">Wrong Answer</Label>
+                                <Input type="textarea"
+                                    id="wrongAnswer2"
+                                    onChange={(e) => setWrongAnswer2(e.target.value)}
+                                    value={wrongAnswer2}
+                                    rows="2"
+                                />
+                            </FormGroup>
+                            <FormGroup>
+                                <Label for="wrongAnswer3">Wrong Answer</Label>
+                                <Input type="textarea"
+                                    id="wrongAnswer3"
+                                    onChange={(e) => setWrongAnswer3(e.target.value)}
+                                    value={wrongAnswer3}
+                                    rows="2"
+                                />
                             </FormGroup>
                         </Form>
                     </ModalBody>
                     <ModalFooter>
-                        <Button color="primary nes-btn" onClick={saveQAndAdEdit}>Save</Button>
+                        <Button color="primary nes-btn" onClick={() => saveQAndAdEdit(questionId)}>Save</Button>
                         <Button color="secondary right nes-btn" onClick={toggleQAndAModal}>Cancel</Button>
                     </ModalFooter>
                 </Modal>
