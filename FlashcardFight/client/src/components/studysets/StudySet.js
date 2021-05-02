@@ -28,7 +28,7 @@ const StudySet = () => {
         if(questions !== undefined && theCount === 0)
         {
             flashcardSetData.questionAmount = questions.length;
-            flashcardSetData.setId = id;
+            flashcardSetData.setId = parseInt(id);
             setQuestion(questions[theCount]);
         }
     },[questions])
@@ -52,17 +52,29 @@ const StudySet = () => {
         setHiddenAnswer(!hiddenAnswer)
     }
 
-    // User was correct so increase the count to show the next question
+    // User was correct so record data and set the count to show the next question
     const userCorrect = () => {
         setTheCount(theCount++)
         flashcardSetData.correctAnswers += 1;
+
+        if(hiddenAnswer === false)
+        {
+            setHiddenAnswer(true)
+        }
     }
 
+    // User was wrong so record data and set the count to show the next question
     const userWrong = () => {
         setTheCount(theCount++)
         flashcardSetData.wrongAnswers += 1;
+
+        if(hiddenAnswer === false)
+        {
+            setHiddenAnswer(true)
+        }
     }
-    
+
+    // Grab the correct answer for each question
     const correct = question?.answers?.find(a => a.correct === true)
 
     return (
