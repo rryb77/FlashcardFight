@@ -32,6 +32,10 @@ const FlashCard = ({flashcard}) => {
         history.push(`battle/${id}`);
     }
 
+    const edit = (id) => {
+        history.push(`flashcards/edit/${id}`);
+    }
+
     if(flashcard.difficulty.name === "Beginner")
     {
         difficultyCSS = "success"
@@ -68,7 +72,7 @@ const FlashCard = ({flashcard}) => {
                     </CardBody>
                     <CardFooter>
                         <Button type="button" className="nes-btn is-success nes-cursor" onClick={() => study(flashcard.id)}>Study</Button> {'  '} <Button className="nes-btn is-warning nes-cursor"onClick={() => battle(flashcard.id)}>Battle</Button>
-                        <Button type="button" className="right nes-btn is-normal nes-cursor">Edit</Button> {'  '} <Button className="right nes-btn is-error nes-cursor">Delete</Button>
+                        <Button type="button" className="right nes-btn is-normal nes-cursor" onClick={() => edit(flashcard.id)}>Edit</Button> {'  '} <Button className="right nes-btn is-error nes-cursor">Delete</Button>
                     </CardFooter>
                 {/* </Link> */}
             </Card>

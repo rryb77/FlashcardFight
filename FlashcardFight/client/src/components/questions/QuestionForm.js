@@ -179,9 +179,9 @@ export const FlashCardForm = () => {
 
             <div>
                 <Modal isOpen={modal} toggle={toggleModal} className="modal-dialog">
-                    <ModalHeader toggle={toggleModal}>Save Your Deck</ModalHeader>
+                    <ModalHeader toggle={toggleModal}>Question Added!</ModalHeader>
                     <ModalBody>
-                    <label>Question Added! Would you like to add another?</label>
+                    <label>Would you like to add another?</label>
                     </ModalBody>
                     <ModalFooter>
                         <Button color="primary" onClick={resetForm}> Yes, please! </Button>{' '}

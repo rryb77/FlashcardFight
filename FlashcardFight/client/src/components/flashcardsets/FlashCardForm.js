@@ -81,7 +81,7 @@ export const FlashCardForm = () => {
                                 <Label for="category">Category</Label><br></br>
                                 <div className="nes-select">
                                     <select required id="category" onChange={(e) => setCategory(e.target.value)}>
-                                        <option value="" disabled selected hidden>Select...</option>
+                                        <option value="" disabled hidden>Select...</option>
                                         {categories.length > 0 ?                                   
                                             categories.map(c => (
                                                 <option key={c.id} value={c.id}>
@@ -99,7 +99,7 @@ export const FlashCardForm = () => {
                                 <Label for="difficulty">Skill Level</Label><br></br>
                                 <div className="nes-select">
                                     <select required id="difficulty" onChange={(e) => setDifficulty(e.target.value)}>
-                                        <option value="" disabled selected hidden>Select...</option>
+                                        <option value="" disabled hidden>Select...</option>
                                         {difficulties.length > 0 ?
                                             difficulties.map(d => (
                                                 <option key={d.id} value={d.id}>
