@@ -23,27 +23,29 @@ export default function Login() {
   };
 
   return (
-    <div className="formContainer">
-      <Container className="login">
-        <Form onSubmit={loginSubmit}>
-          <fieldset>
-            <FormGroup>
-              <Label for="email">Email</Label>
-              <input id="email" type="text" class="nes-input" onChange={e => setEmail(e.target.value)} />
-            </FormGroup>
-            <FormGroup>
-              <Label for="password">Password</Label>
-              <input id="password" type="password" class="nes-input" onChange={e => setPassword(e.target.value)} />
-            </FormGroup>
-            <FormGroup>
-              <button class="nes-btn is-primary">Login</button>
-            </FormGroup>
-            <em>
-              Not registered? <Link to="register">Register</Link>
-            </em>
-          </fieldset>
-        </Form>
-      </Container>
+    <div className="container pt-4">
+        <div className="row justify-content-center">
+          <Container className="login">
+            <Form onSubmit={loginSubmit}>
+              <fieldset>
+                <FormGroup>
+                  <Label for="email">Email</Label>
+                  <input id="email" type="text" class="nes-input" onChange={e => setEmail(e.target.value)} />
+                </FormGroup>
+                <FormGroup>
+                  <Label for="password">Password</Label>
+                  <input id="password" type="password" class="nes-input" onChange={e => setPassword(e.target.value)} />
+                </FormGroup>
+                <FormGroup>
+                  <button class="nes-btn is-primary">Login</button>
+                </FormGroup>
+                <em>
+                  Not registered? <Link to="register">Register</Link>
+                </em>
+              </fieldset>
+            </Form>
+          </Container>
+      </div>
     </div>
   );
 }
