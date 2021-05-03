@@ -61,7 +61,7 @@ const FlashCard = ({flashcard}) => {
                         </CardTitle>
                         <CardSubtitle tag="h6" className="mb-2 text-muted">
                             <br></br>
-                            Author: {flashcard.userProfile.userName}
+                            Creator: {flashcard.userProfile.userName}
                         </CardSubtitle>
                         <CardSubtitle tag="h6" className="mb-2 text-muted">
                             Category: {flashcard.category.name}

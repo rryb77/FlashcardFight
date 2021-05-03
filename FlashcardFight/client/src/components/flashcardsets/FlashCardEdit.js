@@ -32,10 +32,10 @@ const FlashCardEdit = () => {
     const { getFlashcardSetWithQandA, updateSet, deleteSet } = useContext(FlashCardSetContext);
     const { categories, getAllCategories, setCategories } = useContext(CategoryContext);
     const { difficulties, getAllDifficulties, setDifficulties } = useContext(DifficultyContext);
-    const { updateQuestion, deleteQuestion } = useContext(QuestionContext);
-    const { updateAnswers } = useContext(AnswerContext);
+    const { updateQuestion, deleteQuestion, addQuestion } = useContext(QuestionContext);
+    const { updateAnswers, addAnswers } = useContext(AnswerContext);
     
-    // flashcard set state
+    // Flashcard set state
     const [flashcardSet, setFlashcardSet] = useState({});
 
     // Question state
@@ -45,25 +45,25 @@ const FlashCardEdit = () => {
     const history = useHistory();  
     const {id} = useParams();
 
-    // flashcard edit modal state
+    // Flashcard edit modal state
     const [flashcardModal, setFlashcardModal] = useState(false);
     const toggleFlashcardModal = () => setFlashcardModal(!flashcardModal);
 
-    // flashcard edit form field states
+    // Flashcard edit form field states
     const [title, setTitle] = useState("");
     const [description, setDescription] = useState("");
     const [category, setCategory] = useState("");
     const [difficulty, setDifficulty] = useState("");
 
-    // flashcard delete modale state
+    // Flashcard delete modale state
     const [flashcardDeleteModal, setFlashcardDeleteModal] = useState(false);
     const toggleFlashcardDeleteModal = () => setFlashcardDeleteModal(!flashcardDeleteModal);
 
-    // question and answer edit modal state
+    // Question and answer edit modal state
     const [qAndAModal, setQAndAModal] = useState(false);
     const toggleQAndAModal = () => setQAndAModal(!qAndAModal);
 
-    // question and answers edit form field states
+    // Question and answers edit form field states
     const [questionId, setQuestionId] = useState(0);
     const [userQuestion, setUserQuestion] = useState("");
     const [correctAnswer, setCorrectAnswer] = useState("");
@@ -71,9 +71,28 @@ const FlashCardEdit = () => {
     const [wrongAnswer2, setWrongAnswer2] = useState("");
     const [wrongAnswer3, setWrongAnswer3] = useState("");
 
-    // question and answer delete modal state
+    // Question and answer delete modal state
     const [qAndADeleteModal, setQAndADeleteModal] = useState(false);
     const toggleQAndADeleteModal = () => setQAndADeleteModal(!qAndADeleteModal);
+
+    // Question and answer add modal state
+    const [addQuestionModal, setAddQuestionModal] = useState(false)
+    const toggleAddQuestionModal = () => {
+        resetForm()
+        setAddQuestionModal(!addQuestionModal);
+    }
+
+    // New question added state. Used to make sure I can add a questionId to answers before adding them to the DB.
+    const [questionAdded, setQuestionAdded] = useState({})
+
+    // Clear out the form when add question is toggled
+    const resetForm = () => {
+        setUserQuestion('')
+        setCorrectAnswer('')
+        setWrongAnswer1('')
+        setWrongAnswer2('')
+        setWrongAnswer3('')
+    }
 
     // Initialize question
     let question = {}
@@ -198,6 +217,60 @@ const FlashCardEdit = () => {
             .then(toggleQAndADeleteModal)
     }
 
+    // Add new question/answer set
+    const questionAdd = () => {
+        
+        const newQuestion = {
+            flashcardSetId: flashcardSet.id,
+            questionText: userQuestion
+        }
+
+        addQuestion(newQuestion)
+            .then(setQuestionAdded)
+    }
+
+    useEffect(() => {
+        if(questionAdded.id > 0)
+        {
+            const newCorrectAnswer = {
+                flashCardSetId: questionAdded.flashCardSetId,
+                questionId: questionAdded.id,
+                answerText: correctAnswer,
+                correct: true
+            }
+
+            const newWrongAnswer1 = {
+                flashCardSetId: questionAdded.flashCardSetId,
+                questionId: questionAdded.id,
+                answerText: wrongAnswer1,
+                correct: false
+            }
+
+            const newWrongAnswer2 = {
+                flashCardSetId: questionAdded.flashCardSetId,
+                questionId: questionAdded.id,
+                answerText: wrongAnswer2,
+                correct: false
+            }
+
+            const newWrongAnswer3 = {
+                flashCardSetId: questionAdded.flashCardSetId,
+                questionId: questionAdded.id,
+                answerText: wrongAnswer3,
+                correct: false
+            }
+
+            const answers = [newCorrectAnswer, newWrongAnswer1, newWrongAnswer2, newWrongAnswer3]
+
+            addAnswers(answers)
+                .then(() => getFlashcardSetWithQandA(questionAdded.flashCardSetId))
+                .then(setFlashcardSet)
+
+            question.id = 0
+            toggleAddQuestionModal()
+        }
+    }, [questionAdded])
+
     // Set the questionInfo so it can be displayed in the modal
     const questionFinder = (qId) => {
         setQuestionInfo(flashcardSet.questions.find(q => q.id === qId))
@@ -242,11 +315,14 @@ const FlashCardEdit = () => {
                 <Container>
                     <h1>Question Details</h1><br></br>
                     {
+                        userIsCreator ? <button className="marginBottom nes-btn is-success" onClick={toggleAddQuestionModal}>Add Question</button> : null
+                    }
+                    {
                         userIsCreator ? 
+                                
                                 flashcardSet.questions.map(q => {
                                     return (
                                     <>
-                                        <button className="marginBottom nes-btn is-success">Add Question</button>
                                         <div>
                                             <button className="nes-btn" onClick={() => questionEdit(q.id)}>Edit</button> {' '} <button className="nes-btn is-error" onClick={() => questionFinder(q.id)}>Delete</button> {q.questionText} <p></p>
                                         </div>
@@ -267,6 +343,10 @@ const FlashCardEdit = () => {
                 </Container>
             </div>
                 
+                {/* ----------------
+                |     MODALS       |
+                ---------------- */}
+
                 {/* Modal for flashcard edits */}
                 <Modal isOpen={flashcardModal} toggle={toggleFlashcardModal} className="nes-dialog">
                     <ModalHeader toggle={toggleFlashcardModal}>Flashcard Details Edit</ModalHeader>
@@ -410,6 +490,65 @@ const FlashCardEdit = () => {
                         <button className="nes-btn" onClick={toggleQAndADeleteModal}>Cancel</button>
                     </ModalFooter>
                 </Modal>
+                
+                {/* Modal to add new question and answers */}
+                <Modal isOpen={addQuestionModal} toggle={toggleAddQuestionModal} className="nes-dialog">
+                    <ModalHeader toggle={toggleAddQuestionModal}>Add A New Q/A Set</ModalHeader>
+                    <ModalBody>
+                        <Form>
+                            <FormGroup>
+                                <Label for="question">Question</Label>
+                                <Input type="textarea"
+                                    id="question"
+                                    onChange={(e) => setUserQuestion(e.target.value)}
+                                    value={userQuestion}
+                                    rows="5"
+                                />
+                            </FormGroup>
+                            <FormGroup>
+                                <Label for="correctAnswer">Correct Answer</Label>
+                                <Input type="textarea"
+                                    id="correctAnswer"
+                                    onChange={(e) => setCorrectAnswer(e.target.value)}
+                                    value={correctAnswer}
+                                    rows="2"
+                                />
+                            </FormGroup>
+                            <FormGroup>
+                                <Label for="wrongAnswer1">Wrong Answer</Label>
+                                <Input type="textarea"
+                                    id="wrongAnswer1"
+                                    onChange={(e) => setWrongAnswer1(e.target.value)}
+                                    value={wrongAnswer1}
+                                    rows="2"
+                                />
+                            </FormGroup>
+                            <FormGroup>
+                                <Label for="wrongAnswer2">Wrong Answer</Label>
+                                <Input type="textarea"
+                                    id="wrongAnswer2"
+                                    onChange={(e) => setWrongAnswer2(e.target.value)}
+                                    value={wrongAnswer2}
+                                    rows="2"
+                                />
+                            </FormGroup>
+                            <FormGroup>
+                                <Label for="wrongAnswer3">Wrong Answer</Label>
+                                <Input type="textarea"
+                                    id="wrongAnswer3"
+                                    onChange={(e) => setWrongAnswer3(e.target.value)}
+                                    value={wrongAnswer3}
+                                    rows="2"
+                                />
+                            </FormGroup>
+                        </Form>
+                    </ModalBody>
+                    <ModalFooter>
+                        <Button color="primary nes-btn" onClick={questionAdd}>Save</Button>
+                        <Button color="secondary right nes-btn" onClick={toggleAddQuestionModal}>Cancel</Button>
+                    </ModalFooter>
+                </Modal>
+
 
         </div>
     )

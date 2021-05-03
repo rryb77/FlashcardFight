@@ -4,20 +4,8 @@
 }
 
 .pill {
-  font-size: x-small;
-  width: 150px;
-}
-
-.btn-danger {
-  color: #fff;
-  background-color: #dab0a8;
-  box-shadow: inset -4px -4px #8c2022;
-  margin-right: 15px;
-}
-
-.btn-danger:hover {
-  background-color: #f37056;
-  box-shadow: inset -4px -4px #691819;
+  font-size: medium;
+  width: 100px;
 }
 
 .marginBottom {
