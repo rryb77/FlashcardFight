@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useContext} from "react";
 import {
     Badge,
     Card,
@@ -11,7 +11,6 @@ import {
 import { Container, Button } from "nes-react";
 import './FlashCard.css';
 import { useHistory } from 'react-router-dom';
-
 
 const FlashCard = ({flashcard}) => {
     
@@ -32,8 +31,8 @@ const FlashCard = ({flashcard}) => {
         history.push(`battle/${id}`);
     }
 
-    const edit = (id) => {
-        history.push(`flashcards/edit/${id}`);
+    const details = (id) => {
+        history.push(`flashcards/details/${id}`);
     }
 
     if(flashcard.difficulty.name === "Beginner")
@@ -72,7 +71,7 @@ const FlashCard = ({flashcard}) => {
                     </CardBody>
                     <CardFooter>
                         <Button type="button" className="nes-btn is-success nes-cursor" onClick={() => study(flashcard.id)}>Study</Button> {'  '} <Button className="nes-btn is-warning nes-cursor"onClick={() => battle(flashcard.id)}>Battle</Button>
-                        <Button type="button" className="right nes-btn is-normal nes-cursor" onClick={() => edit(flashcard.id)}>Edit</Button> {'  '} <Button className="right nes-btn is-error nes-cursor">Delete</Button>
+                        <Button type="button" className="right nes-btn is-normal nes-cursor" onClick={() => details(flashcard.id)}>Details</Button>
                     </CardFooter>
                 {/* </Link> */}
             </Card>
@@ -81,27 +80,27 @@ const FlashCard = ({flashcard}) => {
 
     return (
         <Card className="m-4">
-            {/* <Link className="postLink" to={`/posts/${post.id}`}> */}
-                <CardBody>
-                    <CardTitle tag="h2">
-                        <strong> {flashcard.title}</strong><br></br>
-                        <Badge color={`${difficultyCSS} pill nes-badge`}>{flashcard.difficulty.name}</Badge>
-                    </CardTitle>
-                    <CardSubtitle tag="h6" className="mb-2 text-muted">
+                {/* <Link className="postLink" to={`/posts/${post.id}`}> */}
+                    <CardBody>
+                        <CardTitle tag="h2">
+                            <strong> {flashcard.title}</strong><br></br>
+                            <Badge color={`${difficultyCSS} pill nes-badge`}>{flashcard.difficulty.name}</Badge>
+                        </CardTitle>
+                        <CardSubtitle tag="h6" className="mb-2 text-muted">
+                            <br></br>
+                            Author: {flashcard.userProfile.userName}
+                        </CardSubtitle>
+                        <CardSubtitle tag="h6" className="mb-2 text-muted">
+                            Category: {flashcard.category.name}
+                        </CardSubtitle>
                         <br></br>
-                        Author: {flashcard.userProfile.userName}
-                    </CardSubtitle>
-                    <CardSubtitle tag="h6" className="mb-2 text-muted">
-                        Category: {flashcard.category.name}
-                    </CardSubtitle>
-                    <br></br>
-                    Description: {flashcard.description}
-                </CardBody>
-
-                <CardFooter>
-                        <Button className="right nes-btn is-error nes-cursor">Add to Collection</Button>
-                </CardFooter>
-            {/* </Link> */}
+                        Description: {flashcard.description}
+                    </CardBody>
+                    <CardFooter>
+                        <Button type="button" className="nes-btn is-success nes-cursor" onClick={() => study(flashcard.id)}>Study</Button> {'  '} <Button className="nes-btn is-warning nes-cursor"onClick={() => battle(flashcard.id)}>Battle</Button>
+                        <Button type="button" className="right nes-btn is-normal nes-cursor" onClick={() => details(flashcard.id)}>Details</Button><Button type="button" className="right nes-btn is-normal nes-cursor">Add to Collection</Button>
+                    </CardFooter>
+                {/* </Link> */}
         </Card>
     );
 }

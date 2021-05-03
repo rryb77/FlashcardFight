@@ -43,7 +43,7 @@ export default function ApplicationViews() {
           <FlashCardList/>
         </Route>
 
-        <Route path="/flashcards/edit/:id">
+        <Route path="/flashcards/details/:id">
           <FlashCardEdit/>
         </Route>
 

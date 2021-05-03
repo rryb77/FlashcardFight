@@ -20,6 +20,14 @@ import {
 
 const FlashCardEdit = () => {
 
+    // This is returning JSON
+    const userProfile = sessionStorage.getItem("userProfile");
+    // Parsing the JSON returned above into an object so we can use it
+    var currentUser = JSON.parse(userProfile);
+
+
+    const [userIsCreator, setUserIsCreator] = useState(false);
+    
     // Imported contexts
     const { getFlashcardSetWithQandA, updateSet, deleteSet } = useContext(FlashCardSetContext);
     const { categories, getAllCategories, setCategories } = useContext(CategoryContext);
@@ -83,10 +91,16 @@ const FlashCardEdit = () => {
     // Once the flashcard has been set in state, update the form with current flashcard info from DB
     useEffect(() => {
 
+        if(currentUser.id === flashcardSet.creatorId)
+        {
+            setUserIsCreator(true)
+        }
+
         setTitle(flashcardSet.title)
         setDescription(flashcardSet.description)
         setCategory(flashcardSet.categoryId)
         setDifficulty(flashcardSet.difficultyId)
+
     }, [flashcardSet])
 
     
@@ -214,21 +228,41 @@ const FlashCardEdit = () => {
                     <div>Description: {flashcardSet?.description}</div>
                     <div>Category: {flashcardSet?.category.name}</div>
                     <div>Difficulty: {flashcardSet?.difficulty.name}</div>
-                    <div><button className="right nes-btn is-error" onClick={toggleFlashcardDeleteModal}>Delete</button><button className="right nes-btn" onClick={toggleFlashcardModal}>Edit</button></div>
+                    {
+                        userIsCreator ?
+                                <div><button className="right nes-btn is-error" onClick={toggleFlashcardDeleteModal}>Delete</button><button className="right nes-btn" onClick={toggleFlashcardModal}>Edit</button></div>
+                            :
+                                null
+
+                    }
                     <br></br><br></br>
                 </Container>
 
                 {/* List of questions */}
                 <Container>
-                    <h1>Question Details</h1><br></br><button className="marginBottom nes-btn is-success">Add Question</button>
+                    <h1>Question Details</h1><br></br>
                     {
-                        flashcardSet.questions.map(q => {
-                            return (
-                            <div>
-                                <button className="nes-btn" onClick={() => questionEdit(q.id)}>Edit</button> {' '} <button className="nes-btn is-error" onClick={() => questionFinder(q.id)}>Delete</button> {q.questionText} <p></p>
-                            </div>
-                            )
-                        })
+                        userIsCreator ? 
+                                flashcardSet.questions.map(q => {
+                                    return (
+                                    <>
+                                        <button className="marginBottom nes-btn is-success">Add Question</button>
+                                        <div>
+                                            <button className="nes-btn" onClick={() => questionEdit(q.id)}>Edit</button> {' '} <button className="nes-btn is-error" onClick={() => questionFinder(q.id)}>Delete</button> {q.questionText} <p></p>
+                                        </div>
+                                    </>
+                                    )
+                                }) 
+                            : 
+                                
+                                flashcardSet.questions.map(q => {
+                                    return (
+                                    <div>
+                                        {q.questionText} <p></p>
+                                    </div>
+                                    )
+                                })
+                            
                     }
                 </Container>
             </div>
