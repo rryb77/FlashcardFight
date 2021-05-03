@@ -25,7 +25,7 @@ const FlashCardEdit = () => {
     // Parsing the JSON returned above into an object so we can use it
     var currentUser = JSON.parse(userProfile);
 
-
+    // State of the user for this flashcard set
     const [userIsCreator, setUserIsCreator] = useState(false);
     
     // Imported contexts
@@ -75,7 +75,7 @@ const FlashCardEdit = () => {
     const [qAndADeleteModal, setQAndADeleteModal] = useState(false);
     const toggleQAndADeleteModal = () => setQAndADeleteModal(!qAndADeleteModal);
 
-
+    // Initialize question
     let question = {}
 
     // Initial load
