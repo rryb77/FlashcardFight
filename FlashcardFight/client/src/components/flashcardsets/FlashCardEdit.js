@@ -24,7 +24,7 @@ const FlashCardEdit = () => {
     const { getFlashcardSetWithQandA, updateSet, deleteSet } = useContext(FlashCardSetContext);
     const { categories, getAllCategories, setCategories } = useContext(CategoryContext);
     const { difficulties, getAllDifficulties, setDifficulties } = useContext(DifficultyContext);
-    const { updateQuestion } = useContext(QuestionContext);
+    const { updateQuestion, deleteQuestion } = useContext(QuestionContext);
     const { updateAnswers } = useContext(AnswerContext);
     
     // flashcard set state
@@ -178,7 +178,10 @@ const FlashCardEdit = () => {
 
     // Delete the question/answer set
     const questionDelete = (qId) => {
-        
+        deleteQuestion(qId)
+            .then(getFlashcardSetWithQandA)
+            .then(setFlashcardSet)
+            .then(toggleQAndADeleteModal)
     }
 
     // Set the questionInfo so it can be displayed in the modal
