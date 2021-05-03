@@ -6,6 +6,7 @@ namespace FlashcardFight.Repositories
     public interface IFlashCardSetRepository
     {
         int Add(FlashCardSet flashCardSet);
+        void DeleteFlashcardSet(int id);
         List<FlashCardSet> GetAll();
         List<FlashCardSet> GetAllByUserId(int id);
         FlashCardSet GetById(int id);

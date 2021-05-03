@@ -25,12 +25,12 @@ namespace FlashcardFight.Controllers
         [HttpPost]
         public IActionResult Post(FlashCardSet flashCardSet)
         {
-            //var currentUserProfile = GetCurrentUserProfile();
+            var currentUserProfile = GetCurrentUserProfile();
 
             flashCardSet.CreateDateTime = DateTime.Now;
             flashCardSet.BossImageId = 1;
-            flashCardSet.CreatorId = 1;
-            //flashCardSet.CreatorId = currentUserProfile.Id;
+            //flashCardSet.CreatorId = 1;
+            flashCardSet.CreatorId = currentUserProfile.Id;
             _flashCardSetRepository.Add(flashCardSet);
             return CreatedAtAction("GetById", new { id = flashCardSet.Id }, flashCardSet);
         }
@@ -62,7 +62,14 @@ namespace FlashcardFight.Controllers
 
         [HttpPut("{id}")]
         public IActionResult Put(FlashCardSet flashCardSet)
-        {   
+        {
+            var currentUserProfile = GetCurrentUserProfile();
+
+            if(currentUserProfile.Id != flashCardSet.CreatorId)
+            {
+                return BadRequest();
+            }
+
             _flashCardSetRepository.UpdateFlashcard(flashCardSet);
             return NoContent();
         }
@@ -71,6 +78,13 @@ namespace FlashcardFight.Controllers
         {
             var firebaseUserId = User.FindFirst(ClaimTypes.NameIdentifier).Value;
             return _userProfileRepository.GetByFirebaseUserId(firebaseUserId);
+        }
+
+        [HttpDelete("{id}")]
+        public IActionResult Delete(int id)
+        {
+            _flashCardSetRepository.DeleteFlashcardSet(id);
+            return NoContent();
         }
     }
 }

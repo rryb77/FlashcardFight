@@ -25,10 +25,11 @@ namespace FlashcardFight.Repositories
                     foreach(Answer answer in answers)
                     {
                         cmd.CommandText = @$"
-                        INSERT INTO Answer (QuestionId, AnswerText, Correct)
-                        VALUES (@QuestionId{i}, @AnswerText{i}, @Correct{i})
+                        INSERT INTO Answer (FlashCardSetId, QuestionId, AnswerText, Correct)
+                        VALUES (@FlashCardSetId{i}, @QuestionId{i}, @AnswerText{i}, @Correct{i})
                         ";
 
+                        DbUtils.AddParameter(cmd, $"@FlashCardSetId{i}", answer.FlashCardSetId);
                         DbUtils.AddParameter(cmd, $"@QuestionId{i}", answer.QuestionId);
                         DbUtils.AddParameter(cmd, $"@AnswerText{i}", answer.AnswerText);
                         DbUtils.AddParameter(cmd, $"@Correct{i}", answer.Correct);

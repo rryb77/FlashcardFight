@@ -11,6 +11,9 @@ namespace FlashcardFight.Models
         public int Id { get; set; }
 
         [Required]
+        public int FlashCardSetId { get; set; }
+
+        [Required]
         public int QuestionId { get; set; }
 
         public Question Question { get; set; }

@@ -5,17 +5,12 @@ import { CategoryContext } from '../../providers/CategoryProvider';
 import { QuestionContext } from '../../providers/QuestionProvider';
 import { AnswerContext } from '../../providers/AnswerProvider';
 import { DifficultyContext } from '../../providers/DifficultyProvider';
-import { Container } from "nes-react"
+import { Container, Button } from "nes-react"
 import {
     Form,
     FormGroup,
-    Card,
-    CardBody,
     Label,
     Input,
-    Button,
-    Row,
-    Col,
     Modal, 
     ModalHeader, 
     ModalBody, 
@@ -25,7 +20,7 @@ import {
 const FlashCardEdit = () => {
 
     // Imported contexts
-    const { getFlashcardSetWithQandA, updateSet } = useContext(FlashCardSetContext);
+    const { getFlashcardSetWithQandA, updateSet, deleteSet } = useContext(FlashCardSetContext);
     const { categories, getAllCategories, setCategories } = useContext(CategoryContext);
     const { difficulties, getAllDifficulties, setDifficulties } = useContext(DifficultyContext);
     const { updateQuestion } = useContext(QuestionContext);
@@ -38,21 +33,25 @@ const FlashCardEdit = () => {
     const history = useHistory();  
     const {id} = useParams();
 
-    // flashcard modal state
+    // flashcard edit modal state
     const [flashcardModal, setFlashcardModal] = useState(false);
     const toggleFlashcardModal = () => setFlashcardModal(!flashcardModal);
 
-    // flashcard form field states
+    // flashcard edit form field states
     const [title, setTitle] = useState("");
     const [description, setDescription] = useState("");
     const [category, setCategory] = useState("");
     const [difficulty, setDifficulty] = useState("");
 
-    // question and answer modal state
+    // flashcard delete modale state
+    const [flashcardDeleteModal, setFlashcardDeleteModal] = useState(false);
+    const toggleFlashcardDeleteModal = () => setFlashcardDeleteModal(!flashcardDeleteModal);
+
+    // question and answer edit modal state
     const [qAndAModal, setQAndAModal] = useState(false);
     const toggleQAndAModal = () => setQAndAModal(!qAndAModal);
 
-    // question and answers field states
+    // question and answers edit form field states
     const [questionId, setQuestionId] = useState(0);
     const [userQuestion, setUserQuestion] = useState("");
     const [correctAnswer, setCorrectAnswer] = useState("");
@@ -163,6 +162,11 @@ const FlashCardEdit = () => {
             .then(toggleQAndAModal)
     }
 
+    const deleteFlashcardSet = () => {
+        deleteSet(id)
+            .then(history.push(`/mysets`))
+    }
+
     // If flashcardSet hasn't mounted yet then return null
     if(flashcardSet.id === undefined)
     {
@@ -179,7 +183,7 @@ const FlashCardEdit = () => {
                     <div>Description: {flashcardSet?.description}</div>
                     <div>Category: {flashcardSet?.category.name}</div>
                     <div>Difficulty: {flashcardSet?.difficulty.name}</div>
-                    <div><button className="right nes-btn" onClick={toggleFlashcardModal}>Edit</button></div>
+                    <div><button className="right nes-btn is-error" onClick={toggleFlashcardDeleteModal}>Delete</button><button className="right nes-btn" onClick={toggleFlashcardModal}>Edit</button></div>
                     <br></br><br></br>
                 </Container>
 
@@ -197,7 +201,7 @@ const FlashCardEdit = () => {
                 </Container>
             </div>
                 
-                {/* Modal for flashcard details */}
+                {/* Modal for flashcard edits */}
                 <Modal isOpen={flashcardModal} toggle={toggleFlashcardModal} className="nes-dialog">
                     <ModalHeader toggle={toggleFlashcardModal}>Flashcard Details Edit</ModalHeader>
                     <ModalBody>
@@ -312,6 +316,18 @@ const FlashCardEdit = () => {
                     <ModalFooter>
                         <Button color="primary nes-btn" onClick={() => saveQAndAdEdit(questionId)}>Save</Button>
                         <Button color="secondary right nes-btn" onClick={toggleQAndAModal}>Cancel</Button>
+                    </ModalFooter>
+                </Modal>
+
+                {/* Modal for flashcard delete */}
+                <Modal isOpen={flashcardDeleteModal} toggle={toggleFlashcardDeleteModal} className="nes-dialog">
+                    <ModalHeader toggle={toggleFlashcardDeleteModal}>Delete {flashcardSet.title}?</ModalHeader>
+                    <ModalBody>
+                        Are you sure you want to delete this? This will delete ALL questions and answers as well, and it is NOT reversable.
+                    </ModalBody>
+                    <ModalFooter>
+                        <Button class="nes-btn btn-danger" onClick={deleteFlashcardSet}>Delete</Button>{' '}
+                        <Button color="secondary nes-btn" onClick={toggleFlashcardDeleteModal}>Cancel</Button>
                     </ModalFooter>
                 </Modal>
 

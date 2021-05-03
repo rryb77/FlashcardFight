@@ -75,6 +75,7 @@ GO
 
 CREATE TABLE [Answer] (
   [Id] int PRIMARY KEY IDENTITY NOT NULL,
+  [FlashCardSetId] int NOT NULL,
   [QuestionId] int NOT NULL,
   [AnswerText] nvarchar(MAX) NOT NULL,
   [Correct] bit NOT NULL

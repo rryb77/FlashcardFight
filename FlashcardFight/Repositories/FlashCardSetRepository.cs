@@ -216,6 +216,7 @@ namespace FlashcardFight.Repositories
                         var answer = new Answer()
                         {
                             Id = DbUtils.GetInt(reader, "AnswerId"),
+                            FlashCardSetId = DbUtils.GetInt(reader, "SetId"),
                             QuestionId = DbUtils.GetInt(reader, "QuestionId"),
                             AnswerText = DbUtils.GetString(reader, "AnswerText"),
                             Correct = DbUtils.GetBoolean(reader, "Correct")
@@ -253,6 +254,47 @@ namespace FlashcardFight.Repositories
                     cmd.Parameters.AddWithValue("@Description", flashCardSet.Description);
                     cmd.Parameters.AddWithValue("@CategoryId", flashCardSet.CategoryId);
                     cmd.Parameters.AddWithValue("@DifficultyId", flashCardSet.DifficultyId);
+
+                    cmd.ExecuteNonQuery();
+                }
+            }
+        }
+
+        public void DeleteFlashcardSet(int id)
+        {
+            using(var conn = Connection)
+            {
+                conn.Open();
+                using(var cmd = conn.CreateCommand())
+                {
+                    cmd.CommandText = @"
+                    DELETE FROM Answer
+                    WHERE FlashCardSetId = @id
+                    ";
+
+                    DbUtils.AddParameter(cmd, "@id", id);
+
+                    cmd.ExecuteNonQuery();
+                }
+                using (var cmd = conn.CreateCommand())
+                {
+                    cmd.CommandText = @"
+                    DELETE FROM Question
+                    WHERE FlashCardSetId = @id
+                    ";
+
+                    DbUtils.AddParameter(cmd, "@id", id);
+
+                    cmd.ExecuteNonQuery();
+                }
+                using (var cmd = conn.CreateCommand())
+                {
+                    cmd.CommandText = @"
+                    DELETE FROM FlashCardSet
+                    WHERE Id = @id
+                    ";
+
+                    DbUtils.AddParameter(cmd, "@id", id);
 
                     cmd.ExecuteNonQuery();
                 }

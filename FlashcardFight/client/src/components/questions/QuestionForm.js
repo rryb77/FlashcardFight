@@ -6,7 +6,6 @@ import {
   CardBody,
   Label,
   Input,
-  Button,
   Row,
   Col,
   Modal, 
@@ -19,6 +18,7 @@ import { useHistory } from 'react-router-dom';
 import { CardHeader } from "reactstrap";
 import { QuestionContext } from "../../providers/QuestionProvider";
 import { AnswerContext } from "../../providers/AnswerProvider";
+import { Container, Button } from "nes-react"
 
 export const FlashCardForm = () => {
     // Context
@@ -45,31 +45,35 @@ export const FlashCardForm = () => {
 
     // Onload
     useEffect(() => {
-        
+        console.log(flashcardSet)
     }, [])
 
     useEffect(() => {
         if(question.id > 0)
         {
             const newCorrectAnswer = {
+                flashCardSetId: question.flashCardSetId,
                 questionId: question.id,
                 answerText: correctAnswer,
                 correct: true
             }
 
             const newWrongAnswer1 = {
+                flashCardSetId: question.flashCardSetId,
                 questionId: question.id,
                 answerText: wrongAnswer1,
                 correct: false
             }
 
             const newWrongAnswer2 = {
+                flashCardSetId: question.flashCardSetId,
                 questionId: question.id,
                 answerText: wrongAnswer2,
                 correct: false
             }
 
             const newWrongAnswer3 = {
+                flashCardSetId: question.flashCardSetId,
                 questionId: question.id,
                 answerText: wrongAnswer3,
                 correct: false
@@ -96,7 +100,7 @@ export const FlashCardForm = () => {
 
     const completeSet = () => {
         question.id = 0
-        history.push(`mylist`)
+        history.push(`/mysets`)
     }
 
 
@@ -184,7 +188,7 @@ export const FlashCardForm = () => {
                     <label>Would you like to add another?</label>
                     </ModalBody>
                     <ModalFooter>
-                        <Button color="primary" onClick={resetForm}> Yes, please! </Button>{' '}
+                        <Button color="nes-btn is-primary" onClick={resetForm}> Yes, please! </Button>{' '}
                         <Button color="secondary" onClick={completeSet}>No, I'm done.</Button>
                     </ModalFooter>
                 </Modal>

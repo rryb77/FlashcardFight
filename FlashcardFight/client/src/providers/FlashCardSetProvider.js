@@ -81,9 +81,20 @@ export const FlashCardSetProvider = (props) => {
         ))
     }
 
+    const deleteSet = (id) => {
+        return getToken().then((token) =>
+            fetch(`${apiUrl}/${id}`, {
+                method: "DELETE",
+                headers: {
+                Authorization: `Bearer ${token}`,
+                },
+            })
+        )
+    }
+
     return (
-        <FlashCardSetContext.Provider value={{addSet, flashcardSet, setFlashcardSet, flashcards, setFlashcards, getAllFlashcards, 
-                                              updateSet, getAllUserFlashcards, getFlashcardSetWithQandA, flashcardSetData, setFlashcardSetData}}>
+        <FlashCardSetContext.Provider value={{addSet, flashcardSet, setFlashcardSet, flashcards, setFlashcards, getAllFlashcards, updateSet, 
+                                              getAllUserFlashcards, getFlashcardSetWithQandA, flashcardSetData, setFlashcardSetData, deleteSet}}>
             {props.children}
         </FlashCardSetContext.Provider>
     )
