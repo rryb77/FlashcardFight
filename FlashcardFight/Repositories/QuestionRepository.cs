@@ -54,6 +54,36 @@ namespace FlashcardFight.Repositories
             }
         }
 
+        public void DeleteQuestion(int id)
+        {
+            using(var conn = Connection)
+            {
+                conn.Open();
+                {
+                    using(var cmd = conn.CreateCommand())
+                    {
+                        cmd.CommandText = @"
+                        DELETE FROM Answer
+                        WHERE QuestionId = @id
+                        ";
 
+                        DbUtils.AddParameter(cmd, "@id", id);
+
+                        cmd.ExecuteNonQuery();
+                    }
+                    using(var cmd = conn.CreateCommand())
+                    {
+                        cmd.CommandText = @"
+                        DELETE FROM Question
+                        WHERE Id = @id
+                        ";
+
+                        DbUtils.AddParameter(cmd, "@id", id);
+
+                        cmd.ExecuteNonQuery();
+                    }
+                }
+            }
+        }
     }
 }

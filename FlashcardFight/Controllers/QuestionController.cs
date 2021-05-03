@@ -38,5 +38,12 @@ namespace FlashcardFight.Controllers
             _questionRepository.UpdateQuestion(question);
             return NoContent();
         }
+
+        [HttpDelete("{id}")]
+        public IActionResult Delete(int id)
+        {
+            _questionRepository.DeleteQuestion(id);
+            return NoContent();
+        }
     }
 }

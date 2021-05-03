@@ -33,7 +33,6 @@ const BattleSet = () => {
             setQuestion(questions[theCount]);
 
             shuffled = questions[0].answers.sort(() => Math.random() - 0.5)
-            console.log(shuffled)   
         }
     },[questions])
 
@@ -84,11 +83,11 @@ const BattleSet = () => {
                 <div>
                     { 
                         question?.answers?.map(a => (
-                            <div>
-                            <label>
-                                <input type="radio" className="nes-radio" name="answer" onChange={() => setAnswerChoice(a)}/>
-                                <span>{a.answerText}</span>
-                            </label> 
+                            <div key={a.id}>
+                                <label>
+                                    <input type="radio" className="nes-radio" name="answer" onChange={() => setAnswerChoice(a)}/>
+                                    <span >{a.answerText}</span>
+                                </label> 
                             </div>
                         ))
                     }

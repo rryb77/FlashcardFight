@@ -37,6 +37,16 @@ export const QuestionProvider = (props) => {
         )
     }
 
+    // const deleteQuestion = (id) => {
+    //     return getToken().then((token) =>
+    //         fetch(`${apiUrl}/${id}`, {
+    //             method: "DELETE",
+    //             headers: {
+    //             Authorization: `Bearer ${token}`,
+    //             },
+    //         })
+    //     )
+    // }
 
     return (
         <QuestionContext.Provider value={{addQuestion, question, setQuestion, theCount, setTheCount, amountCorrect, setAmountCorrect, updateQuestion}}>
