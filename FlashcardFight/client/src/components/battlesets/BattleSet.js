@@ -60,13 +60,13 @@ const BattleSet = () => {
         else if(answerChoice.correct === true)
         {
             console.log("Correct!")
-            setTheCount(theCount++)
+            setTheCount(theCount => theCount + 1)
             flashcardSetData.correctAnswers += 1;
         }
         else if(answerChoice.correct === false)
         {
             console.log("Wrong!")
-            setTheCount(theCount++)
+            setTheCount(theCount => theCount + 1)
             flashcardSetData.wrongAnswers += 1;
         }
     }

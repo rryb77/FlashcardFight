@@ -179,7 +179,7 @@ const FlashCardEdit = () => {
     // Delete the question/answer set
     const questionDelete = (qId) => {
         deleteQuestion(qId)
-            .then(getFlashcardSetWithQandA)
+            .then(() => getFlashcardSetWithQandA(id))
             .then(setFlashcardSet)
             .then(toggleQAndADeleteModal)
     }

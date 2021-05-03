@@ -19,8 +19,20 @@ const StudySet = () => {
             .then(setStudySet)
     },[])
 
-    // Isolate the list of questions with answers
+    // // Isolate the list of questions with answers
     let questions = studySet.questions;
+
+    // Grab the correct answer for each question
+    let correct = question?.answers?.find(a => a.correct === true)
+
+    // Ensure dom updates with questions so they can be shown to the user
+    // useEffect(() => {
+    //     if(studySet.id !== undefined)
+    //     {
+    //         questions = studySet.questions;
+    //         console.log(questions)
+    //     }
+    // }, studySet)
 
     // When questions state changes...
     useEffect(() => {
@@ -39,9 +51,8 @@ const StudySet = () => {
         if(theCount > 0 && theCount < questions?.length)
         {
             setQuestion(questions[theCount])
-            console.log(flashcardSetData)
         }
-        else if(theCount === questions?.length)
+        else if(theCount > 0 && theCount=== questions?.length)
         {
             history.push(`${id}/results`)
         }
@@ -54,7 +65,8 @@ const StudySet = () => {
 
     // User was correct so record data and set the count to show the next question
     const userCorrect = () => {
-        setTheCount(theCount++)
+        
+        setTheCount(theCount => theCount + 1)
         flashcardSetData.correctAnswers += 1;
 
         if(hiddenAnswer === false)
@@ -65,7 +77,7 @@ const StudySet = () => {
 
     // User was wrong so record data and set the count to show the next question
     const userWrong = () => {
-        setTheCount(theCount++)
+        setTheCount(theCount => theCount + 1)
         flashcardSetData.wrongAnswers += 1;
 
         if(hiddenAnswer === false)
@@ -74,20 +86,22 @@ const StudySet = () => {
         }
     }
 
-    // Grab the correct answer for each question
-    const correct = question?.answers?.find(a => a.correct === true)
+    if(question === null || question === undefined)
+    {
+        return null
+    }
 
     return (
         <Container>
             {hiddenAnswer ?
             <div id="question">
-                 Question: {question?.questionText}<br></br><br></br><button className="nes-btn" onClick={showHide}>Show Answer</button>
+                 Question: {question.questionText}<br></br><br></br><button className="nes-btn" onClick={showHide}>Show Answer</button>
                  <button className="right nes-btn is-success" onClick={userCorrect}>I was right</button> {' '}
                  <button className="right nes-btn is-error" onClick={userWrong}>I was wrong</button>   
             </div>
             :
             <div id="question">
-                 Answer: {correct?.answerText}<br></br><br></br><button className="nes-btn" onClick={showHide}>Hide Answer</button>
+                 Answer: {correct.answerText}<br></br><br></br><button className="nes-btn" onClick={showHide}>Hide Answer</button>
                  <button className="right nes-btn is-success" onClick={userCorrect}>I was right</button> {' '}
                  <button className="right nes-btn is-error" onClick={userWrong}>I was wrong</button>       
             </div>
