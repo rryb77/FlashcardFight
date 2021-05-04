@@ -2,7 +2,6 @@ import React, { useContext, useEffect, useState } from "react";
 import { useHistory, useParams } from "react-router-dom";
 import { FlashCardSetContext } from '../../providers/FlashCardSetProvider';
 import { QuestionContext } from '../../providers/QuestionProvider';
-import { Container } from "nes-react";
 import './Study.css';
 import {
     Badge,
@@ -21,9 +20,9 @@ const StudySet = () => {
     const { getFlashcardSetWithQandA, flashcardSetData } = useContext(FlashCardSetContext);
     let { theCount, setTheCount } = useContext(QuestionContext);
     const {id} = useParams();
-    const [studySet, setStudySet] = useState({})
-    const [question, setQuestion] = useState({})
-    const [hiddenAnswer, setHiddenAnswer] = useState(true)
+    const [studySet, setStudySet] = useState({});
+    const [question, setQuestion] = useState({});
+    const [hiddenAnswer, setHiddenAnswer] = useState(true);
     const history = useHistory();  
 
     // Initial load
@@ -31,6 +30,12 @@ const StudySet = () => {
         getFlashcardSetWithQandA(id)
             .then(setStudySet)
     },[])
+
+    // This is returning JSON
+    const userProfile = sessionStorage.getItem("userProfile");
+    // Parsing the JSON returned above into an object so we can use it
+    var currentUser = JSON.parse(userProfile);
+
 
     // // Isolate the list of questions with answers
     let questions = studySet.questions;
@@ -106,6 +111,7 @@ const StudySet = () => {
 
     return (
         <div className="studyContainer">
+            <img src={currentUser.characterImage.imageLocation} alt="Player hero"></img>
             {hiddenAnswer ?
             
             <Card className="m-4 flashcard">
@@ -136,6 +142,7 @@ const StudySet = () => {
                 </CardFooter>
             </Card>
             }
+            
         </div>
     )
 

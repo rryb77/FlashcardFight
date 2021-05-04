@@ -319,7 +319,7 @@ namespace FlashcardFight.Repositories
                 {
                     Id = DbUtils.GetInt(reader, "UserId"),
                     UserName = DbUtils.GetString(reader, "UserName"),
-                    Email = DbUtils.GetString(reader, "Email"),
+                    Email = DbUtils.GetString(reader, "Email")
                 },
                 CategoryId = DbUtils.GetInt(reader, "CategoryId"),
                 Category = new Category()
