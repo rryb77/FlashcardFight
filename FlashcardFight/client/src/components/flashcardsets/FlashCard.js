@@ -1,6 +1,7 @@
 import React, {useContext} from "react";
 import {
     Badge,
+    Button,
     Card,
     CardBody,
     CardFooter,
@@ -8,7 +9,7 @@ import {
     CardTitle,
     CardSubtitle,
 } from "reactstrap";
-import { Container, Button } from "nes-react";
+import { Container } from "nes-react";
 import './FlashCard.css';
 import { useHistory } from 'react-router-dom';
 
@@ -56,8 +57,7 @@ const FlashCard = ({flashcard}) => {
                 {/* <Link className="postLink" to={`/posts/${post.id}`}> */}
                     <CardBody>
                         <CardTitle tag="h2">
-                            <strong> {flashcard.title}</strong><br></br>
-                            <Badge color={`${difficultyCSS} pill nes-badge`}>{flashcard.difficulty.name}</Badge>
+                            <strong> {flashcard.title}</strong><Badge color={`${difficultyCSS}`} className="right pill">{flashcard.difficulty.name}</Badge>
                         </CardTitle>
                         <CardSubtitle tag="h6" className="mb-2 text-muted">
                             <br></br>
@@ -70,8 +70,8 @@ const FlashCard = ({flashcard}) => {
                         Description: {flashcard.description}
                     </CardBody>
                     <CardFooter>
-                        <Button type="button" className="nes-btn is-success nes-cursor" onClick={() => study(flashcard.id)}>Study</Button> {'  '} <Button className="nes-btn is-warning nes-cursor"onClick={() => battle(flashcard.id)}>Battle</Button>
-                        <Button type="button" className="right nes-btn is-normal nes-cursor" onClick={() => details(flashcard.id)}>Details</Button>
+                        <Button type="button" color="info" onClick={() => study(flashcard.id)}>Study</Button> {'  '} <Button color="danger" onClick={() => battle(flashcard.id)}>Battle</Button>
+                        <Button type="button" color="secondary" className="right" onClick={() => details(flashcard.id)}>Details</Button>
                     </CardFooter>
                 {/* </Link> */}
             </Card>
@@ -83,8 +83,8 @@ const FlashCard = ({flashcard}) => {
                 {/* <Link className="postLink" to={`/posts/${post.id}`}> */}
                     <CardBody>
                         <CardTitle tag="h2">
-                            <strong> {flashcard.title}</strong><br></br>
-                            <Badge color={`${difficultyCSS} pill nes-badge`}>{flashcard.difficulty.name}</Badge>
+                            <strong> {flashcard.title}</strong>
+                            <Badge color={`${difficultyCSS}`} className="right pill">{flashcard.difficulty.name}</Badge>
                         </CardTitle>
                         <CardSubtitle tag="h6" className="mb-2 text-muted">
                             <br></br>
@@ -97,8 +97,8 @@ const FlashCard = ({flashcard}) => {
                         Description: {flashcard.description}
                     </CardBody>
                     <CardFooter>
-                        <Button type="button" className="nes-btn is-success nes-cursor" onClick={() => study(flashcard.id)}>Study</Button> {'  '} <Button className="nes-btn is-warning nes-cursor"onClick={() => battle(flashcard.id)}>Battle</Button>
-                        <Button type="button" className="right nes-btn is-normal nes-cursor" onClick={() => details(flashcard.id)}>Details</Button><Button type="button" className="right nes-btn is-normal nes-cursor">Add to Collection</Button>
+                        <Button type="button" color="info" onClick={() => study(flashcard.id)}>Study</Button> {'  '} <Button color="danger" onClick={() => battle(flashcard.id)}>Battle</Button>
+                        <Button type="button" color="secondary" className="right" onClick={() => details(flashcard.id)}>Details</Button><Button type="button" color="success" className="right">Add to Collection</Button>
                     </CardFooter>
                 {/* </Link> */}
         </Card>

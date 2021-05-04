@@ -1,0 +1,40 @@
+.studyBG {
+  background-image: url(wastelandBG.png);
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+}
+
+.BGsizer {
+  position: absolute;
+  top: 0px;
+  right: 0px;
+  bottom: 0px;
+  left: 0px;
+}
+
+.QandA {
+  font-size: larger;
+  font-weight: bolder;
+  margin-bottom: 10px;
+}
+
+.studyContainer {
+  display: flex;
+  justify-content: center;
+}
+
+.fightArea {
+  /* height: 25em; */
+  background-image: url(wastelandBG.png);
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+  padding: 0;
+}
+
+.playerHero {
+  margin-top: 10em;
+}

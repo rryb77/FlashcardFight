@@ -3,6 +3,19 @@ import { useHistory, useParams } from "react-router-dom";
 import { FlashCardSetContext } from '../../providers/FlashCardSetProvider';
 import { QuestionContext } from '../../providers/QuestionProvider';
 import { Container } from "nes-react";
+import './Study.css';
+import {
+    Badge,
+    Card,
+    CardBody,
+    CardFooter,
+    Button,
+    CardHeader,
+    CardTitle,
+    CardSubtitle,
+    Row,
+    Col
+} from "reactstrap";
 
 const StudySet = () => {
     const { getFlashcardSetWithQandA, flashcardSetData } = useContext(FlashCardSetContext);
@@ -92,22 +105,38 @@ const StudySet = () => {
     }
 
     return (
-        <Container>
+        <div className="studyContainer">
             {hiddenAnswer ?
-            <div id="question">
-                 Question: {question.questionText}<br></br><br></br><button className="nes-btn" onClick={showHide}>Show Answer</button>
-                 <button className="right nes-btn is-success" onClick={userCorrect}>I was right</button> {' '}
-                 <button className="right nes-btn is-error" onClick={userWrong}>I was wrong</button>   
-            </div>
+            
+            <Card className="m-4 flashcard">
+                <CardBody>
+                    <CardTitle tag="h2">
+                    Question:
+                    </CardTitle>
+                    <div className="QandA">{question.questionText}</div>
+                </CardBody>
+                <CardFooter>
+                    <Button color="secondary" onClick={showHide}>Show Answer</Button>
+                    <Button color="success" className="right" onClick={userCorrect}>I was right</Button> {' '}
+                    <Button color="danger" className="right" onClick={userWrong}>I was wrong</Button> 
+                </CardFooter>
+            </Card>
             :
-            <div id="question">
-                 Answer: {correct.answerText}<br></br><br></br><button className="nes-btn" onClick={showHide}>Hide Answer</button>
-                 <button className="right nes-btn is-success" onClick={userCorrect}>I was right</button> {' '}
-                 <button className="right nes-btn is-error" onClick={userWrong}>I was wrong</button>       
-            </div>
+            <Card className="m-4 flashcard">
+                <CardBody>
+                    <CardTitle tag="h2">
+                    Answer:
+                    </CardTitle>
+                    <div className="QandA">{correct.answerText}</div>
+                </CardBody>
+                <CardFooter>
+                    <Button color="secondary" onClick={showHide}>Hide Answer</Button>
+                    <Button color="success" className="right" onClick={userCorrect}>I was right</Button> {' '}
+                    <Button color="danger" className="right" onClick={userWrong}>I was wrong</Button> 
+                </CardFooter>
+            </Card>
             }
-
-        </Container>
+        </div>
     )
 
 }

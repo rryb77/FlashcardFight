@@ -19,3 +19,7 @@ a {
 label {
   font-weight: 900;
 }
+
+.flashcard {
+  width: 50%;
+}

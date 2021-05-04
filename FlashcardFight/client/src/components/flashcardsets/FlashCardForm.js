@@ -63,7 +63,8 @@ export const FlashCardForm = () => {
     return (
         <div className="container pt-4">
             <div className="row justify-content-center">
-                <Container>
+                    <Card className="col-sm-12 col-lg-6">
+                        <CardBody>
                         <Form>
                             <FormGroup>
                                 <Label for="title">Title</Label>
@@ -115,13 +116,14 @@ export const FlashCardForm = () => {
                                 </div>
                             </FormGroup>
                         </Form>
-                        <button 
-                            className="nes-btn is-primary nes-pointer"
+                        <Button 
+                            color="success"
                             disabled={isLoading} 
                             onClick={submit}>
                             SUBMIT
-                        </button>
-                </Container>
+                        </Button>
+                        </CardBody>
+                    </Card>
             </div>
         </div>
     )
