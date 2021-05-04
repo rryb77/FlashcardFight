@@ -20,7 +20,7 @@ namespace FlashcardFight.Repositories
                 {
                     cmd.CommandText = @"
                     SELECT up.Id, Up.FirebaseUserId, up.UserName, up.Email, up.JoinDate, up.UserTypeId,
-                           up.Level, up.Experience, up.HP, up.CharacterImageId,  up.Attempts, up.Wins,
+                           up.Level, up.Experience, up.ExpToNextLevel, up.HP, up.CharacterImageId,  up.Attempts, up.Wins,
                            
                            ut.Name AS UserTypeName,
                            
@@ -53,6 +53,7 @@ namespace FlashcardFight.Repositories
                             },
                             Level = DbUtils.GetInt(reader, "Level"),
                             Experience = DbUtils.GetInt(reader, "Experience"),
+                            ExpToNextLevel = DbUtils.GetInt(reader, "ExpToNextLevel"),
                             HP = DbUtils.GetInt(reader, "HP"),
                             CharacterImageId = DbUtils.GetInt(reader, "CharacterImageId"),
                             CharacterImage = new CharacterImage()
@@ -81,10 +82,10 @@ namespace FlashcardFight.Repositories
                 using (var cmd = conn.CreateCommand())
                 {
                    cmd.CommandText = @"INSERT INTO UserProfile (FirebaseUserId, UserName, Email, JoinDate, UserTypeId, CharacterImageId, 
-                                        Level, Experience, HP, Attempts, Wins)
+                                        Level, Experience, ExpToNextLevel, HP, Attempts, Wins)
                                     OUTPUT INSERTED.ID
                                     VALUES (@FirebaseUserId, @UserName, @Email, @JoinDate, @UserTypeId, @CharacterImageId,
-                                        @Level, @Experience, @HP, @Attempts, @Wins)";
+                                        @Level, @Experience, @ExpToNextLevel, @HP, @Attempts, @Wins)";
                     DbUtils.AddParameter(cmd, "@FirebaseUserId", userProfile.FirebaseUserId);
                     DbUtils.AddParameter(cmd, "@UserName", userProfile.UserName);
                     DbUtils.AddParameter(cmd, "@Email", userProfile.Email);
@@ -93,6 +94,7 @@ namespace FlashcardFight.Repositories
                     DbUtils.AddParameter(cmd, "@CharacterImageId", userProfile.CharacterImageId);
                     DbUtils.AddParameter(cmd, "@Level", userProfile.Level);
                     DbUtils.AddParameter(cmd, "@Experience", userProfile.Experience);
+                    DbUtils.AddParameter(cmd, "@ExpToNextLevel", userProfile.ExpToNextLevel);
                     DbUtils.AddParameter(cmd, "@HP", userProfile.HP);
                     DbUtils.AddParameter(cmd, "@Attempts", userProfile.Attempts);
                     DbUtils.AddParameter(cmd, "@Wins", userProfile.Wins);
@@ -113,6 +115,7 @@ namespace FlashcardFight.Repositories
                     UPDATE UserProfile
                         SET HP = @HP,
                             Experience = @Experience,
+                            ExpToNextLevel = @ExpToNextLevel,
                             Level = @Level
                     WHERE id = @id
                     ";
@@ -120,6 +123,7 @@ namespace FlashcardFight.Repositories
                     DbUtils.AddParameter(cmd, "@id", userProfile.Id);
                     DbUtils.AddParameter(cmd, "@HP", userProfile.HP);
                     DbUtils.AddParameter(cmd, "@Experience", userProfile.Experience);
+                    DbUtils.AddParameter(cmd, "@ExpToNextLevel", userProfile.ExpToNextLevel);
                     DbUtils.AddParameter(cmd, "@Level", userProfile.Level);
 
                     cmd.ExecuteNonQuery();

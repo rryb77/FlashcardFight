@@ -41,6 +41,7 @@ CREATE TABLE [UserProfile] (
   [UserTypeId] int NOT NULL,
   [Level] int NOT NULL,
   [Experience] int NOT NULL,
+  [ExpToNextLevel] INT NOT NULL,
   [HP] int NOT NULL,
   [CharacterImageId] int NOT NULL,
   [Attempts] int NOT NULL,

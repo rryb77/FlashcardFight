@@ -34,6 +34,8 @@ namespace FlashcardFight.Models
 
         [Required]
         public int Experience { get; set; }
+
+        public int ExpToNextLevel { get; set; }
         
         [Required]
         public int HP { get; set; }

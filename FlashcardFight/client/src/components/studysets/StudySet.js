@@ -44,8 +44,17 @@ const StudySet = () => {
     useEffect(() => {
         if(serverUser.id > 0)
         {
-            console.log(serverUser)
+            
             serverUser.experience += flashcardSetData.EXPgained
+            console.log(serverUser)
+            if(serverUser.experience >= serverUser.expToNextLevel)
+            {
+                let levelScale = serverUser.expToNextLevel * 2.1
+                console.log(levelScale)
+                serverUser.expToNextLevel = Math.round(levelScale)
+                serverUser.level += 1
+            }
+
             updateUserCharacter(serverUser)
             history.push(`${id}/results`)
         }

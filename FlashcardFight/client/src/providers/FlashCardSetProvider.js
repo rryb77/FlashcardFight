@@ -18,7 +18,8 @@ export const FlashCardSetProvider = (props) => {
         setId: 0,
         EXPgained: 0,
         HP: 0,
-        Level: 0
+        Level: 0,
+        ExpToNextLevel: 0
     })
 
     const addSet = (set) => {

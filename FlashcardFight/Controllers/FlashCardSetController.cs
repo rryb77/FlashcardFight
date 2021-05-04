@@ -29,7 +29,6 @@ namespace FlashcardFight.Controllers
 
             flashCardSet.CreateDateTime = DateTime.Now;
             flashCardSet.BossImageId = 1;
-            //flashCardSet.CreatorId = 1;
             flashCardSet.CreatorId = currentUserProfile.Id;
             _flashCardSetRepository.Add(flashCardSet);
             return CreatedAtAction("GetById", new { id = flashCardSet.Id }, flashCardSet);

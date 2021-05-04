@@ -36,6 +36,7 @@ namespace FlashcardFight.Controllers
             userProfile.Level = 1;
             userProfile.Experience = 0;
             userProfile.HP = 500;
+            userProfile.ExpToNextLevel = 1000;
             userProfile.CharacterImageId = 1;
             userProfile.Attempts = 0;
             userProfile.Wins = 0;
