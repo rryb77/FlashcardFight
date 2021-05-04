@@ -13,7 +13,9 @@ export const FlashCardSetProvider = (props) => {
         correctAnswers: 0,
         wrongAnswers: 0,
         setId: 0,
-        EXPgained: 0
+        EXPgained: 0,
+        HP: 0,
+        Level: 0
     })
 
     const addSet = (set) => {

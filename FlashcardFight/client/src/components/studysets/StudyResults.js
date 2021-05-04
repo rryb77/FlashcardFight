@@ -1,5 +1,6 @@
 import React, { useContext, useEffect, useState } from "react";
 import {FlashCardSetContext} from "../../providers/FlashCardSetProvider"
+import {UserProfileContext} from '../../providers/UserProfileProvider'
 import { useHistory } from 'react-router-dom';
 import { Container } from "nes-react";
 import {
@@ -15,10 +16,6 @@ import {
 
 const StudyResults = () => {
     const { flashcardSetData } = useContext(FlashCardSetContext);
-
-    useEffect(() => {
-        
-    },[])
 
     const history = useHistory();
 
@@ -55,8 +52,6 @@ const StudyResults = () => {
             return "Well, on the plus side the dummy target doesn't hit back! Keep training and you will improve greatly!"
         }
     }
-
-    console.log(flashcardSetData)
 
     return (
         <Container>

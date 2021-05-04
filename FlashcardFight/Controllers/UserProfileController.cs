@@ -45,5 +45,12 @@ namespace FlashcardFight.Controllers
                 new { firebaseUserId = userProfile.FirebaseUserId },
                 userProfile);
         }
+
+        [HttpPut("UpdateUserCharacter")]
+        public IActionResult UpdateUserCharacter(UserProfile userProfile)
+        {
+            _userProfileRepository.UpdateUserCharacterStats(userProfile);
+            return NoContent();
+        }
     }
 }

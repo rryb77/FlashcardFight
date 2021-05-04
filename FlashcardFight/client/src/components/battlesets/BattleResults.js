@@ -17,13 +17,7 @@ const BattleResults = () => {
     const { flashcardSetData } = useContext(FlashCardSetContext);
 
     const history = useHistory();
-
     const percentage = (100 * flashcardSetData.correctAnswers) / flashcardSetData.questionAmount
-
-    useEffect(() => {
-
-    },[])
-
 
 
     return (

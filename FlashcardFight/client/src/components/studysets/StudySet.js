@@ -2,6 +2,7 @@ import React, { useContext, useEffect, useState } from "react";
 import { useHistory, useParams } from "react-router-dom";
 import { FlashCardSetContext } from '../../providers/FlashCardSetProvider';
 import { QuestionContext } from '../../providers/QuestionProvider';
+import {UserProfileContext} from '../../providers/UserProfileProvider'
 import './Study.css';
 import { Container } from "nes-react";
 import {
@@ -19,11 +20,13 @@ import {
 
 const StudySet = () => {
     const { getFlashcardSetWithQandA, flashcardSetData } = useContext(FlashCardSetContext);
+    const { updateUserCharacter, getUserProfile } = useContext(UserProfileContext);
     let { theCount, setTheCount } = useContext(QuestionContext);
     const {id} = useParams();
     const [studySet, setStudySet] = useState({});
     const [question, setQuestion] = useState({});
     const [hiddenAnswer, setHiddenAnswer] = useState(true);
+    const [serverUser, setServerUser] = useState({})
     const history = useHistory();  
 
     // Initial load
@@ -32,18 +35,30 @@ const StudySet = () => {
             .then(setStudySet)
     },[])
 
+
+    // Update the user character once the last card was studied
+    useEffect(() => {
+        if(serverUser.id > 0)
+        {
+            console.log(serverUser)
+            serverUser.experience += flashcardSetData.EXPgained
+            updateUserCharacter(serverUser)
+            history.push(`${id}/results`)
+        }
+    }, [serverUser])
+
+
     // This is returning JSON
     const userProfile = sessionStorage.getItem("userProfile");
     // Parsing the JSON returned above into an object so we can use it
     var currentUser = JSON.parse(userProfile);
-
-    console.log(currentUser)
 
     // // Isolate the list of questions with answers
     let questions = studySet.questions;
 
     // Grab the correct answer for each question
     let correct = question?.answers?.find(a => a.correct === true)
+
 
     // When questions state changes...
     useEffect(() => {
@@ -57,6 +72,7 @@ const StudySet = () => {
         }
     },[questions])
 
+
     // When theCount state changes...
     useEffect(() => {
         // If it is greater than 0 and less than the amount of questions the user has to study...
@@ -66,14 +82,17 @@ const StudySet = () => {
         }
         else if(theCount > 0 && theCount=== questions?.length)
         {
-            history.push(`${id}/results`)
+            getUserProfile(currentUser.firebaseUserId)
+                .then(setServerUser)
         }
     },[theCount])
+
 
     // Show and hide the answer for the user
     const showHide = () => {
         setHiddenAnswer(!hiddenAnswer)
     }
+
 
     // User was correct so record data and set the count to show the next question
     const userCorrect = () => {
@@ -87,6 +106,7 @@ const StudySet = () => {
         }
     }
 
+
     // User was wrong so record data and set the count to show the next question
     const userWrong = () => {
         setTheCount(theCount => theCount + 1)
@@ -98,11 +118,13 @@ const StudySet = () => {
         }
     }
 
+
     if(question.id === null || question.id === undefined)
     {
         return null
     }
 
+    
     return (
         <div className="studyBattleContainer">
             <Container>

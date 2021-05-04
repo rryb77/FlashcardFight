@@ -6,5 +6,6 @@ namespace FlashcardFight.Repositories
     {
         void Add(UserProfile userProfile);
         UserProfile GetByFirebaseUserId(string firebaseUserId);
+        void UpdateUserCharacterStats(UserProfile userProfile);
     }
 }

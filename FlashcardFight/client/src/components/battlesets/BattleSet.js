@@ -2,14 +2,18 @@ import React, { useContext, useEffect, useState } from "react";
 import { useHistory, useParams } from "react-router-dom";
 import { FlashCardSetContext } from '../../providers/FlashCardSetProvider';
 import { QuestionContext } from '../../providers/QuestionProvider';
+import {UserProfileContext} from '../../providers/UserProfileProvider'
 import { Container, Radios, Button } from "nes-react";
 
 const BattleSet = () => {
+    
     const { getFlashcardSetWithQandA, flashcardSetData } = useContext(FlashCardSetContext);
+    const { updateUserCharacter, getUserProfile } = useContext(UserProfileContext);
     let { theCount, setTheCount } = useContext(QuestionContext);
     const [battleSet, setBattleSet] = useState({});
     const [question, setQuestion] = useState({});
     const [answerChoice, setAnswerChoice] = useState({});
+    const [serverUser, setServerUser] = useState({})
     const history = useHistory();  
     const {id} = useParams();
 
@@ -19,6 +23,19 @@ const BattleSet = () => {
             .then(setBattleSet)
     },[])
 
+
+    // Update the user character once the last card was studied
+    useEffect(() => {
+        if(serverUser.id > 0)
+        {
+            console.log(serverUser)
+            serverUser.experience += flashcardSetData.EXPgained
+            updateUserCharacter(serverUser)
+            history.push(`${id}/results`)
+        }
+    }, [serverUser])
+
+
     // This is returning JSON
     const userProfile = sessionStorage.getItem("userProfile");
     // Parsing the JSON returned above into an object so we can use it
@@ -27,6 +44,7 @@ const BattleSet = () => {
     // Isolate the list of questions with answers
     let questions = battleSet.questions;
     let shuffled = [];
+
 
     // When questions state changes...
     useEffect(() => {
@@ -42,6 +60,7 @@ const BattleSet = () => {
         }
     },[questions])
 
+
     // When theCount state changes...
     useEffect(() => {
         // If it is greater than 0 and less than the amount of questions the user has to study...
@@ -53,9 +72,11 @@ const BattleSet = () => {
         }
         else if(theCount === questions?.length)
         {
-            history.push(`${id}/results`)
+            getUserProfile(currentUser.firebaseUserId)
+                .then(setServerUser)
         }
     },[theCount])
+
 
     const checkAnswer = () => {
         
@@ -72,11 +93,17 @@ const BattleSet = () => {
         }
         else if(answerChoice.correct === false)
         {
+            // Set the amount of damage taken for wrong answers
+            const dmg = flashcardSetData.hp / questions.length
+
             console.log("Wrong!")
             setTheCount(theCount => theCount + 1)
+
             flashcardSetData.wrongAnswers += 1;
+            flashcardSetData.hp -= dmg
         }
     }
+
 
     return (
         <div className="studyBattleContainer">

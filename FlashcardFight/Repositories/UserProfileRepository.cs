@@ -102,6 +102,31 @@ namespace FlashcardFight.Repositories
             }
         }
 
+        public void UpdateUserCharacterStats(UserProfile userProfile)
+        {
+            using(var conn = Connection)
+            {
+                conn.Open();
+                using(var cmd = conn.CreateCommand())
+                {
+                    cmd.CommandText = @"
+                    UPDATE UserProfile
+                        SET HP = @HP,
+                            Experience = @Experience,
+                            Level = @Level
+                    WHERE id = @id
+                    ";
+
+                    DbUtils.AddParameter(cmd, "@id", userProfile.Id);
+                    DbUtils.AddParameter(cmd, "@HP", userProfile.HP);
+                    DbUtils.AddParameter(cmd, "@Experience", userProfile.Experience);
+                    DbUtils.AddParameter(cmd, "@Level", userProfile.Level);
+
+                    cmd.ExecuteNonQuery();
+                }
+            }
+        }
+
         
     }
 }
