@@ -24,7 +24,8 @@ const StudySet = () => {
     let { theCount, setTheCount } = useContext(QuestionContext);
     const {id} = useParams();
     const [studySet, setStudySet] = useState({});
-    const [question, setQuestion] = useState({});
+    const [question, setQuestion] = useState(null);
+    const [questions, setQuestions] = useState([]);
     const [hiddenAnswer, setHiddenAnswer] = useState(true);
     const [serverUser, setServerUser] = useState({})
     const history = useHistory();  
@@ -32,7 +33,10 @@ const StudySet = () => {
     // Initial load
     useEffect(() => {
         getFlashcardSetWithQandA(id)
-            .then(setStudySet)
+            .then((res) => {
+                setStudySet(res)
+                setQuestions(res.questions)
+            })
     },[])
 
 
@@ -53,9 +57,6 @@ const StudySet = () => {
     // Parsing the JSON returned above into an object so we can use it
     var currentUser = JSON.parse(userProfile);
 
-    // // Isolate the list of questions with answers
-    let questions = studySet.questions;
-
     // Grab the correct answer for each question
     let correct = question?.answers?.find(a => a.correct === true)
 
@@ -69,6 +70,7 @@ const StudySet = () => {
             flashcardSetData.setId = parseInt(id);
             flashcardSetData.flashcard = studySet;
             setQuestion(() => questions[theCount]);
+            console.log(questions)
         }
     },[questions])
 
@@ -119,12 +121,12 @@ const StudySet = () => {
     }
 
 
-    if(question.id === null || question.id === undefined)
+    if(!question)
     {
         return null
     }
 
-    
+
     return (
         <div className="studyBattleContainer">
             <Container>

@@ -7,6 +7,9 @@ export const FlashCardSetProvider = (props) => {
     const apiUrl = "/api/FlashCardSet";
     const [flashcardSet, setFlashcardSet] = useState({});
     const [flashcards, setFlashcards] = useState([]);
+    
+    const [testStudySet, setTestStudySet] = useState({});
+
     const { getToken } = useContext(UserProfileContext);
     const [flashcardSetData, setFlashcardSetData] = useState({
         questionAmount: 0,
