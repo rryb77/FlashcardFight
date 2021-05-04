@@ -20,12 +20,6 @@
   margin-bottom: 10px;
 }
 
-.studyContainer {
-  display: flex;
-  flex-wrap: nowrap;
-  justify-content: center;
-}
-
 .fightArea {
   /* height: 25em; */
   background-image: url(wastelandBG.png);
@@ -34,8 +28,4 @@
   -o-background-size: cover;
   background-size: cover;
   padding: 0;
-}
-
-.playerHero {
-  margin-top: 10em;
 }

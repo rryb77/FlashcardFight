@@ -3,6 +3,7 @@ import { useHistory, useParams } from "react-router-dom";
 import { FlashCardSetContext } from '../../providers/FlashCardSetProvider';
 import { QuestionContext } from '../../providers/QuestionProvider';
 import './Study.css';
+import { Container } from "nes-react";
 import {
     Badge,
     Card,
@@ -36,21 +37,13 @@ const StudySet = () => {
     // Parsing the JSON returned above into an object so we can use it
     var currentUser = JSON.parse(userProfile);
 
+    console.log(currentUser)
 
     // // Isolate the list of questions with answers
     let questions = studySet.questions;
 
     // Grab the correct answer for each question
     let correct = question?.answers?.find(a => a.correct === true)
-
-    // Ensure dom updates with questions so they can be shown to the user
-    // useEffect(() => {
-    //     if(studySet.id !== undefined)
-    //     {
-    //         questions = studySet.questions;
-    //         console.log(questions)
-    //     }
-    // }, studySet)
 
     // When questions state changes...
     useEffect(() => {
@@ -59,7 +52,8 @@ const StudySet = () => {
         {
             flashcardSetData.questionAmount = questions.length;
             flashcardSetData.setId = parseInt(id);
-            setQuestion(questions[theCount]);
+            flashcardSetData.flashcard = studySet;
+            setQuestion(() => questions[theCount]);
         }
     },[questions])
 
@@ -86,7 +80,7 @@ const StudySet = () => {
         
         setTheCount(theCount => theCount + 1)
         flashcardSetData.correctAnswers += 1;
-
+        flashcardSetData.EXPgained += 2;
         if(hiddenAnswer === false)
         {
             setHiddenAnswer(true)
@@ -104,14 +98,22 @@ const StudySet = () => {
         }
     }
 
-    if(question === null || question === undefined)
+    if(question.id === null || question.id === undefined)
     {
         return null
     }
 
     return (
-        <div className="studyContainer">
-            <img src={currentUser.characterImage.imageLocation} alt="Player hero"></img>
+        <div className="studyBattleContainer">
+            <Container>
+                <img className="playerHero" src={currentUser.characterImage.imageLocation} alt="Player hero"></img>
+                <Container>
+                    <b>HP:</b> {currentUser.hp} <br></br>
+                    <b>EXP:</b> {currentUser.experience} <br></br>
+                    <b>Level:</b> {currentUser.level}
+                </Container>
+            </Container>
+            
             {hiddenAnswer ?
             
             <Card className="m-4 flashcard">
@@ -140,6 +142,7 @@ const StudySet = () => {
                     <Button color="success" className="right" onClick={userCorrect}>I was right</Button> {' '}
                     <Button color="danger" className="right" onClick={userWrong}>I was wrong</Button> 
                 </CardFooter>
+                
             </Card>
             }
             

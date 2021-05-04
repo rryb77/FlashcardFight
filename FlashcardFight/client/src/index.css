@@ -23,3 +23,14 @@ label {
 .flashcard {
   width: 50%;
 }
+
+.playerHero {
+  max-width: 256px;
+  max-height: 256px;
+}
+
+.studyBattleContainer {
+  display: flex;
+  flex-wrap: nowrap;
+  justify-content: center;
+}

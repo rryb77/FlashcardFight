@@ -19,6 +19,11 @@ const BattleSet = () => {
             .then(setBattleSet)
     },[])
 
+    // This is returning JSON
+    const userProfile = sessionStorage.getItem("userProfile");
+    // Parsing the JSON returned above into an object so we can use it
+    var currentUser = JSON.parse(userProfile);
+
     // Isolate the list of questions with answers
     let questions = battleSet.questions;
     let shuffled = [];
@@ -30,6 +35,7 @@ const BattleSet = () => {
         {
             flashcardSetData.questionAmount = questions.length;
             flashcardSetData.setId = id;
+            flashcardSetData.flashcard = battleSet;
             setQuestion(questions[theCount]);
 
             shuffled = questions[0].answers.sort(() => Math.random() - 0.5)
@@ -62,6 +68,7 @@ const BattleSet = () => {
             console.log("Correct!")
             setTheCount(theCount => theCount + 1)
             flashcardSetData.correctAnswers += 1;
+            flashcardSetData.EXPgained += 40;
         }
         else if(answerChoice.correct === false)
         {
@@ -72,30 +79,40 @@ const BattleSet = () => {
     }
 
     return (
-        <Container>
-            <div id="question">
-                 Question: {question?.questionText}<p></p>
-            </div>
+        <div className="studyBattleContainer">
+                <Container>
+                    <img className="playerHero" src={currentUser.characterImage.imageLocation} alt="Player hero"></img>
+                    <Container>
+                        <b>HP:</b> {currentUser.hp} <br></br>
+                        <b>EXP:</b> {currentUser.experience} <br></br>
+                        <b>Level:</b> {currentUser.level}
+                    </Container>
+                </Container>
+                <Container>
+                    <div id="question">
+                        Question: {question?.questionText}<p></p>
+                    </div>
 
-            <div id="answers">
-                Choices:
-                <p></p>
-                <div>
-                    { 
-                        question?.answers?.map(a => (
-                            <div key={a.id}>
-                                <label>
-                                    <input type="radio" className="nes-radio" name="answer" onChange={() => setAnswerChoice(a)}/>
-                                    <span >{a.answerText}</span>
-                                </label> 
-                            </div>
-                        ))
-                    }
-                    
-                </div>
-                <Button type="button" className="nes-btn is-normal nes-cursor" onClick={checkAnswer}>Submit</Button>
-            </div>
-        </Container>
+                    <div id="answers">
+                        Choices:
+                        <p></p>
+                        <div>
+                            { 
+                                question?.answers?.map(a => (
+                                    <div key={a.id}>
+                                        <label>
+                                            <input type="radio" className="nes-radio" name="answer" onChange={() => setAnswerChoice(a)}/>
+                                            <span >{a.answerText}</span>
+                                        </label> 
+                                    </div>
+                                ))
+                            }
+                            
+                        </div>
+                        <Button type="button" className="nes-btn is-normal nes-cursor" onClick={checkAnswer}>Submit</Button>
+                    </div>
+                </Container>
+        </div>
     )
 
 }
