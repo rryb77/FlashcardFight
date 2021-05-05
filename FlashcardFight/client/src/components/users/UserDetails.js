@@ -2,7 +2,6 @@ import React, { useContext, useEffect, useState } from "react";
 import { useHistory, useParams } from "react-router";
 import { UserProfileContext } from "../../providers/UserProfileProvider";
 import { FlashCardSetContext } from "../../providers/FlashCardSetProvider";
-import FlashCard from "../flashcardsets/FlashCard";
 import {
     Badge,
     Button,
