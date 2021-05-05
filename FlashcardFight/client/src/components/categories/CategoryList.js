@@ -21,12 +21,20 @@ const CategoryList = () => {
     const {getAllCategories, addCategory, updateCategory, deleteCategory} = useContext(CategoryContext);
     const [categories, setCategories] = useState([])
     const [newCategoryName, setNewCategoryName] = useState("")
+    let [category, setCategory] = useState({})
 
-    // Question and answer add modal state
+    // Category add modal state
     const [addCategoryModal, setAddCategoryModal] = useState(false)
     const toggleAddCategoryModal = () => {
         resetForm()
         setAddCategoryModal(!addCategoryModal);
+    }
+
+    // Category edit modal state
+    const [editCategoryModal, setEditCategoryModal] = useState(false)
+    const toggleEditCategoryModal = () => {
+        resetForm()
+        setEditCategoryModal(!editCategoryModal);
     }
 
     const resetForm = () => {
@@ -37,22 +45,38 @@ const CategoryList = () => {
         getAllCategories()
             .then(setCategories)
     }, [])
-
     
 
     const newCat = () => {
         if(newCategoryName !== "")
         {
             const newCategoryObj = {
-                name: newCategoryName
+                Name: newCategoryName
             }
 
-            console.log(newCategoryObj)
             addCategory(newCategoryObj)
                 .then(getAllCategories)
                 .then(setCategories)
             toggleAddCategoryModal()
         }  
+    }
+
+    const editCat = (category) => {
+        setCategory(category)
+        setNewCategoryName(category.name)
+        toggleEditCategoryModal()
+    }
+
+    const saveEdit = () => {
+        const editedCategoryObj = {
+            Id: category.id,
+            Name: newCategoryName
+        }
+
+        updateCategory(editedCategoryObj)
+            .then(getAllCategories)
+            .then(setCategories)
+        toggleEditCategoryModal()
     }
 
     const deleteCat = (id) => {
@@ -69,14 +93,14 @@ const CategoryList = () => {
             <div className="row justify-content-center">
             
                 {categories.map((category) => (
-                    <Card className="m-4">
+                    <Card key={category.id} className="m-4">
                     <CardBody>
                         <CardTitle tag="h2">
                             <strong> {category.name}</strong>
                         </CardTitle>
                     </CardBody>
                     <CardFooter>
-                        <Button type="button" color="info">Edit</Button> {'  '} <Button color="danger" onClick={() => deleteCat(category.id)}>Delete</Button>
+                        <Button type="button" color="info" onClick={() => editCat(category)}>Edit</Button> {'  '} <Button color="danger" onClick={() => deleteCat(category.id)}>Delete</Button>
                     </CardFooter>
                 </Card>
                 ))}
@@ -98,6 +122,23 @@ const CategoryList = () => {
                 <ModalFooter>
                     <Button color="primary" onClick={newCat}>Save</Button>
                     <Button color="secondary right" onClick={toggleAddCategoryModal}>Cancel</Button>
+                </ModalFooter>
+            </Modal>
+
+            {/* Modal to edit category */}
+            <Modal isOpen={editCategoryModal} toggle={toggleEditCategoryModal} className="nes-dialog">
+                <ModalHeader toggle={toggleEditCategoryModal}>Edit Category</ModalHeader>
+                <ModalBody>
+                    <Form>
+                        <FormGroup>
+                            <Label for="category">Category Name</Label>
+                            <Input type="text" onChange={(e) => setNewCategoryName(e.target.value)} value={newCategoryName}/>
+                        </FormGroup>
+                    </Form>
+                </ModalBody>
+                <ModalFooter>
+                    <Button color="primary" onClick={saveEdit}>Save</Button>
+                    <Button color="secondary right" onClick={toggleEditCategoryModal}>Cancel</Button>
                 </ModalFooter>
             </Modal>
         </div>

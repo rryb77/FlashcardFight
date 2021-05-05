@@ -33,8 +33,9 @@ export const CategoryProvider = (props) => {
     }
 
     const addCategory = (category) => {
+        console.log(category)
         return getToken().then((token) =>
-            fetch(apiUrl, {
+            fetch(`${apiUrl}`, {
                 method: "POST",
                 headers: {
                     Authorization: `Bearer ${token}`,
@@ -42,7 +43,6 @@ export const CategoryProvider = (props) => {
                 },
                 body: JSON.stringify(category)
             })
-            .then((res) => res.json())
         )
     }
 
