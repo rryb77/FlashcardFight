@@ -62,5 +62,19 @@ namespace FlashcardFight.Controllers
             _userProfileRepository.UpdateUserCharacterStats(userProfile);
             return NoContent();
         }
+
+        [HttpPut("DeactivateUserById/{id}")]
+        public IActionResult DeactivateUserById(int id)
+        {
+            _userProfileRepository.DeactivateUserById(id);
+            return NoContent();
+        }
+
+        [HttpPut("ReactivateUserById/{id}")]
+        public IActionResult ReactivateUserById(int id)
+        {
+            _userProfileRepository.ReactivateUserById(id);
+            return NoContent();
+        }
     }
 }
