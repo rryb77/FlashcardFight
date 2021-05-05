@@ -1,4 +1,5 @@
-﻿using FlashcardFight.Repositories;
+﻿using FlashcardFight.Models;
+using FlashcardFight.Repositories;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -33,6 +34,27 @@ namespace FlashcardFight.Controllers
                 return NotFound();
             }
             return Ok(category);
+        }
+
+        [HttpPost]
+        public IActionResult Post(Category category)
+        {
+            _categoryRepository.AddCategory(category);
+            return NoContent();
+        }
+
+        [HttpPut]
+        public IActionResult Put(Category category)
+        {
+            _categoryRepository.UpdateCategory(category);
+            return NoContent();
+        }
+
+        [HttpDelete]
+        public IActionResult Delete(Category category)
+        {
+            _categoryRepository.DeleteCategory(category);
+            return NoContent();
         }
     }
 }

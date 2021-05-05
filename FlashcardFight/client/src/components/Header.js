@@ -13,9 +13,10 @@ import { UserProfileContext } from "../providers/UserProfileProvider";
 
 const Header = () => {
   
-  const { isLoggedIn, logout } = useContext(UserProfileContext);
+  const { isLoggedIn, logout, isAdmin } = useContext(UserProfileContext);
   const [isOpen, setIsOpen] = useState(false);
   const toggle = () => setIsOpen(!isOpen);
+
 
   return (
     <div>
@@ -38,7 +39,7 @@ const Header = () => {
                 <NavItem>
                   <NavLink tag={RRNavLink} to="/mysets">My Sets</NavLink>
                 </NavItem>
-                
+
                 
               </>
             }
@@ -54,10 +55,20 @@ const Header = () => {
             }
           </Nav>
           <Nav navbar>
-          <NavItem>
+                
+            {isAdmin &&
+                <>
+                <NavItem>
+                  <NavLink tag={RRNavLink} to="/adminportal">Admin Portal</NavLink>
+                </NavItem>
+                </>
+            }
+            {isLoggedIn &&
+                <NavItem>
                   <a aria-current="page" className="nav-link"
                     style={{ cursor: "pointer" }} onClick={logout}>Logout</a>
                 </NavItem>
+            }
           </Nav>
         </Collapse>
       </Navbar>

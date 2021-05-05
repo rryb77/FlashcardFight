@@ -32,7 +32,7 @@ namespace FlashcardFight.Controllers
         public IActionResult Post(UserProfile userProfile)
         {
             userProfile.JoinDate = DateTime.Now;
-            userProfile.UserTypeId = 1;
+            userProfile.UserTypeId = 2;
             userProfile.Level = 1;
             userProfile.Experience = 0;
             userProfile.HP = 500;
