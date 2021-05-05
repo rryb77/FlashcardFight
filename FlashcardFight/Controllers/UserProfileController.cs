@@ -25,6 +25,12 @@ namespace FlashcardFight.Controllers
         public IActionResult GetUserProfile(string firebaseUserId)
         {
             var profile = _userProfileRepository.GetByFirebaseUserId(firebaseUserId);
+            
+            if (profile.Deactivated == true)
+            {
+                return NotFound();
+            }
+
             return Ok(profile);
         }
 

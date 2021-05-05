@@ -35,6 +35,7 @@ namespace FlashcardFight
             services.AddTransient<IAnswerRepository, AnswerRepository>();
             services.AddTransient<ICategoryRepository, CategoryRepository>();
             services.AddTransient<IDifficultyRepository, DifficultyRepository>();
+            services.AddTransient<IUserTypeRepository, UserTypeRepository>();
 
             var firebaseProjectId = Configuration.GetValue<string>("FirebaseProjectId");
             var googleTokenUrl = $"https://securetoken.google.com/{firebaseProjectId}";
