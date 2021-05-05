@@ -48,5 +48,8 @@ namespace FlashcardFight.Models
 
         public int Wins { get; set; }
 
+        public bool Deactivated { get; set; }
+
+        public List<UserProfile> UserProfiles { get; set; }
     }
 }

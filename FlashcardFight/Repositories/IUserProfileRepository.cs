@@ -1,4 +1,5 @@
 ﻿using FlashcardFight.Models;
+using System.Collections.Generic;
 
 namespace FlashcardFight.Repositories
 {
@@ -6,6 +7,7 @@ namespace FlashcardFight.Repositories
     {
         void Add(UserProfile userProfile);
         UserProfile GetByFirebaseUserId(string firebaseUserId);
+        List<UserProfile> GetUserProfiles();
         void UpdateUserCharacterStats(UserProfile userProfile);
     }
 }

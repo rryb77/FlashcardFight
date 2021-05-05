@@ -28,6 +28,13 @@ namespace FlashcardFight.Controllers
             return Ok(profile);
         }
 
+        [HttpGet]
+        public IActionResult Get()
+        {
+            return Ok(_userProfileRepository.GetUserProfiles());
+        }
+            
+
         [HttpPost]
         public IActionResult Post(UserProfile userProfile)
         {
@@ -40,6 +47,8 @@ namespace FlashcardFight.Controllers
             userProfile.CharacterImageId = 1;
             userProfile.Attempts = 0;
             userProfile.Wins = 0;
+            userProfile.Deactivated = false;
+
             _userProfileRepository.Add(userProfile);
             return CreatedAtAction(
                 nameof(GetUserProfile),

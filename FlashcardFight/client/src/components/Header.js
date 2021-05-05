@@ -7,7 +7,11 @@ import {
   NavbarBrand,
   Nav,
   NavItem,
-  NavLink
+  NavLink,
+  UncontrolledDropdown,
+  DropdownToggle,
+  DropdownItem,
+  DropdownMenu
 } from 'reactstrap';
 import { UserProfileContext } from "../providers/UserProfileProvider";
 
@@ -58,9 +62,27 @@ const Header = () => {
                 
             {isAdmin &&
                 <>
-                <NavItem>
+                {/* <NavItem>
                   <NavLink tag={RRNavLink} to="/adminportal">Admin Portal</NavLink>
-                </NavItem>
+                </NavItem> */}
+
+                <UncontrolledDropdown nav inNavbar>
+                  <DropdownToggle nav caret>
+                    Admin Portal
+                  </DropdownToggle>
+                  <DropdownMenu right>
+                    <DropdownItem>
+                      <NavLink className="navColor" tag={RRNavLink} to="/categories">Category Manager</NavLink>
+                    </DropdownItem>
+                    <DropdownItem>
+                      Option 2
+                    </DropdownItem>
+                    <DropdownItem divider />
+                    <DropdownItem>
+                      Reset
+                    </DropdownItem>
+                  </DropdownMenu>
+              </UncontrolledDropdown>
                 </>
             }
             {isLoggedIn &&

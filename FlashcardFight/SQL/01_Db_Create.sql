@@ -45,7 +45,8 @@ CREATE TABLE [UserProfile] (
   [HP] int NOT NULL,
   [CharacterImageId] int NOT NULL,
   [Attempts] int NOT NULL,
-  [Wins] int NOT NULL
+  [Wins] int NOT NULL,
+  [Deactivated] bit NOT NULL
 )
 GO
 
