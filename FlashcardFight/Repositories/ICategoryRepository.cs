@@ -6,7 +6,7 @@ namespace FlashcardFight.Repositories
     public interface ICategoryRepository
     {
         void AddCategory(Category category);
-        void DeleteCategory(Category category);
+        void DeleteCategory(int id);
         List<Category> GetAll();
         Category GetById(int id);
         void UpdateCategory(Category category);

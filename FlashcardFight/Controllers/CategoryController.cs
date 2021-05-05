@@ -50,10 +50,10 @@ namespace FlashcardFight.Controllers
             return NoContent();
         }
 
-        [HttpDelete]
-        public IActionResult Delete(Category category)
+        [HttpDelete("{id}")]
+        public IActionResult Delete(int id)
         {
-            _categoryRepository.DeleteCategory(category);
+            _categoryRepository.DeleteCategory(id);
             return NoContent();
         }
     }

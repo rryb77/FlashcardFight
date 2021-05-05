@@ -114,7 +114,7 @@ namespace FlashcardFight.Repositories
             }
         }
 
-        public void DeleteCategory(Category category)
+        public void DeleteCategory(int id)
         {
             var categories = GetAll();
 
@@ -129,9 +129,9 @@ namespace FlashcardFight.Repositories
                     WHERE CategoryId = @id
                     ";
 
-                    DbUtils.AddParameter(cmd, "@id", category.Id);
+                    DbUtils.AddParameter(cmd, "@id", id);
 
-                    if(category.Id != categories[0].Id)
+                    if(id != categories[0].Id)
                     {
                         DbUtils.AddParameter(cmd, "@CategoryId", categories[0].Id);
                     }
@@ -149,7 +149,7 @@ namespace FlashcardFight.Repositories
                     WHERE Id = @id
                     ";
 
-                    DbUtils.AddParameter(cmd, "@id", category.Id);
+                    DbUtils.AddParameter(cmd, "@id", id);
 
                     cmd.ExecuteNonQuery();
                 }
