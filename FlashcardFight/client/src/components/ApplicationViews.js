@@ -13,6 +13,8 @@ import StudyResults from "./studysets/StudyResults";
 import BattleResults from "./battlesets/BattleResults";
 import FlashCardEdit from "./flashcardsets/FlashCardEdit";
 import CategoryList from "./categories/CategoryList";
+import UserList from "./users/UserList"
+import UserDetails from "./users/UserDetails";
 
 export default function ApplicationViews() {
   const { isLoggedIn } = useContext(UserProfileContext);
@@ -70,6 +72,14 @@ export default function ApplicationViews() {
 
         <Route path="/categories" exact>
           <CategoryList/>
+        </Route>
+
+        <Route path="/users" exact>
+          <UserList/>
+        </Route>
+
+        <Route path="/users/details/:id">
+          <UserDetails/>
         </Route>
 
       </Switch>

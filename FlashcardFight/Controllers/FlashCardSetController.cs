@@ -46,6 +46,12 @@ namespace FlashcardFight.Controllers
             return Ok(_flashCardSetRepository.GetById(id));
         }
 
+        [HttpGet("GetAllByUserId/{id}")]
+        public IActionResult GetAllByUserId(int id)
+        {
+            return Ok(_flashCardSetRepository.GetAllByUserId(id));
+        }
+
         [HttpGet("UserSets")]
         public IActionResult GetUserSet()
         {
@@ -64,12 +70,16 @@ namespace FlashcardFight.Controllers
         {
             var currentUserProfile = GetCurrentUserProfile();
 
-            if(currentUserProfile.Id != flashCardSet.CreatorId)
+            if(currentUserProfile.Id == flashCardSet.CreatorId || currentUserProfile.UserTypeId == 1)
+            {
+                _flashCardSetRepository.UpdateFlashcard(flashCardSet);
+            }
+            else
             {
                 return BadRequest();
             }
 
-            _flashCardSetRepository.UpdateFlashcard(flashCardSet);
+            
             return NoContent();
         }
 

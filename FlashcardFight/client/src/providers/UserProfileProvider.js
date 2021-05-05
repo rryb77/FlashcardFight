@@ -113,16 +113,27 @@ export function UserProfileProvider(props) {
         )
     }
 
-    const getDeactivatedUserProfiles = () => {
+    const getUserProfileById = (id) => {
         return getToken().then((token) =>
-        fetch(`${apiUrl}/GetDeactivatedUserProfiles`, {
+          fetch(`${apiUrl}/GetUserProfileById/${id}`, {
             method: "GET",
             headers: {
-            Authorization: `Bearer ${token}`
+              Authorization: `Bearer ${token}`
             }
-        }).then((res) => res.json())
+          }).then((res) => res.json())
         )
-    }
+      }
+
+    // const getDeactivatedUserProfiles = () => {
+    //     return getToken().then((token) =>
+    //     fetch(`${apiUrl}/GetDeactivatedUserProfiles`, {
+    //         method: "GET",
+    //         headers: {
+    //         Authorization: `Bearer ${token}`
+    //         }
+    //     }).then((res) => res.json())
+    //     )
+    // }
 
     const reactivateUserById = (id) => {
         return getToken().then((token) =>
@@ -152,7 +163,7 @@ export function UserProfileProvider(props) {
 
   return (
     <UserProfileContext.Provider value={{ isLoggedIn, login, logout, register, getToken, getUserProfile, getAllProfiles, deactivateUserById, 
-                                        getDeactivatedUserProfiles, reactivateUserById, updateUserCharacter, isAdmin }}>
+                                        reactivateUserById, updateUserCharacter, isAdmin, getUserProfileById }}>
       {isFirebaseReady
         ? props.children
         : <Spinner className="app-spinner dark"/>}

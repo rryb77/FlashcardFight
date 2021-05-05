@@ -110,7 +110,7 @@ const FlashCardEdit = () => {
     // Once the flashcard has been set in state, update the form with current flashcard info from DB
     useEffect(() => {
 
-        if(currentUser.id === flashcardSet.creatorId)
+        if(currentUser.id === flashcardSet.creatorId || currentUser.userTypeId === 1)
         {
             setUserIsCreator(true)
         }

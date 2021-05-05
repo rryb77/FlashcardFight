@@ -62,27 +62,12 @@ const Header = () => {
                 
             {isAdmin &&
                 <>
-                {/* <NavItem>
-                  <NavLink tag={RRNavLink} to="/adminportal">Admin Portal</NavLink>
-                </NavItem> */}
-
-                <UncontrolledDropdown nav inNavbar>
-                  <DropdownToggle nav caret>
-                    Admin Portal
-                  </DropdownToggle>
-                  <DropdownMenu right>
-                    <DropdownItem>
-                      <NavLink className="navColor" tag={RRNavLink} to="/categories">Category Manager</NavLink>
-                    </DropdownItem>
-                    <DropdownItem>
-                      Option 2
-                    </DropdownItem>
-                    <DropdownItem divider />
-                    <DropdownItem>
-                      Reset
-                    </DropdownItem>
-                  </DropdownMenu>
-              </UncontrolledDropdown>
+                <NavItem>
+                  <NavLink tag={RRNavLink} to="/categories">Category Management</NavLink>
+                </NavItem>
+                <NavItem>
+                  <NavLink tag={RRNavLink} to="/users">User Management</NavLink>
+                </NavItem>
                 </>
             }
             {isLoggedIn &&

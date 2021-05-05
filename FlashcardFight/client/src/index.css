@@ -34,3 +34,31 @@ label {
   flex-wrap: wrap;
   justify-content: center;
 }
+
+table {
+  font-family: arial, sans-serif;
+  border-collapse: collapse;
+  width: 100%;
+}
+
+td,
+th {
+  border: 1px solid #dddddd;
+  text-align: left;
+  padding: 8px;
+}
+
+tr:nth-child(even) {
+  background-color: #69aae7;
+  white-space: pre-wrap;
+}
+
+tr:nth-child(odd) {
+  background-color: #ffffff;
+  white-space: pre-wrap;
+  color: #000000;
+}
+
+.leftMargin {
+  margin-left: 15px;
+}

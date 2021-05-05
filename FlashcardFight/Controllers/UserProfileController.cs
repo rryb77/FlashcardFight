@@ -66,6 +66,13 @@ namespace FlashcardFight.Controllers
         [HttpPut("DeactivateUserById/{id}")]
         public IActionResult DeactivateUserById(int id)
         {
+            var currentUserProfile = GetCurrentUserProfile();
+
+            if (currentUserProfile.UserTypeId != 1)
+            {
+                return BadRequest();
+            };
+
             _userProfileRepository.DeactivateUserById(id);
             return NoContent();
         }
@@ -73,8 +80,28 @@ namespace FlashcardFight.Controllers
         [HttpPut("ReactivateUserById/{id}")]
         public IActionResult ReactivateUserById(int id)
         {
+            var currentUserProfile = GetCurrentUserProfile();
+
+            if (currentUserProfile.UserTypeId != 1)
+            {
+                return BadRequest();
+            };
+
             _userProfileRepository.ReactivateUserById(id);
             return NoContent();
         }
+
+        [HttpGet("GetUserProfileById/{id}")]
+        public IActionResult GetUserProfileById(int id)
+        {
+            return Ok(_userProfileRepository.GetUserProfileById(id));
+        }
+
+        private UserProfile GetCurrentUserProfile()
+        {
+            var firebaseUserId = User.FindFirst(ClaimTypes.NameIdentifier).Value;
+            return _userProfileRepository.GetByFirebaseUserId(firebaseUserId);
+        }
+
     }
 }

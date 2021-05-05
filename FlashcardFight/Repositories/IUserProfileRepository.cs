@@ -8,6 +8,7 @@ namespace FlashcardFight.Repositories
         void Add(UserProfile userProfile);
         void DeactivateUserById(int id);
         UserProfile GetByFirebaseUserId(string firebaseUserId);
+        UserProfile GetUserProfileById(int id);
         List<UserProfile> GetUserProfiles();
         void ReactivateUserById(int id);
         void UpdateUserCharacterStats(UserProfile userProfile);

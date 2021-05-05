@@ -63,7 +63,7 @@ namespace FlashcardFight.Repositories
                             },
                             Attempts = DbUtils.GetInt(reader, "Attempts"),
                             Wins = DbUtils.GetInt(reader, "Wins"),
-                            Deactivated = DbUtils.GetBoolean(reader, "Deacticated")
+                            Deactivated = DbUtils.GetBoolean(reader, "Deactivated")
 
                         };
                     }
@@ -234,5 +234,69 @@ namespace FlashcardFight.Repositories
                 };
             }
         }
+
+        public UserProfile GetUserProfileById(int id)
+        {
+            using (var conn = Connection)
+            {
+                conn.Open();
+                using (var cmd = conn.CreateCommand())
+                {
+                    cmd.CommandText = @"
+                       SELECT up.Id, Up.FirebaseUserId, up.UserName, up.Email, up.JoinDate, up.UserTypeId,
+                           up.Level, up.Experience, up.ExpToNextLevel, up.HP, up.CharacterImageId,  up.Attempts, up.Wins, up.Deactivated,
+                           
+                           ut.Name AS UserTypeName,
+                           
+                           c.ImageLocation                         
+
+                        FROM UserProfile up
+                            LEFT JOIN UserType ut on up.UserTypeId = ut.Id
+                            LEFT JOIN CharacterImage c on up.CharacterImageId = c.Id
+                        WHERE up.id = @id";
+
+                    cmd.Parameters.AddWithValue("@id", id);
+
+                    UserProfile userProfile = null;
+                    var reader = cmd.ExecuteReader();
+
+                    if (reader.Read())
+                    {
+                        userProfile = new UserProfile()
+                        {
+                            Id = DbUtils.GetInt(reader, "Id"),
+                            FirebaseUserId = DbUtils.GetString(reader, "FirebaseUserId"),
+                            UserName = DbUtils.GetString(reader, "UserName"),
+                            Email = DbUtils.GetString(reader, "Email"),
+                            JoinDate = DbUtils.GetDateTime(reader, "JoinDate"),
+                            UserTypeId = DbUtils.GetInt(reader, "UserTypeId"),
+                            UserType = new UserType()
+                            {
+                                Id = DbUtils.GetInt(reader, "UserTypeId"),
+                                Name = DbUtils.GetString(reader, "UserTypeName"),
+                            },
+                            Level = DbUtils.GetInt(reader, "Level"),
+                            Experience = DbUtils.GetInt(reader, "Experience"),
+                            ExpToNextLevel = DbUtils.GetInt(reader, "ExpToNextLevel"),
+                            HP = DbUtils.GetInt(reader, "HP"),
+                            CharacterImageId = DbUtils.GetInt(reader, "CharacterImageId"),
+                            CharacterImage = new CharacterImage()
+                            {
+                                Id = DbUtils.GetInt(reader, "CharacterImageId"),
+                                ImageLocation = DbUtils.GetString(reader, "ImageLocation"),
+                            },
+                            Attempts = DbUtils.GetInt(reader, "Attempts"),
+                            Wins = DbUtils.GetInt(reader, "Wins"),
+                            Deactivated = DbUtils.GetBoolean(reader, "Deactivated")
+                        };
+                    }
+
+                    reader.Close();
+                    return userProfile;
+                }
+            }
+        }
+
+
     }
 }
