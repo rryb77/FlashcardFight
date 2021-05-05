@@ -3,8 +3,9 @@ using System.Collections.Generic;
 
 namespace FlashcardFight.Repositories
 {
-    public interface IBossImageRespository
+    public interface IBossImageRepository
     {
         List<BossImage> GetAll();
+        BossImage GetRandom();
     }
 }

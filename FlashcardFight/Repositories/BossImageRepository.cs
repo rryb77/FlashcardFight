@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace FlashcardFight.Repositories
 {
-    public class BossImageRepository : BaseRepository, IBossImageRespository
+    public class BossImageRepository : BaseRepository, IBossImageRepository
     {
         public BossImageRepository(IConfiguration configuration) : base(configuration) { }
 
@@ -21,6 +21,38 @@ namespace FlashcardFight.Repositories
                 {
                     cmd.CommandText = @"
                     SELECT Id, ImageLocation FROM BossImage
+                    ";
+
+                    var reader = cmd.ExecuteReader();
+
+                    var bossImages = new List<BossImage>();
+
+                    while (reader.Read())
+                    {
+                        bossImages.Add(new BossImage()
+                        {
+                            Id = DbUtils.GetInt(reader, "Id"),
+                            ImageLocation = DbUtils.GetString(reader, "ImageLocation")
+                        });
+                    }
+
+                    reader.Close();
+                    return bossImages;
+                }
+            }
+        }
+
+        public BossImage GetRandom()
+        {
+            using (var conn = Connection)
+            {
+                conn.Open();
+                using (var cmd = conn.CreateCommand())
+                {
+                    cmd.CommandText = @"
+                    SELECT TOP 1 Id, ImageLocation 
+                    FROM BossImage
+                    ORDER BY NEWID()
                     ";
 
                     var reader = cmd.ExecuteReader();

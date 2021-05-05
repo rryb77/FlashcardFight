@@ -13,8 +13,8 @@ namespace FlashcardFight.Controllers
     [ApiController]
     public class BossImageController : ControllerBase
     {
-        private readonly IBossImageRespository _bossImageRepository;
-        public BossImageController(IBossImageRespository bossImageRepository)
+        private readonly IBossImageRepository _bossImageRepository;
+        public BossImageController(IBossImageRepository bossImageRepository)
         {
             _bossImageRepository = bossImageRepository;
         }

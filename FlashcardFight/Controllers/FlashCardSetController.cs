@@ -16,20 +16,29 @@ namespace FlashcardFight.Controllers
     {
         private readonly IFlashCardSetRepository _flashCardSetRepository;
         private readonly IUserProfileRepository _userProfileRepository;
-        public FlashCardSetController(IFlashCardSetRepository flashCardSetRepository, IUserProfileRepository userProfileRepository)
+        private readonly IBossImageRepository _bossImageRepository;
+
+        public FlashCardSetController(IFlashCardSetRepository flashCardSetRepository, 
+                                      IUserProfileRepository userProfileRepository,
+                                      IBossImageRepository bossImageRepository)
         {
             _flashCardSetRepository = flashCardSetRepository;
             _userProfileRepository = userProfileRepository;
+            _bossImageRepository = bossImageRepository;
+
         }
 
         [HttpPost]
         public IActionResult Post(FlashCardSet flashCardSet)
         {
             var currentUserProfile = GetCurrentUserProfile();
+            
+            var bossImage = _bossImageRepository.GetRandom();
+            flashCardSet.BossImageId = bossImage.Id;
 
             flashCardSet.CreateDateTime = DateTime.Now;
-            flashCardSet.BossImageId = 1;
             flashCardSet.CreatorId = currentUserProfile.Id;
+
             _flashCardSetRepository.Add(flashCardSet);
             return CreatedAtAction("GetById", new { id = flashCardSet.Id }, flashCardSet);
         }
@@ -83,17 +92,17 @@ namespace FlashcardFight.Controllers
             return NoContent();
         }
 
-        private UserProfile GetCurrentUserProfile()
-        {
-            var firebaseUserId = User.FindFirst(ClaimTypes.NameIdentifier).Value;
-            return _userProfileRepository.GetByFirebaseUserId(firebaseUserId);
-        }
-
         [HttpDelete("{id}")]
         public IActionResult Delete(int id)
         {
             _flashCardSetRepository.DeleteFlashcardSet(id);
             return NoContent();
+        }
+
+        private UserProfile GetCurrentUserProfile()
+        {
+            var firebaseUserId = User.FindFirst(ClaimTypes.NameIdentifier).Value;
+            return _userProfileRepository.GetByFirebaseUserId(firebaseUserId);
         }
     }
 }
