@@ -55,6 +55,12 @@ namespace FlashcardFight.Controllers
             return Ok(_flashCardSetRepository.GetById(id));
         }
 
+        [HttpGet("GetAllBySubscription/{id}")]
+        public IActionResult GetAllBySubscription(int id)
+        {
+            return Ok(_flashCardSetRepository.GetAllBySubscription(id));
+        }
+
         [HttpGet("GetAllByUserId/{id}")]
         public IActionResult GetAllByUserId(int id)
         {

@@ -57,19 +57,19 @@ namespace FlashcardFight.Repositories
 
                     var reader = cmd.ExecuteReader();
 
-                    var bossImages = new List<BossImage>();
+                    var bossImage = new BossImage();
 
                     while (reader.Read())
                     {
-                        bossImages.Add(new BossImage()
+                        bossImage = new BossImage()
                         {
                             Id = DbUtils.GetInt(reader, "Id"),
                             ImageLocation = DbUtils.GetString(reader, "ImageLocation")
-                        });
+                        };
                     }
 
                     reader.Close();
-                    return bossImages;
+                    return bossImage;
                 }
             }
         }

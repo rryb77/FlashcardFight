@@ -8,6 +8,7 @@ namespace FlashcardFight.Repositories
         int Add(FlashCardSet flashCardSet);
         void DeleteFlashcardSet(int id);
         List<FlashCardSet> GetAll();
+        List<FlashCardSet> GetAllBySubscription(int id);
         List<FlashCardSet> GetAllByUserId(int id);
         FlashCardSet GetById(int id);
         FlashCardSet GetByIdWithQuestionsAndAnswers(int id);
