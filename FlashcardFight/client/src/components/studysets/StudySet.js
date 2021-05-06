@@ -178,6 +178,15 @@ const StudySet = () => {
                 
             </Card>
             }
+
+            <Container>
+                <img className="playerHero" src={'/bosses/dummy.gif'} alt="Player hero"></img>
+                <Container>
+                    <b>HP:</b> 0 <br></br>
+                    <b>EXP:</b> 0 <br></br>
+                    <b>Level:</b> 1
+                </Container>
+            </Container>
             
         </div>
     )

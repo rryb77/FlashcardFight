@@ -112,6 +112,7 @@ const BattleSet = () => {
         }
     }
 
+    console.log(currentUser)
 
     return (
         <div className="studyBattleContainer">
@@ -146,6 +147,15 @@ const BattleSet = () => {
                         </div>
                         <Button type="button" className="nes-btn is-normal nes-cursor" onClick={checkAnswer}>Submit</Button>
                     </div>
+                </Container>
+
+                <Container>
+                    <img className="playerHero" src={battleSet.bossImage.imageLocation} alt="Player hero"></img>
+                    <Container>
+                        <b>HP:</b> {currentUser.hp} <br></br>
+                        <b>EXP:</b> {currentUser.experience} <br></br>
+                        <b>Level:</b> {currentUser.level}
+                    </Container>
                 </Container>
         </div>
     )
