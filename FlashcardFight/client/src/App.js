@@ -10,29 +10,32 @@ import {AnswerProvider} from "./providers/AnswerProvider";
 import {FlashCardSetProvider} from "./providers/FlashCardSetProvider"
 import { UserTypeProvider } from './providers/UserTypeProvider';
 import { SubscriptionProvider } from './providers/SubscriptionProvider';
+import { CharacterImageProvider } from './providers/CharacterImageProvider';
 
 function App() {
   return (
     <Router>
-      <UserProfileProvider>
-        <FlashCardSetProvider>
-          <CategoryProvider>
-            <DifficultyProvider>
-              <QuestionProvider>
-                  <AnswerProvider>
-                    <UserTypeProvider>
-                      <SubscriptionProvider>
-                        <Header />
-                        <ApplicationViews />
-                      </SubscriptionProvider>
-                    </UserTypeProvider>
-                  </AnswerProvider>
-                </QuestionProvider>
-            </DifficultyProvider>
-          </CategoryProvider>
-        </FlashCardSetProvider>
-      </UserProfileProvider>
-    </Router>
+        <UserProfileProvider>
+            <FlashCardSetProvider>
+                <CategoryProvider>
+                    <DifficultyProvider>
+                        <QuestionProvider>
+                            <AnswerProvider>
+                                <UserTypeProvider>
+                                    <SubscriptionProvider>
+                                        <CharacterImageProvider>
+                                            <Header />
+                                            <ApplicationViews />
+                                        </CharacterImageProvider>
+                                    </SubscriptionProvider>
+                                </UserTypeProvider>
+                            </AnswerProvider>
+                        </QuestionProvider>
+                    </DifficultyProvider>
+                </CategoryProvider>
+            </FlashCardSetProvider>
+        </UserProfileProvider>
+    </Router>   
   );
 }
 
