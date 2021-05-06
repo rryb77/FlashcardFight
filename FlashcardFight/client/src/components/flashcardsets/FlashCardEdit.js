@@ -313,7 +313,7 @@ const FlashCardEdit = () => {
 
                 {/* List of questions */}
                 <Container>
-                    <h1>Question Details</h1><br></br>
+                    <h1>Q/A Details</h1><br></br>
                     {
                         userIsCreator ? <Button color="primary" className="marginBottom" onClick={toggleAddQuestionModal}>Add Question</Button> : null
                     }
@@ -323,8 +323,19 @@ const FlashCardEdit = () => {
                                 flashcardSet.questions.map(q => {
                                     return (
                                     <>
-                                        <div>
-                                            <Button color="secondary" onClick={() => questionEdit(q.id)}>Edit</Button> {' '} <Button color="danger" onClick={() => questionFinder(q.id)}>Delete</Button> {q.questionText} <p></p>
+                                        <div class="wrapper">
+                                            <details>
+                                                <summary>
+                                                    <b>{q.questionText}</b>
+                                                </summary>
+
+                                                <p>
+                                                    <b>Correct Answer:</b> {q.answers[0].answerText}
+                                                </p>
+                                                <p>
+                                                <Button color="secondary" onClick={() => questionEdit(q.id)}>Edit</Button> {' '} <Button color="danger" onClick={() => questionFinder(q.id)}>Delete</Button>
+                                                </p>
+                                            </details>
                                         </div>
                                     </>
                                     )
@@ -333,9 +344,18 @@ const FlashCardEdit = () => {
                                 
                                 flashcardSet.questions.map(q => {
                                     return (
-                                    <div>
-                                        {q.questionText} <p></p>
-                                    </div>
+                                    
+                                        <div class="wrapper">
+                                            <details>
+                                                <summary>
+                                                    <b>{q.questionText}</b>
+                                                </summary>
+
+                                                <p>
+                                                    <b>Correct Answer:</b> {q.answers[0].answerText}
+                                                </p>
+                                            </details>
+                                         </div>
                                     )
                                 })
                             
