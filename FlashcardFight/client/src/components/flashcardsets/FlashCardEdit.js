@@ -329,12 +329,15 @@ const FlashCardEdit = () => {
                                                     <b>{q.questionText}</b>
                                                 </summary>
 
-                                                <p>
-                                                    <b>Correct Answer:</b> {q.answers[0].answerText}
-                                                </p>
-                                                <p>
+                                                <div>
+                                                    <b>Correct Answer:</b> {q.answers[0].answerText} <br></br>
+                                                    <b>Wrong Answer:</b> {q.answers[1].answerText} <br></br>
+                                                    <b>Wrong Answer:</b> {q.answers[2].answerText} <br></br>
+                                                    <b>Wrong Answer:</b> {q.answers[3].answerText}
+                                                </div>
+                                                <div>
                                                 <Button color="secondary" onClick={() => questionEdit(q.id)}>Edit</Button> {' '} <Button color="danger" onClick={() => questionFinder(q.id)}>Delete</Button>
-                                                </p>
+                                                </div>
                                             </details>
                                         </div>
                                     </>
