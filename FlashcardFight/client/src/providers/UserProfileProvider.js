@@ -122,18 +122,7 @@ export function UserProfileProvider(props) {
             }
           }).then((res) => res.json())
         )
-      }
-
-    // const getDeactivatedUserProfiles = () => {
-    //     return getToken().then((token) =>
-    //     fetch(`${apiUrl}/GetDeactivatedUserProfiles`, {
-    //         method: "GET",
-    //         headers: {
-    //         Authorization: `Bearer ${token}`
-    //         }
-    //     }).then((res) => res.json())
-    //     )
-    // }
+    }
 
     const reactivateUserById = (id) => {
         return getToken().then((token) =>

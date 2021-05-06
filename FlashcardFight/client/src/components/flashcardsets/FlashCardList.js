@@ -15,7 +15,7 @@ import {
 import {SubscriptionContext} from '../../providers/SubscriptionProvider'
 
 const FlashCardList = () => {
-    const { flashcards, setFlashcards, getAllFlashcards, getAllFlashcardUserSubs } = useContext(FlashCardSetContext);
+    const { flashcards, setFlashcards, getAllWithoutUserSubscriptions } = useContext(FlashCardSetContext);
     const {AddSubscription} = useContext(SubscriptionContext)
 
     // This is returning JSON
@@ -24,7 +24,7 @@ const FlashCardList = () => {
     var currentUser = JSON.parse(userProfile);
 
     useEffect(() => {
-        getAllFlashcards()
+        getAllWithoutUserSubscriptions(currentUser.id)
             .then(setFlashcards)
     }, []);
     
@@ -50,7 +50,9 @@ const FlashCardList = () => {
             FlashCardSetId: flashcard.id
         }
 
-        AddSubscription(subscription);
+        AddSubscription(subscription)
+            .then(() => getAllWithoutUserSubscriptions(currentUser.id))
+            .then(setFlashcards)
     }
 
   return (

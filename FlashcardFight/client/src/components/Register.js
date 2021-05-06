@@ -19,7 +19,7 @@ export default function Register() {
     useEffect(() => {
         getAllCharacterImages()
             .then(setCharacterImages)
-    })
+    }, [])
 
     const registerClick = (e) => {
         e.preventDefault();

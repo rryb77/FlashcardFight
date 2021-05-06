@@ -8,15 +8,8 @@ export const CharacterImageProvider = (props) => {
     const { getToken } = useContext(UserProfileContext);
 
     const getAllCharacterImages = () => {
-        return getToken().then((token) =>
-          fetch(`${apiUrl}`, {
-            method: "GET",
-            headers: {
-              Authorization: `Bearer ${token}`,
-            }
-          })
+          return fetch(`${apiUrl}`)
           .then((res) => res.json())
-        )
     }
 
 

@@ -28,6 +28,7 @@ const StudySet = () => {
     const [questions, setQuestions] = useState([]);
     const [hiddenAnswer, setHiddenAnswer] = useState(true);
     const [serverUser, setServerUser] = useState({})
+    const [profile, setProfile] = useState({})
     const history = useHistory();  
 
     // Initial load
@@ -37,8 +38,13 @@ const StudySet = () => {
                 setStudySet(res)
                 setQuestions(res.questions)
             })
+            .then(() => getUserProfile(currentUser.firebaseUserId))
+            .then((res) => setProfile(res))
     },[])
 
+    useEffect(() => {
+        console.log(profile)
+    }, [profile])
 
     // Update the user character once the last card was studied
     useEffect(() => {
@@ -79,7 +85,6 @@ const StudySet = () => {
             flashcardSetData.setId = parseInt(id);
             flashcardSetData.flashcard = studySet;
             setQuestion(() => questions[theCount]);
-            console.log(questions)
         }
     },[questions])
 
@@ -139,7 +144,7 @@ const StudySet = () => {
     return (
         <div className="studyBattleContainer">
             <Container>
-                <img className="playerHero" src={currentUser.characterImage.imageLocation} alt="Player hero"></img>
+                <img className="playerHero" src={profile?.characterImage?.imageLocation} alt="Player hero"></img>
                 <Container>
                     <b>HP:</b> {currentUser.hp} <br></br>
                     <b>EXP:</b> {currentUser.experience} <br></br>
@@ -182,7 +187,7 @@ const StudySet = () => {
             <Container>
                 <img className="playerHero" src={'/bosses/dummy.gif'} alt="Player hero"></img>
                 <Container>
-                    <b>HP:</b> 0 <br></br>
+                    <b>HP:</b> 99999 <br></br>
                     <b>EXP:</b> 0 <br></br>
                     <b>Level:</b> 1
                 </Container>

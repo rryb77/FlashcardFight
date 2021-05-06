@@ -31,6 +31,7 @@ const BattleResults = () => {
                 <br></br>
                 <b>Accuracy:</b> {percentage}%
                 <br></br>
+                {/* May change this to give the user some slack, currently XP is gained only when they get ALL questions right */}
                 {percentage === 100 ?
                 <b>EXP Gained: +{flashcardSetData.EXPgained}</b>
                 :

@@ -14,14 +14,25 @@ const BattleSet = () => {
     const [question, setQuestion] = useState({});
     const [answerChoice, setAnswerChoice] = useState({});
     const [serverUser, setServerUser] = useState({})
+    const [shuffled, setShuffled] = useState([])
     const history = useHistory();  
     const {id} = useParams();
+
+    const [HP, setHP] = useState(0)
+    // const [DMG, setDMG] = useState(0)
 
     // Initial load
     useEffect(() => {
         getFlashcardSetWithQandA(id)
             .then(setBattleSet)
+            .then(() => getUserProfile(currentUser.firebaseUserId))
+            .then((res) => setHP(res.hp))
     },[])
+
+    useEffect(() => {
+        flashcardSetData.hp = HP;
+        // setDMG(flashcardSetData.hp / questions.length)
+    }, [HP])
 
 
     // Update the user character once the last card was studied
@@ -29,6 +40,7 @@ const BattleSet = () => {
         if(serverUser.id > 0)
         {
             serverUser.experience += flashcardSetData.EXPgained
+            serverUser.hp = HP
             console.log(serverUser)
             if(serverUser.experience >= serverUser.expToNextLevel)
             {
@@ -51,8 +63,6 @@ const BattleSet = () => {
 
     // Isolate the list of questions with answers
     let questions = battleSet.questions;
-    let shuffled = [];
-
 
     // When questions state changes...
     useEffect(() => {
@@ -63,8 +73,7 @@ const BattleSet = () => {
             flashcardSetData.setId = id;
             flashcardSetData.flashcard = battleSet;
             setQuestion(questions[theCount]);
-
-            shuffled = questions[0].answers.sort(() => Math.random() - 0.5)
+            setShuffled(questions[0].answers.sort(() => Math.random() - 0.5))
         }
     },[questions])
 
@@ -75,7 +84,7 @@ const BattleSet = () => {
         if(theCount > 0 && theCount < questions?.length)
         {
             setQuestion(questions[theCount])
-            shuffled = questions[theCount].answers.sort(() => Math.random() - 0.5)
+            setShuffled(questions[theCount].answers.sort(() => Math.random() - 0.5))
             console.log(flashcardSetData)
         }
         else if(theCount === questions?.length)
@@ -109,17 +118,18 @@ const BattleSet = () => {
 
             flashcardSetData.wrongAnswers += 1;
             flashcardSetData.hp -= dmg
+            console.log(flashcardSetData.hp)
+            setHP(flashcardSetData.hp)
         }
     }
-
-    console.log(currentUser)
 
     return (
         <div className="studyBattleContainer">
                 <Container>
-                    <img className="playerHero" src={currentUser.characterImage.imageLocation} alt="Player hero"></img>
+                    {/* TODO: Fix this by getting userprofile from DB */}
+                    <img className="playerHero" src={currentUser?.characterImage?.imageLocation} alt="Player hero"></img>
                     <Container>
-                        <b>HP:</b> {currentUser.hp} <br></br>
+                        <b>HP:</b> {HP} <br></br>
                         <b>EXP:</b> {currentUser.experience} <br></br>
                         <b>Level:</b> {currentUser.level}
                     </Container>
@@ -150,7 +160,7 @@ const BattleSet = () => {
                 </Container>
 
                 <Container>
-                    <img className="playerHero" src={battleSet.bossImage.imageLocation} alt="Player hero"></img>
+                    <img className="playerHero" src={battleSet?.bossImage?.imageLocation} alt="Player hero"></img>
                     <Container>
                         <b>HP:</b> {currentUser.hp} <br></br>
                         <b>EXP:</b> {currentUser.experience} <br></br>
