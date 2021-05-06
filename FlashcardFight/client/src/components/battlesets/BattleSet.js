@@ -15,6 +15,7 @@ const BattleSet = () => {
     const [answerChoice, setAnswerChoice] = useState({});
     const [serverUser, setServerUser] = useState({})
     const [profile, setProfile] = useState({})
+    const [dmg, setDmg] = useState(0)
     const [shuffled, setShuffled] = useState([])
     const history = useHistory();  
     const {id} = useParams();
@@ -76,7 +77,8 @@ const BattleSet = () => {
     useEffect(() => {
         // if questions isn't undefined and ONLY when the count is equal to 0 then..
         if(questions !== undefined && theCount === 0)
-        {
+        {            
+            setDmg(currentUser.hp / questions.length)
             flashcardSetData.questionAmount = questions.length;
             flashcardSetData.setId = id;
             flashcardSetData.flashcard = battleSet;
@@ -101,7 +103,6 @@ const BattleSet = () => {
         }
     },[theCount])
 
-
     const checkAnswer = () => {
         
         if(answerChoice.correct !== true && answerChoice.correct !== false)
@@ -117,11 +118,12 @@ const BattleSet = () => {
         else if(answerChoice.correct === false)
         {
             // Set the amount of damage taken for wrong answers
-            const dmg = flashcardSetData.hp / questions.length
-
+            // const dmg = HP / questions.length
+            console.log(dmg)
             setTheCount(theCount => theCount + 1)
             flashcardSetData.wrongAnswers += 1;
-            flashcardSetData.hp -= 400
+            flashcardSetData.hp -= dmg
+            flashcardSetData.hp = Math.round(flashcardSetData.hp)
             setHP(flashcardSetData.hp)
             console.log(flashcardSetData)
             if(flashcardSetData.hp <= 0)

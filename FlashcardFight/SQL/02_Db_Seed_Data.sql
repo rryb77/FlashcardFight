@@ -10,7 +10,7 @@ insert into [CharacterImage] ([ID], [ImageLocation]) VALUES (1, '/characters/fan
 set identity_insert [CharacterImage] off
 
 set identity_insert [BossImage] on
-insert into [BossImage] ([ID], [ImageLocation]) VALUES (1, 'https://i.picsum.photos/id/237/200/300.jpg?hmac=TmmQSbShHz9CdQm0NkEjx1Dyh_Y984R9LpNrpvH2D_U')
+insert into [BossImage] ([ID], [ImageLocation]) VALUES (1, '/bosses/ogre.gif')
 set identity_insert [BossImage] off
 
 set identity_insert [Category] on
