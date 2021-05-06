@@ -42,10 +42,6 @@ const StudySet = () => {
             .then((res) => setProfile(res))
     },[])
 
-    useEffect(() => {
-        console.log(profile)
-    }, [profile])
-
     // Update the user character once the last card was studied
     useEffect(() => {
         if(serverUser.id > 0)
@@ -116,6 +112,7 @@ const StudySet = () => {
         setTheCount(theCount => theCount + 1)
         flashcardSetData.correctAnswers += 1;
         flashcardSetData.EXPgained += 2;
+
         if(hiddenAnswer === false)
         {
             setHiddenAnswer(true)
@@ -127,6 +124,7 @@ const StudySet = () => {
     const userWrong = () => {
         setTheCount(theCount => theCount + 1)
         flashcardSetData.wrongAnswers += 1;
+        flashcardSetData.EXPgained += 2;
 
         if(hiddenAnswer === false)
         {

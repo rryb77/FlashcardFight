@@ -64,6 +64,11 @@ namespace FlashcardFight.Controllers
         [HttpPut("UpdateUserCharacter")]
         public IActionResult UpdateUserCharacter(UserProfile userProfile)
         {
+            var profile = GetCurrentUserProfile();
+            userProfile.Id = profile.Id;
+            userProfile.Email = profile.Email;
+            userProfile.UserName = profile.UserName;
+
             _userProfileRepository.UpdateUserCharacterStats(userProfile);
             return NoContent();
         }

@@ -14,6 +14,7 @@ const BattleSet = () => {
     const [question, setQuestion] = useState({});
     const [answerChoice, setAnswerChoice] = useState({});
     const [serverUser, setServerUser] = useState({})
+    const [profile, setProfile] = useState({})
     const [shuffled, setShuffled] = useState([])
     const history = useHistory();  
     const {id} = useParams();
@@ -26,13 +27,14 @@ const BattleSet = () => {
         getFlashcardSetWithQandA(id)
             .then(setBattleSet)
             .then(() => getUserProfile(currentUser.firebaseUserId))
-            .then((res) => setHP(res.hp))
+            .then(setProfile)
     },[])
 
     useEffect(() => {
-        flashcardSetData.hp = HP;
+        flashcardSetData.hp = profile.hp;
+        setHP(profile.hp)
         // setDMG(flashcardSetData.hp / questions.length)
-    }, [HP])
+    }, [profile])
 
 
     // Update the user character once the last card was studied
@@ -40,7 +42,13 @@ const BattleSet = () => {
         if(serverUser.id > 0)
         {
             serverUser.experience += flashcardSetData.EXPgained
-            serverUser.hp = HP
+            serverUser.hp = flashcardSetData.hp
+            serverUser.experience = profile.experience
+            serverUser.level = profile.level
+            serverUser.hp = 0
+            serverUser.email = profile.email
+            serverUser.userName = profile.userName
+
             console.log(serverUser)
             if(serverUser.experience >= serverUser.expToNextLevel)
             {
@@ -85,7 +93,6 @@ const BattleSet = () => {
         {
             setQuestion(questions[theCount])
             setShuffled(questions[theCount].answers.sort(() => Math.random() - 0.5))
-            console.log(flashcardSetData)
         }
         else if(theCount === questions?.length)
         {
@@ -103,7 +110,6 @@ const BattleSet = () => {
         }
         else if(answerChoice.correct === true)
         {
-            console.log("Correct!")
             setTheCount(theCount => theCount + 1)
             flashcardSetData.correctAnswers += 1;
             flashcardSetData.EXPgained += 40;
@@ -113,25 +119,47 @@ const BattleSet = () => {
             // Set the amount of damage taken for wrong answers
             const dmg = flashcardSetData.hp / questions.length
 
-            console.log("Wrong!")
             setTheCount(theCount => theCount + 1)
-
             flashcardSetData.wrongAnswers += 1;
-            flashcardSetData.hp -= dmg
-            console.log(flashcardSetData.hp)
+            flashcardSetData.hp -= 400
             setHP(flashcardSetData.hp)
+            console.log(flashcardSetData)
+            if(flashcardSetData.hp <= 0)
+            {
+                flashcardSetData.hp = 0
+                gameOver()
+            }
+
         }
+    }
+
+    const gameOver = () => {
+        
+        serverUser.experience = profile.experience
+        serverUser.level = profile.level
+        serverUser.hp = 0
+        serverUser.email = profile.email
+        serverUser.userName = profile.userName
+        if(serverUser.experience >= serverUser.expToNextLevel)
+        {
+            let levelScale = serverUser.expToNextLevel * 2.1
+            console.log(levelScale)
+            serverUser.expToNextLevel = Math.round(levelScale)
+            serverUser.level += 1
+        }
+
+        updateUserCharacter(serverUser)
+        history.push(`${id}/results`)
     }
 
     return (
         <div className="studyBattleContainer">
                 <Container>
-                    {/* TODO: Fix this by getting userprofile from DB */}
-                    <img className="playerHero" src={currentUser?.characterImage?.imageLocation} alt="Player hero"></img>
+                    <img className="playerHero" src={profile?.characterImage?.imageLocation} alt="Player hero"></img>
                     <Container>
                         <b>HP:</b> {HP} <br></br>
-                        <b>EXP:</b> {currentUser.experience} <br></br>
-                        <b>Level:</b> {currentUser.level}
+                        <b>EXP:</b> {profile.experience} <br></br>
+                        <b>Level:</b> {profile.level}
                     </Container>
                 </Container>
                 <Container>
