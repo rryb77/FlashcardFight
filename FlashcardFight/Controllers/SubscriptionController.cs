@@ -26,5 +26,12 @@ namespace FlashcardFight.Controllers
             _subscriptionRepository.AddSubscription(subscription);
             return NoContent();
         }
+
+        [HttpDelete("{id}")]
+        public IActionResult Delete(int id)
+        {
+            _subscriptionRepository.DeleteSubscription(id);
+            return NoContent();
+        }
     }
 }

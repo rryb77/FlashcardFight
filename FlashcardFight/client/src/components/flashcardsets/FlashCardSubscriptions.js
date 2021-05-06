@@ -1,66 +1,56 @@
 import React, { useContext, useEffect, useState } from "react";
+import { useHistory, useParams } from "react-router-dom";
 import { FlashCardSetContext } from '../../providers/FlashCardSetProvider';
-import FlashCard from "./FlashCard";
-import { useHistory } from 'react-router-dom';
+import { SubscriptionContext } from '../../providers/SubscriptionProvider';
 import {
-  Badge,
-  Button,
-  Card,
-  CardBody,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-  CardSubtitle,
+    Badge,
+    Button,
+    Card,
+    CardBody,
+    CardFooter,
+    CardHeader,
+    CardTitle,
+    CardSubtitle,
 } from "reactstrap";
-import {SubscriptionContext} from '../../providers/SubscriptionProvider'
 
-const FlashCardList = () => {
-    const { flashcards, setFlashcards, getAllFlashcards, getAllFlashcardUserSubs } = useContext(FlashCardSetContext);
-    const {AddSubscription} = useContext(SubscriptionContext)
+const FlashCardSubscriptions = () => {
+    const { flashcards, setFlashcards, getAllFlashcardUserSubs } = useContext(FlashCardSetContext);
+    const {DeleteSubscription} = useContext(SubscriptionContext)
 
-    // This is returning JSON
-    const userProfile = sessionStorage.getItem("userProfile");
-    // Parsing the JSON returned above into an object so we can use it
-    var currentUser = JSON.parse(userProfile);
-
-    useEffect(() => {
-        getAllFlashcards()
-            .then(setFlashcards)
-    }, []);
-    
-
+    const {id} = useParams();
     const history = useHistory();
 
+    useEffect(() => {
+        getAllFlashcardUserSubs(id).then(setFlashcards)
+    }, []);
 
     const study = (id) => {
-    history.push(`study/${id}`);
+        history.push(`/study/${id}`);
     }
 
     const battle = (id) => {
-        history.push(`battle/${id}`);
+        history.push(`/battle/${id}`);
     }
 
     const details = (id) => {
-        history.push(`flashcards/details/${id}`);
+        history.push(`/flashcards/details/${id}`);
     }
 
-    const subscribe = (flashcard) => {
-        const subscription = {
-            UserId: parseInt(currentUser.id),
-            FlashCardSetId: flashcard.id
-        }
+    const unsubscribe = (flashcard) => {
 
-        AddSubscription(subscription);
+        DeleteSubscription(flashcard.subId)
+            .then(() => getAllFlashcardUserSubs(id))
+            .then(setFlashcards)
     }
 
-  return (
-    <>
-        <div className="container">
+    return (
+        <>
+            <div className="container">
             <div className="row justify-content-center">
                 <div className="cards-column">
                 {
                     flashcards.map((flashcard) => (
-                      flashcard.creatorId !== currentUser.id ?
+                      
                         <Card className="m-4">
                             <CardBody>
                                 <CardTitle tag="h2">
@@ -80,18 +70,16 @@ const FlashCardList = () => {
                             <CardFooter>
                                 <Button type="button" color="info" onClick={() => study(flashcard.id)}>Study</Button> {'  '} <Button color="danger" onClick={() => battle(flashcard.id)}>Battle</Button>
                                 <Button type="button" color="secondary" className="right" onClick={() => details(flashcard.id)}>Details</Button>
-                                <Button type="button" color="success" className="right" onClick={() => subscribe(flashcard)}>Subscribe</Button>
+                                <Button type="button" color="success" className="right" onClick={() => unsubscribe(flashcard)}>Unsubscribe</Button>
                             </CardFooter>
                         </Card>
-                        :
-                        null
                     ))
                 }
                 </div>
             </div>
         </div>
-    </>
-  );
+        </>
+    );
 };
 
-export default FlashCardList;
+export default FlashCardSubscriptions;

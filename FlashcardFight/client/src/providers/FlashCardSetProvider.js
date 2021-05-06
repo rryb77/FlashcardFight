@@ -7,9 +7,6 @@ export const FlashCardSetProvider = (props) => {
     const apiUrl = "/api/FlashCardSet";
     const [flashcardSet, setFlashcardSet] = useState({});
     const [flashcards, setFlashcards] = useState([]);
-    
-    const [testStudySet, setTestStudySet] = useState({});
-
     const { getToken } = useContext(UserProfileContext);
     const [flashcardSetData, setFlashcardSetData] = useState({
         questionAmount: 0,
@@ -52,6 +49,19 @@ export const FlashCardSetProvider = (props) => {
     const getAllFlashcards = () => {
         return getToken().then((token =>
             fetch(`${apiUrl}`, {
+                method: "GET",
+                headers: {
+                  Authorization: `Bearer ${token}`,
+                  "Content-Type": "application/json"
+                }
+              })
+              .then((res) => res.json())
+        ))
+    }
+
+    const getAllFlashcardUserSubs = (id) => {
+        return getToken().then((token =>
+            fetch(`${apiUrl}/GetAllBySubscription/${id}`, {
                 method: "GET",
                 headers: {
                   Authorization: `Bearer ${token}`,
@@ -115,7 +125,7 @@ export const FlashCardSetProvider = (props) => {
     return (
         <FlashCardSetContext.Provider value={{addSet, flashcardSet, setFlashcardSet, flashcards, setFlashcards, getAllFlashcards, updateSet, 
                                               getAllUserFlashcards, getFlashcardSetWithQandA, flashcardSetData, setFlashcardSetData, deleteSet,
-                                              getAllByUserId}}>
+                                              getAllByUserId, getAllFlashcardUserSubs}}>
             {props.children}
         </FlashCardSetContext.Provider>
     )

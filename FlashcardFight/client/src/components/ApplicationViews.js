@@ -15,6 +15,7 @@ import FlashCardEdit from "./flashcardsets/FlashCardEdit";
 import CategoryList from "./categories/CategoryList";
 import UserList from "./users/UserList"
 import UserDetails from "./users/UserDetails";
+import FlashCardSubscriptions from "./flashcardsets/FlashCardSubscriptions";
 
 export default function ApplicationViews() {
   const { isLoggedIn } = useContext(UserProfileContext);
@@ -82,6 +83,9 @@ export default function ApplicationViews() {
           <UserDetails/>
         </Route>
 
+        <Route path="/subscriptions/:id">
+          <FlashCardSubscriptions/>
+        </Route>
       </Switch>
     </main>
   );

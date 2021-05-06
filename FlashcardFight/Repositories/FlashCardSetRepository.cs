@@ -158,13 +158,13 @@ namespace FlashcardFight.Repositories
                 conn.Open();
                 using (var cmd = conn.CreateCommand())
                 {
-                    // WORK IN PROGRESS
                     cmd.CommandText = @"
                     SELECT f.Id AS SetId, f.Title, f.Description, f.CreateDateTime,
                         c.id As CategoryId, c.Name AS CategoryName,
                         d.id AS DifficultyId, d.Name AS DifficultyName,
                         b.id AS BossImageId, b.ImageLocation AS BossImageLocation,
-                        u.id AS UserId, u.UserName, u.Email
+                        u.id AS UserId, u.UserName, u.Email,
+                        s.id AS SubId
                     FROM FlashCardSet f
                     LEFT JOIN Category c ON c.id = f.CategoryId
                     LEFT JOIN Difficulty d ON d.id = f.DifficultyId
@@ -183,7 +183,42 @@ namespace FlashcardFight.Repositories
 
                     while (reader.Read())
                     {
-                        flashCardSets.Add(NewFlashCardSetFromReader(reader));
+                        FlashCardSet flashCardSet = new FlashCardSet()
+                        {
+                            Id = DbUtils.GetInt(reader, "SetId"),
+                            Title = DbUtils.GetString(reader, "Title"),
+                            Description = DbUtils.GetString(reader, "Description"),
+                            BossImageId = DbUtils.GetInt(reader, "BossImageId"),
+                            BossImage = new BossImage()
+                            {
+                                Id = DbUtils.GetInt(reader, "BossImageId"),
+                                ImageLocation = DbUtils.GetString(reader, "BossImageLocation")
+                            },
+                            CreatorId = DbUtils.GetInt(reader, "UserId"),
+                            UserProfile = new UserProfile()
+                            {
+                                Id = DbUtils.GetInt(reader, "UserId"),
+                                UserName = DbUtils.GetString(reader, "UserName"),
+                                Email = DbUtils.GetString(reader, "Email")
+                            },
+                            CategoryId = DbUtils.GetInt(reader, "CategoryId"),
+                            Category = new Category()
+                            {
+                                Id = DbUtils.GetInt(reader, "CategoryId"),
+                                Name = DbUtils.GetString(reader, "CategoryName")
+                            },
+                            DifficultyId = DbUtils.GetInt(reader, "DifficultyId"),
+                            Difficulty = new Difficulty()
+                            {
+                                Id = DbUtils.GetInt(reader, "DifficultyId"),
+                                Name = DbUtils.GetString(reader, "DifficultyName")
+                            },
+                            CreateDateTime = DbUtils.GetDateTime(reader, "CreateDateTime"),
+                            SubId = DbUtils.GetInt(reader, "SubId")
+                        };
+
+                        flashCardSets.Add(flashCardSet);
+
                     }
 
                     reader.Close();

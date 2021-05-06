@@ -9,6 +9,7 @@ import {QuestionProvider} from "./providers/QuestionProvider";
 import {AnswerProvider} from "./providers/AnswerProvider";
 import {FlashCardSetProvider} from "./providers/FlashCardSetProvider"
 import { UserTypeProvider } from './providers/UserTypeProvider';
+import { SubscriptionProvider } from './providers/SubscriptionProvider';
 
 function App() {
   return (
@@ -20,8 +21,10 @@ function App() {
               <QuestionProvider>
                   <AnswerProvider>
                     <UserTypeProvider>
-                      <Header />
-                      <ApplicationViews />
+                      <SubscriptionProvider>
+                        <Header />
+                        <ApplicationViews />
+                      </SubscriptionProvider>
                     </UserTypeProvider>
                   </AnswerProvider>
                 </QuestionProvider>

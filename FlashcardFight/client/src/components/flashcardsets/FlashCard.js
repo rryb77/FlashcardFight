@@ -12,9 +12,12 @@ import {
 import { Container } from "nes-react";
 import './FlashCard.css';
 import { useHistory } from 'react-router-dom';
+import {SubscriptionContext} from '../../providers/SubscriptionProvider'
 
 const FlashCard = ({flashcard}) => {
     
+    const {AddSubscription} = useContext(SubscriptionContext)
+
     // This is returning JSON
     const userProfile = sessionStorage.getItem("userProfile");
     // Parsing the JSON returned above into an object so we can use it
@@ -49,59 +52,27 @@ const FlashCard = ({flashcard}) => {
         difficultyCSS = "danger"
     }
 
-    if(currentUser.id === flashcard.creatorId)
-    {
-        return (
-
-            <Card className="m-4">
-                {/* <Link className="postLink" to={`/posts/${post.id}`}> */}
-                    <CardBody>
-                        <CardTitle tag="h2">
-                            <strong> {flashcard.title}</strong><Badge color={`${difficultyCSS}`} className="right pill">{flashcard.difficulty.name}</Badge>
-                        </CardTitle>
-                        <CardSubtitle tag="h6" className="mb-2 text-muted">
-                            <br></br>
-                            Creator: {flashcard.userProfile.userName}
-                        </CardSubtitle>
-                        <CardSubtitle tag="h6" className="mb-2 text-muted">
-                            Category: {flashcard.category.name}
-                        </CardSubtitle>
-                        <br></br>
-                        Description: {flashcard.description}
-                    </CardBody>
-                    <CardFooter>
-                        <Button type="button" color="info" onClick={() => study(flashcard.id)}>Study</Button> {'  '} <Button color="danger" onClick={() => battle(flashcard.id)}>Battle</Button>
-                        <Button type="button" color="secondary" className="right" onClick={() => details(flashcard.id)}>Details</Button>
-                    </CardFooter>
-                {/* </Link> */}
-            </Card>
-        )
-    }
-
     return (
         <Card className="m-4">
-                {/* <Link className="postLink" to={`/posts/${post.id}`}> */}
-                    <CardBody>
-                        <CardTitle tag="h2">
-                            <strong> {flashcard.title}</strong>
-                            <Badge color={`${difficultyCSS}`} className="right pill">{flashcard.difficulty.name}</Badge>
-                        </CardTitle>
-                        <CardSubtitle tag="h6" className="mb-2 text-muted">
-                            <br></br>
-                            Author: {flashcard.userProfile.userName}
-                        </CardSubtitle>
-                        <CardSubtitle tag="h6" className="mb-2 text-muted">
-                            Category: {flashcard.category.name}
-                        </CardSubtitle>
+                <CardBody>
+                    <CardTitle tag="h2">
+                        <strong> {flashcard.title}</strong><Badge color={`${difficultyCSS}`} className="right pill">{flashcard.difficulty.name}</Badge>
+                    </CardTitle>
+                    <CardSubtitle tag="h6" className="mb-2 text-muted">
                         <br></br>
-                        Description: {flashcard.description}
-                    </CardBody>
-                    <CardFooter>
-                        <Button type="button" color="info" onClick={() => study(flashcard.id)}>Study</Button> {'  '} <Button color="danger" onClick={() => battle(flashcard.id)}>Battle</Button>
-                        <Button type="button" color="secondary" className="right" onClick={() => details(flashcard.id)}>Details</Button><Button type="button" color="success" className="right">Add to Collection</Button>
-                    </CardFooter>
-                {/* </Link> */}
-        </Card>
+                        Creator: {flashcard.userProfile.userName}
+                    </CardSubtitle>
+                    <CardSubtitle tag="h6" className="mb-2 text-muted">
+                        Category: {flashcard.category.name}
+                    </CardSubtitle>
+                    <br></br>
+                    Description: {flashcard.description}
+                </CardBody>
+                <CardFooter>
+                    <Button type="button" color="info" onClick={() => study(flashcard.id)}>Study</Button> {'  '} <Button color="danger" onClick={() => battle(flashcard.id)}>Battle</Button>
+                    <Button type="button" color="secondary" className="right" onClick={() => details(flashcard.id)}>Details</Button>
+                </CardFooter>
+            </Card>
     );
 }
 

@@ -33,7 +33,6 @@ export const CategoryProvider = (props) => {
     }
 
     const addCategory = (category) => {
-        console.log(category)
         return getToken().then((token) =>
             fetch(`${apiUrl}`, {
                 method: "POST",
