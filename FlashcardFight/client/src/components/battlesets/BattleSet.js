@@ -31,10 +31,10 @@ const BattleSet = () => {
             .then(setProfile)
     },[])
 
+    // Profile is loaded
     useEffect(() => {
         flashcardSetData.hp = profile.hp;
         setHP(profile.hp)
-        // setDMG(flashcardSetData.hp / questions.length)
     }, [profile])
 
 
@@ -42,6 +42,7 @@ const BattleSet = () => {
     useEffect(() => {
         if(serverUser.id > 0)
         {
+            //Build out the user object with new info
             serverUser.experience += flashcardSetData.EXPgained
             serverUser.hp = flashcardSetData.hp
             serverUser.experience = profile.experience
@@ -50,7 +51,7 @@ const BattleSet = () => {
             serverUser.email = profile.email
             serverUser.userName = profile.userName
 
-            console.log(serverUser)
+            // Check for character level up
             if(serverUser.experience >= serverUser.expToNextLevel)
             {
                 let levelScale = serverUser.expToNextLevel * 2.1
@@ -59,6 +60,7 @@ const BattleSet = () => {
                 serverUser.level += 1
             }
 
+            // Send the update and push user to results
             updateUserCharacter(serverUser)
             history.push(`${id}/results`)
         }
@@ -75,14 +77,18 @@ const BattleSet = () => {
 
     // When questions state changes...
     useEffect(() => {
-        // if questions isn't undefined and ONLY when the count is equal to 0 then..
+        // If questions isn't undefined and ONLY when the count is equal to 0 then..
         if(questions !== undefined && theCount === 0)
         {            
+            // Calculate and assign dmg amount per wrong answer
             setDmg(currentUser.hp / questions.length)
+            // Populate the flashcard data for details screen
             flashcardSetData.questionAmount = questions.length;
             flashcardSetData.setId = id;
             flashcardSetData.flashcard = battleSet;
+            // Assign the first question
             setQuestion(questions[theCount]);
+            // Shuffle the answers
             setShuffled(questions[0].answers.sort(() => Math.random() - 0.5))
         }
     },[questions])
@@ -93,39 +99,48 @@ const BattleSet = () => {
         // If it is greater than 0 and less than the amount of questions the user has to study...
         if(theCount > 0 && theCount < questions?.length)
         {
+            // Assign the next question
             setQuestion(questions[theCount])
+            // Randomize the answer order
             setShuffled(questions[theCount].answers.sort(() => Math.random() - 0.5))
         }
+        // Last question was answered
         else if(theCount === questions?.length)
         {
+            // Grab the user profile and set the serveruser
             getUserProfile(currentUser.firebaseUserId)
                 .then(setServerUser)
         }
     },[theCount])
 
+
+    // Check if the user was right or wrong
     const checkAnswer = () => {
         
+        // No choice was made
         if(answerChoice.correct !== true && answerChoice.correct !== false)
         {
             console.log("Select an answer")
         }
+        // Correct
         else if(answerChoice.correct === true)
         {
             setTheCount(theCount => theCount + 1)
             flashcardSetData.correctAnswers += 1;
             flashcardSetData.EXPgained += 40;
         }
+        // Wrong
         else if(answerChoice.correct === false)
         {
-            // Set the amount of damage taken for wrong answers
-            // const dmg = HP / questions.length
-            console.log(dmg)
+            // Increase count so the next question can be put on the DOM
             setTheCount(theCount => theCount + 1)
+            // Update the flashcard set data object for results screen
             flashcardSetData.wrongAnswers += 1;
             flashcardSetData.hp -= dmg
             flashcardSetData.hp = Math.round(flashcardSetData.hp)
+            // Update the HP on the DOM
             setHP(flashcardSetData.hp)
-            console.log(flashcardSetData)
+            // Character death check
             if(flashcardSetData.hp <= 0)
             {
                 flashcardSetData.hp = 0
@@ -135,6 +150,7 @@ const BattleSet = () => {
         }
     }
 
+    // User HP hit 0
     const gameOver = () => {
         
         serverUser.experience = profile.experience

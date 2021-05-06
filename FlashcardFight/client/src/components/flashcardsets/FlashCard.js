@@ -12,16 +12,11 @@ import {
 import { Container } from "nes-react";
 import './FlashCard.css';
 import { useHistory } from 'react-router-dom';
-import {SubscriptionContext} from '../../providers/SubscriptionProvider'
+// import {SubscriptionContext} from '../../providers/SubscriptionProvider'
 
 const FlashCard = ({flashcard}) => {
     
-    const {AddSubscription} = useContext(SubscriptionContext)
-
-    // This is returning JSON
-    const userProfile = sessionStorage.getItem("userProfile");
-    // Parsing the JSON returned above into an object so we can use it
-    var currentUser = JSON.parse(userProfile);
+    // const {AddSubscription} = useContext(SubscriptionContext)
     
     const history = useHistory();
 

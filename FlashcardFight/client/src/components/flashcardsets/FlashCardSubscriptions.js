@@ -55,7 +55,21 @@ const FlashCardSubscriptions = () => {
                             <CardBody>
                                 <CardTitle tag="h2">
                                     <strong> {flashcard.title}</strong>
-                                    <Badge className="right pill">{flashcard.difficulty.name}</Badge>
+                                    {flashcard.difficulty.name === 'Beginner' ?
+                                        <Badge color={'success'}className="right pill">{flashcard.difficulty.name}</Badge>
+                                        :
+                                        null
+                                    }
+                                    {flashcard.difficulty.name === 'Intermediate' ?
+                                        <Badge color={'warning'}className="right pill">{flashcard.difficulty.name}</Badge>
+                                        :
+                                        null
+                                    }
+                                    {flashcard.difficulty.name === 'Expert' ?
+                                        <Badge color={'danger'}className="right pill">{flashcard.difficulty.name}</Badge>
+                                        :
+                                        null
+                                    }
                                 </CardTitle>
                                 <CardSubtitle tag="h6" className="mb-2 text-muted">
                                     <br></br>

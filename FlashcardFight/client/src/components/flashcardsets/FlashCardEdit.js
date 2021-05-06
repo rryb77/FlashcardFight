@@ -311,7 +311,7 @@ const FlashCardEdit = () => {
                     <br></br><br></br>
                 </Container>
 
-                {/* List of questions */}
+                {/* List of questions and answers */}
                 <Container>
                     <h1>Q/A Details</h1><br></br>
                     {
