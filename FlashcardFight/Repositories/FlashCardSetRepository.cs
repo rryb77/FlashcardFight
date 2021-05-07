@@ -139,7 +139,54 @@ namespace FlashcardFight.Repositories
                     WHERE s.flashcardId IS NULL
                     ";
 
-                    DbUtils.AddParameter(cmd, "Id", id);
+                    DbUtils.AddParameter(cmd, "@id", id);
+
+                    var reader = cmd.ExecuteReader();
+
+                    var flashCardSets = new List<FlashCardSet>();
+
+                    while (reader.Read())
+                    {
+                        flashCardSets.Add(NewFlashCardSetFromReader(reader));
+                    }
+
+                    reader.Close();
+                    return flashCardSets;
+                }
+            }
+        }
+
+        // Get the list of all sets that the user is NOT subscribed and filtered by category
+        public List<FlashCardSet> GetAllWithoutSubscriptionsSorted(int id, int categoryId)
+        {
+            using (var conn = Connection)
+            {
+                conn.Open();
+                using (var cmd = conn.CreateCommand())
+                {
+                    cmd.CommandText = @"
+                    SELECT f.Id AS SetId, f.Title, f.Description, f.CreateDateTime,
+                        c.id As CategoryId, c.Name AS CategoryName,
+                        d.id AS DifficultyId, d.Name AS DifficultyName,
+                        b.id AS BossImageId, b.ImageLocation AS BossImageLocation,
+                        u.id AS UserId, u.UserName, u.Email
+                    FROM FlashCardSet f
+                    LEFT JOIN Category c ON c.id = f.CategoryId
+                    LEFT JOIN Difficulty d ON d.id = f.DifficultyId
+                    LEFT JOIN BossImage b ON b.id = f.BossImageId
+                    LEFT JOIN UserProfile u ON u.Id = f.CreatorId 
+                    LEFT JOIN 
+                    (
+                        SELECT subF.Id AS flashcardId FROM FlashCardSet subF
+                        JOIN Subscription subS on subS.FlashCardSetId = subF.Id
+                        AND subS.userId = @id
+                    ) s ON f.Id = s.flashcardId 
+                    WHERE s.flashcardId IS NULL AND c.id = @categoryId
+                    ";
+
+                    DbUtils.AddParameter(cmd, "@id", id);
+                    DbUtils.AddParameter(cmd, "@categoryId", categoryId);
+
 
                     var reader = cmd.ExecuteReader();
 

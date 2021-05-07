@@ -61,6 +61,12 @@ namespace FlashcardFight.Controllers
             return Ok(_flashCardSetRepository.GetAllWithoutSubscriptions(id));
         }
 
+        [HttpGet("GetAllWithoutUserSubscriptionsFilteredByCategory/{id}/{categoryId}")]
+        public IActionResult GetWithoutUserSubscription(int id, int categoryId)
+        {
+            return Ok(_flashCardSetRepository.GetAllWithoutSubscriptionsSorted(id, categoryId));
+        }
+
         [HttpGet("GetAllBySubscription/{id}")]
         public IActionResult GetAllBySubscription(int id)
         {

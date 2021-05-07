@@ -1,12 +1,14 @@
 import { Container } from "nes-react";
 import {UserProfileContext} from '../../src/providers/UserProfileProvider'
 import {ItemContext} from '../../src/providers/ItemProvider'
+import {UserItemContext} from '../../src/providers/UserItemProvider'
 import React, {useContext, useState, useEffect} from "react";
 
 
 const Home = () => {
     const { getUserProfileById, updateUserCharacter } = useContext(UserProfileContext);
     const { getUserItems } = useContext(ItemContext);
+    const { deleteUserItem } = useContext(UserItemContext);
     const [currentUser, setCurrentUser] = useState({})
     const [userItems, setUserItems] = useState([])
 
@@ -34,6 +36,7 @@ const Home = () => {
 
         currentUser.hp = newHp
         updateUserCharacter(currentUser)
+            .then(() => deleteUserItem(item.userItemId))
             .then(getUserProfileById)
             .then(setCurrentUser)
     }
