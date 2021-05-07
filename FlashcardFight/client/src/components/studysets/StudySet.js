@@ -140,58 +140,62 @@ const StudySet = () => {
 
 
     return (
-        <div className="studyBattleContainer">
-            <Container>
-                <img className="playerHero" src={profile?.characterImage?.imageLocation} alt="Player hero"></img>
-                <Container>
-                    <b>HP:</b> {currentUser.hp} <br></br>
-                    <b>EXP:</b> {currentUser.experience} <br></br>
-                    <b>Level:</b> {currentUser.level}
+        <>
+        
+        <div className="studyBattleContainer BGsizer">
+                <Container className="heroContainer">
+                    <img className="playerHero" src={profile?.characterImage?.imageLocation} alt="Player hero"></img>
+                    <Container>
+                        <b>HP:</b> {currentUser.hp} <br></br>
+                        <b>EXP:</b> {currentUser.experience} <br></br>
+                        <b>Level:</b> {currentUser.level}
+                    </Container>
                 </Container>
-            </Container>
-            
-            {hiddenAnswer ?
-            
-            <Card className="m-4 flashcard">
-                <CardBody>
-                    <CardTitle tag="h2">
-                    Question:
-                    </CardTitle>
-                    <div className="QandA">{question.questionText}</div>
-                </CardBody>
-                <CardFooter>
-                    <Button color="secondary" onClick={showHide}>Show Answer</Button>
-                    <Button color="success" className="right" onClick={userCorrect}>I was right</Button> {' '}
-                    <Button color="danger" className="right" onClick={userWrong}>I was wrong</Button> 
-                </CardFooter>
-            </Card>
-            :
-            <Card className="m-4 flashcard">
-                <CardBody>
-                    <CardTitle tag="h2">
-                    Answer:
-                    </CardTitle>
-                    <div className="QandA">{correct.answerText}</div>
-                </CardBody>
-                <CardFooter>
-                    <Button color="secondary" onClick={showHide}>Hide Answer</Button>
-                    <Button color="success" className="right" onClick={userCorrect}>I was right</Button> {' '}
-                    <Button color="danger" className="right" onClick={userWrong}>I was wrong</Button> 
-                </CardFooter>
                 
-            </Card>
-            }
+                {hiddenAnswer ?
+                
+                <Card className="m-4 flashcard">
+                    <CardBody>
+                        <CardTitle tag="h2">
+                        Question:
+                        </CardTitle>
+                        <div className="QandA">{question.questionText}</div>
+                    </CardBody>
+                    <CardFooter>
+                        <Button color="secondary" onClick={showHide}>Show Answer</Button>
+                        <Button color="success" className="right" onClick={userCorrect}>I was right</Button> {' '}
+                        <Button color="danger" className="right" onClick={userWrong}>I was wrong</Button> 
+                    </CardFooter>
+                </Card>
+                :
+                <Card className="m-4 flashcard">
+                    <CardBody>
+                        <CardTitle tag="h2">
+                        Answer:
+                        </CardTitle>
+                        <div className="QandA">{correct.answerText}</div>
+                    </CardBody>
+                    <CardFooter>
+                        <Button color="secondary" onClick={showHide}>Hide Answer</Button>
+                        <Button color="success" className="right" onClick={userCorrect}>I was right</Button> {' '}
+                        <Button color="danger" className="right" onClick={userWrong}>I was wrong</Button> 
+                    </CardFooter>
+                    
+                </Card>
+                }
 
-            <Container>
-                <img className="playerHero" src={'/bosses/dummy.gif'} alt="Player hero"></img>
                 <Container>
-                    <b>HP:</b> 99999 <br></br>
-                    <b>EXP:</b> 0 <br></br>
-                    <b>Level:</b> 1
+                    <img className="playerHero" src={'/bosses/dummy.gif'} alt="Player hero"></img>
+                    <Container>
+                        <b>HP:</b> 99999 <br></br>
+                        <b>EXP:</b> 0 <br></br>
+                        <b>Level:</b> 1
+                    </Container>
                 </Container>
-            </Container>
-            
+                {/* <img className="studyHero" src={profile?.characterImage?.imageLocation} alt="Player hero"></img>              
+                <img className="dummyBoss" src={'/bosses/dummy.gif'} alt="Player hero"></img> */}
         </div>
+        </>
     )
 
 }
