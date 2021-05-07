@@ -41,6 +41,9 @@ namespace FlashcardFight.Models
         public int HP { get; set; }
 
         [Required]
+        public int MaxHP { get; set; }
+
+        [Required]
         public int CharacterImageId { get; set; }
         public CharacterImage CharacterImage { get; set; }
 

@@ -22,7 +22,7 @@ insert into [Difficulty] ([ID], [Name]) VALUES (1, 'Beginner'), (2, 'Intermediat
 set identity_insert [Difficulty] off
 
 set identity_insert [UserProfile] on
-insert into [UserProfile] ([ID], [FirebaseUserId], [UserName], [Email], [JoinDate], [UserTypeId], [Level], [Experience], [ExpToNextLevel], [HP], [CharacterImageId], [Attempts], [Wins], [Deactivated]) VALUES (1, 'whA35ySlIYOVnyiQKAQIvzPemWs2', 'foobar', 'foo@bar.comx', '2020-04-23', 1, 1, 0, 500, 1000, 1, 0, 0, 0)
+insert into [UserProfile] ([ID], [FirebaseUserId], [UserName], [Email], [JoinDate], [UserTypeId], [Level], [Experience], [ExpToNextLevel], [HP], [MaxHP], [CharacterImageId], [Attempts], [Wins], [Deactivated]) VALUES (1, 'whA35ySlIYOVnyiQKAQIvzPemWs2', 'foobar', 'foo@bar.comx', '2020-04-23', 1, 1, 0, 500, 500, 1000, 1, 0, 0, 0)
 set identity_insert [UserProfile] off
 
 set identity_insert [FlashCardSet] on

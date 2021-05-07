@@ -49,6 +49,7 @@ namespace FlashcardFight.Controllers
             userProfile.Level = 1;
             userProfile.Experience = 0;
             userProfile.HP = 500;
+            userProfile.MaxHP = 500;
             userProfile.ExpToNextLevel = 1000;
             userProfile.Attempts = 0;
             userProfile.Wins = 0;
@@ -101,8 +102,8 @@ namespace FlashcardFight.Controllers
             return NoContent();
         }
 
-        [HttpGet("GetUserProfileById/{id}")]
-        public IActionResult GetUserProfileById(int id)
+        [HttpGet("GetUserProfileById/")]
+        public IActionResult GetUserProfileById()
         {
             var currentUserProfile = GetCurrentUserProfile();
             return Ok(_userProfileRepository.GetUserProfileById(currentUserProfile.Id));

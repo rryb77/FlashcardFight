@@ -53,8 +53,11 @@ const StudySet = () => {
             if(serverUser.experience >= serverUser.expToNextLevel)
             {
                 let levelScale = serverUser.expToNextLevel * 2.1
+                let hpScale = serverUser.hp * 1.4
                 console.log(levelScale)
                 serverUser.expToNextLevel = Math.round(levelScale)
+                serverUser.hp = Math.round(hpScale)
+                serverUser.maxHP = Math.round(hpScale)
                 serverUser.level += 1
             }
 
@@ -142,14 +145,16 @@ const StudySet = () => {
 
     return (
         <>
-        
+        {!profile?.characterImage?.imageLocation ?
+        null
+        :
         <div className="studyBattleContainer BGsizer">
                 <Container className="heroContainer">
                     <img className="playerHero" src={profile?.characterImage?.imageLocation} alt="Player hero"></img>
                     <Container>
-                        <b>HP:</b> {currentUser.hp} <br></br>
-                        <b>EXP:</b> {currentUser.experience} <br></br>
-                        <b>Level:</b> {currentUser.level}
+                        <b>HP:</b> {profile.hp} <br></br>
+                        <b>EXP:</b> {profile.experience} <br></br>
+                        <b>Level:</b> {profile.level}
                     </Container>
                 </Container>
                 
@@ -196,6 +201,7 @@ const StudySet = () => {
                 {/* <img className="studyHero" src={profile?.characterImage?.imageLocation} alt="Player hero"></img>              
                 <img className="dummyBoss" src={'/bosses/dummy.gif'} alt="Player hero"></img> */}
         </div>
+        }
         </>
     )
 

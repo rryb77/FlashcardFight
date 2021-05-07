@@ -113,9 +113,9 @@ export function UserProfileProvider(props) {
         )
     }
 
-    const getUserProfileById = (id) => {
+    const getUserProfileById = () => {
         return getToken().then((token) =>
-          fetch(`${apiUrl}/GetUserProfileById/${id}`, {
+          fetch(`${apiUrl}/GetUserProfileById/`, {
             method: "GET",
             headers: {
               Authorization: `Bearer ${token}`

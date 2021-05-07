@@ -23,7 +23,7 @@ const UserDetails = () => {
     const history = useHistory();
 
     useEffect(() => {
-        getUserProfileById(id).then(setProfile)
+        getUserProfileById().then(setProfile)
           .then(() => getAllByUserId(id))
           .then(setFlashcards)
     }, []);

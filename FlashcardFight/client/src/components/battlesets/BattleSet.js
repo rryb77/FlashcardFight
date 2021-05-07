@@ -44,12 +44,11 @@ const BattleSet = () => {
     useEffect(() => {
         if(serverUser.id > 0)
         {
+            debugger
             //Build out the user object with new info
             serverUser.experience += flashcardSetData.EXPgained
             serverUser.hp = flashcardSetData.hp
-            serverUser.experience = profile.experience
-            serverUser.level = profile.level
-            serverUser.hp = 0
+            serverUser.maxHP = profile.maxHP
             serverUser.email = profile.email
             serverUser.userName = profile.userName
 
@@ -57,8 +56,10 @@ const BattleSet = () => {
             if(serverUser.experience >= serverUser.expToNextLevel)
             {
                 let levelScale = serverUser.expToNextLevel * 2.1
-                console.log(levelScale)
+                let hpScale = serverUser.hp * 1.4
                 serverUser.expToNextLevel = Math.round(levelScale)
+                serverUser.hp = Math.round(hpScale)
+                serverUser.maxHP = Math.round(hpScale)
                 serverUser.level += 1
             }
 
@@ -151,6 +152,17 @@ const BattleSet = () => {
                 flashcardSetData.hp = 0
                 gameOver()
             }
+            else
+            {
+                serverUser.experience = profile.experience
+                serverUser.level = profile.level
+                serverUser.hp = flashcardSetData.hp
+                serverUser.maxHP = profile.maxHP
+                serverUser.email = profile.email
+                serverUser.userName = profile.userName
+
+                updateUserCharacter(serverUser)
+            }
 
         }
     }
@@ -161,15 +173,9 @@ const BattleSet = () => {
         serverUser.experience = profile.experience
         serverUser.level = profile.level
         serverUser.hp = 0
+        serverUser.maxHP = profile.maxHP
         serverUser.email = profile.email
         serverUser.userName = profile.userName
-        if(serverUser.experience >= serverUser.expToNextLevel)
-        {
-            let levelScale = serverUser.expToNextLevel * 2.1
-            console.log(levelScale)
-            serverUser.expToNextLevel = Math.round(levelScale)
-            serverUser.level += 1
-        }
 
         updateUserCharacter(serverUser)
         history.push(`${id}/results`)
@@ -177,6 +183,10 @@ const BattleSet = () => {
 
     return (
         <div className="studyBattleContainer BGsizer">
+            {!profile?.characterImage?.imageLocation ?
+            null
+            :
+                <>
                 <Container>
                     <img className="playerHero" src={profile?.characterImage?.imageLocation} alt="Player hero"></img>
                     <Container>
@@ -218,6 +228,8 @@ const BattleSet = () => {
                         <b>Level:</b> {currentUser.level}
                     </Container>
                 </Container>
+                </>
+            }
         </div>
     )
 

@@ -11,7 +11,7 @@ const Home = () => {
     const [userItems, setUserItems] = useState([])
 
     useEffect(() => {
-        getUserProfileById(2)
+        getUserProfileById()
             .then(setCurrentUser)
     },[])
 
@@ -37,7 +37,7 @@ const Home = () => {
                 {
                     userItems.map(item => {
                         return (
-                            item.name + " "
+                            <button>{item.name}</button>
                         )
                     })
                 }

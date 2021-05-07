@@ -38,7 +38,7 @@ const BattleResults = () => {
                 <b>EXP Gained: 0</b>
                 }
                 <br></br>
-                <Button type="button" color="info" onClick={() => history.push(`/study/${flashcardSetData.setId}`)}>Study Again</Button> {'  '} <Button color="danger" onClick={() => history.push(`/battle/${flashcardSetData.setId}`)}>Battle</Button>
+                <Button type="button" color="info" onClick={() => history.push(`/study/${flashcardSetData.setId}`)}>Study</Button> {'  '} <Button color="danger" onClick={() => history.push(`/battle/${flashcardSetData.setId}`)}>Battle Again</Button>
             </div>
 
         </Container>
