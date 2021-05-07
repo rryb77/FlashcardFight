@@ -25,5 +25,12 @@ namespace FlashcardFight.Controllers
             _userItemRepository.AddUserItem(userItems);
             return NoContent();
         }
+
+        [HttpDelete]
+        public IActionResult Delete(int id)
+        {
+            _userItemRepository.DeleteUserItem(id);
+            return NoContent();
+        }
     }
 }

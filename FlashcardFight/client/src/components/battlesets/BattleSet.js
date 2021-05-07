@@ -224,8 +224,8 @@ const BattleSet = () => {
                     <img className="playerHero" src={battleSet?.bossImage?.imageLocation} alt="Player hero"></img>
                     <Container>
                         <b>HP:</b> {bossHP} <br></br>
-                        <b>EXP:</b> {currentUser.experience} <br></br>
-                        <b>Level:</b> {currentUser.level}
+                        <b>EXP:</b> {currentUser.experience * 2} <br></br>
+                        <b>Level:</b> {Math.round(currentUser.level * 1.2)}
                     </Container>
                 </Container>
                 </>

@@ -5,7 +5,7 @@ import React, {useContext, useState, useEffect} from "react";
 
 
 const Home = () => {
-    const { getUserProfileById } = useContext(UserProfileContext);
+    const { getUserProfileById, updateUserCharacter } = useContext(UserProfileContext);
     const { getUserItems } = useContext(ItemContext);
     const [currentUser, setCurrentUser] = useState({})
     const [userItems, setUserItems] = useState([])
@@ -23,7 +23,23 @@ const Home = () => {
         }
     },[currentUser])
 
+    const userItem = (item) => {
+        console.log(currentUser)
+
+        let newHp = currentUser.hp + item.hpBoost
+        if(newHp > currentUser.maxHP)
+        {
+            newHp = currentUser.maxHP
+        }
+
+        currentUser.hp = newHp
+        updateUserCharacter(currentUser)
+            .then(getUserProfileById)
+            .then(setCurrentUser)
+    }
+
     return (
+        
         <Container className="heroContainer">
             <img className="playerHero" src={currentUser?.characterImage?.imageLocation} alt="Player hero"></img>
             <Container>
@@ -37,7 +53,7 @@ const Home = () => {
                 {
                     userItems.map(item => {
                         return (
-                            <button>{item.name}</button>
+                            <button onClick={() => userItem(item)}>{item.name}</button>
                         )
                     })
                 }

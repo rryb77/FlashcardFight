@@ -20,6 +20,17 @@ export const UserItemProvider = (props) => {
         )
     }
 
+    const deleteUserItem = (id) => {
+        return getToken().then((token) =>
+            fetch(`${apiUrl}/${id}`, {
+                method: "DELETE",
+                headers: {
+                Authorization: `Bearer ${token}`,
+                },
+            })
+        )
+    }
+
     return (
         <UserItemContext.Provider value={{addUserItem}}>
             {props.children}
