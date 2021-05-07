@@ -16,6 +16,7 @@ import CategoryList from "./categories/CategoryList";
 import UserList from "./users/UserList"
 import UserDetails from "./users/UserDetails";
 import FlashCardSubscriptions from "./flashcardsets/FlashCardSubscriptions";
+import Home from "./Home";
 
 export default function ApplicationViews() {
   const { isLoggedIn } = useContext(UserProfileContext);
@@ -24,7 +25,7 @@ export default function ApplicationViews() {
     <main>
       <Switch>
         <Route path="/" exact>
-          {isLoggedIn ? <p>Home</p> : <Redirect to="/login" />}
+          {isLoggedIn ? <Home/> : <Redirect to="/login" />}
         </Route>
 
         <Route path="/login">

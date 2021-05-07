@@ -24,5 +24,11 @@ namespace FlashcardFight.Controllers
         {
             return Ok(_itemRepository.GetAll());
         }
+
+        [HttpGet("GetUserItems/{id}")]
+        public IActionResult GetUserItems(int id)
+        {
+            return Ok(_itemRepository.GetAllUserItems(id));
+        }
     }
 }

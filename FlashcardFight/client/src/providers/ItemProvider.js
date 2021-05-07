@@ -20,8 +20,20 @@ export const ItemProvider = (props) => {
         )
     }
 
+    const getUserItems = (id) => {
+        return getToken().then((token) =>
+          fetch(`${apiUrl}/getuseritems/${id}`, {
+            method: "GET",
+            headers: {
+              Authorization: `Bearer ${token}`,
+            }
+          })
+          .then((res) => res.json())
+        )
+    }
+
     return (
-        <ItemContext.Provider value={{getAllItems, items, setItems}}>
+        <ItemContext.Provider value={{getAllItems, items, setItems, getUserItems}}>
             {props.children}
         </ItemContext.Provider>
     )

@@ -104,7 +104,8 @@ namespace FlashcardFight.Controllers
         [HttpGet("GetUserProfileById/{id}")]
         public IActionResult GetUserProfileById(int id)
         {
-            return Ok(_userProfileRepository.GetUserProfileById(id));
+            var currentUserProfile = GetCurrentUserProfile();
+            return Ok(_userProfileRepository.GetUserProfileById(currentUserProfile.Id));
         }
 
         private UserProfile GetCurrentUserProfile()

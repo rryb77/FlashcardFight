@@ -20,5 +20,6 @@ namespace FlashcardFight.Models
         [Required]
         public string ImageLocation { get; set; }
 
+        public int UserItemId { get; set; }
     }
 }
