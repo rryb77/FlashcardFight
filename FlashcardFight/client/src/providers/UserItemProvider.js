@@ -32,7 +32,7 @@ export const UserItemProvider = (props) => {
     }
 
     return (
-        <UserItemContext.Provider value={{addUserItem}}>
+        <UserItemContext.Provider value={{addUserItem, deleteUserItem}}>
             {props.children}
         </UserItemContext.Provider>
     )
