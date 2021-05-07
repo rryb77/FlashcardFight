@@ -100,15 +100,15 @@ GO
 CREATE TABLE [Item] (
   [Id] int PRIMARY KEY IDENTITY NOT NULL,
   [Name] nvarchar(100) NOT NULL,
-  [UserId] int NOT NULL,
   [HpBoost] int NOT NULL,
-  [ImageLocationId] int NOT NULL
+  [ImageLocation] nvarchar(MAX) NOT NULL
 )
 GO
 
-CREATE TABLE [ItemImage] (
+CREATE TABLE [UserItems] (
   [Id] int PRIMARY KEY IDENTITY NOT NULL,
-  [ImageLocation] nvarchar(MAX) NOT NULL
+  [UserId] int NOT NULL,
+  [ItemId] int NOT NULL,
 )
 GO
 
@@ -177,4 +177,10 @@ ALTER TABLE [UserAchievement] ADD FOREIGN KEY ([AchievementId]) REFERENCES [Achi
 GO
 
 ALTER TABLE [FlashCardSet] ADD FOREIGN KEY ([DifficultyId]) REFERENCES [Difficulty] ([Id])
+GO
+
+ALTER TABLE [UserItems] ADD FOREIGN KEY ([UserId]) REFERENCES [UserProfile] ([Id])
+GO
+
+ALTER TABLE [UserItems] ADD FOREIGN KEY ([ItemId]) REFERENCES Item ([Id])
 GO

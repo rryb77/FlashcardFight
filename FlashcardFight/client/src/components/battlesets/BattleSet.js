@@ -17,6 +17,8 @@ const BattleSet = () => {
     const [profile, setProfile] = useState({})
     const [dmg, setDmg] = useState(0)
     const [shuffled, setShuffled] = useState([])
+    const [bossHP, setBossHP] = useState(0)
+    const [bossDMG, setBossDMG] = useState(0)
     const history = useHistory();  
     const {id} = useParams();
 
@@ -82,6 +84,8 @@ const BattleSet = () => {
         {            
             // Calculate and assign dmg amount per wrong answer
             setDmg(currentUser.hp / questions.length)
+            setBossHP(questions.length * 1000)
+            setBossDMG(bossHP / questions.length)
             // Populate the flashcard data for details screen
             flashcardSetData.questionAmount = questions.length;
             flashcardSetData.setId = id;
@@ -126,6 +130,7 @@ const BattleSet = () => {
         else if(answerChoice.correct === true)
         {
             setTheCount(theCount => theCount + 1)
+            setBossHP(bossHP - bossDMG)
             flashcardSetData.correctAnswers += 1;
             flashcardSetData.EXPgained += 40;
         }
@@ -171,7 +176,7 @@ const BattleSet = () => {
     }
 
     return (
-        <div className="studyBattleContainer">
+        <div className="studyBattleContainer BGsizer">
                 <Container>
                     <img className="playerHero" src={profile?.characterImage?.imageLocation} alt="Player hero"></img>
                     <Container>
@@ -208,7 +213,7 @@ const BattleSet = () => {
                 <Container>
                     <img className="playerHero" src={battleSet?.bossImage?.imageLocation} alt="Player hero"></img>
                     <Container>
-                        <b>HP:</b> {currentUser.hp} <br></br>
+                        <b>HP:</b> {bossHP} <br></br>
                         <b>EXP:</b> {currentUser.experience} <br></br>
                         <b>Level:</b> {currentUser.level}
                     </Container>

@@ -6,23 +6,19 @@ using System.Threading.Tasks;
 
 namespace FlashcardFight.Models
 {
-    public class Items
+    public class Item
     {
         public int Id { get; set; }
 
         [Required]
         public string Name { get; set; }
 
-        [Required]
-        public int UserId { get; set; }
-
         public UserProfile UserProfile { get; set; }
 
         [Required]
         public int HpBoost { get; set; }
         [Required]
-        public string ImageLocationId { get; set; }
+        public string ImageLocation { get; set; }
 
-        public ItemImage ItemImage { get; set; }
     }
 }

@@ -59,3 +59,9 @@ insert into [Answer] ([ID], [FlashCardSetId], [QuestionId], [AnswerText], [Corre
 insert into [Answer] ([ID], [FlashCardSetId], [QuestionId], [AnswerText], [Correct]) VALUES (19, 1, 5, 'The named part of a method that can store a value.', 0)
 insert into [Answer] ([ID], [FlashCardSetId], [QuestionId], [AnswerText], [Correct]) VALUES (20, 1, 5, 'The named part of a function that can store a value.', 0)
 set identity_insert [Answer] off
+
+set identity_insert [Item] on
+insert into [Item] ([ID], [Name], [HpBoost], [ImageLocation]) VALUES (1, 'Minor HP Potion', 100, '/items/HPicon.png')
+insert into [Item] ([ID], [Name], [HpBoost], [ImageLocation]) VALUES (2, 'Major HP Potion', 500, '/items/HPicon.png')
+insert into [Item] ([ID], [Name], [HpBoost], [ImageLocation]) VALUES (3, 'FULL HP Potion', 900000, '/items/HPicon.png')
+set identity_insert [Item] off

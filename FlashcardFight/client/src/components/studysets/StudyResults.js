@@ -1,5 +1,6 @@
 import React, { useContext, useEffect, useState } from "react";
 import {FlashCardSetContext} from "../../providers/FlashCardSetProvider"
+import {ItemContext} from "../../providers/ItemProvider"
 import {UserProfileContext} from '../../providers/UserProfileProvider'
 import { useHistory } from 'react-router-dom';
 import { Container } from "nes-react";
@@ -16,8 +17,45 @@ import {
 
 const StudyResults = () => {
     const { flashcardSetData } = useContext(FlashCardSetContext);
+    const { getAllItems, setItems, items } = useContext(ItemContext);
+    const [itemFound, setItemFound] = useState({})
 
     const history = useHistory();
+
+    useEffect(() => {
+        getAllItems()
+            .then(setItems)
+    }, [])
+
+    // Odds of items being found
+    useEffect(() => {
+        if(items.length > 0)
+        {
+            console.log(items)
+            const randomChance = Math.floor(Math.random() * 101);
+            if(randomChance >= 90)
+            {
+                setItemFound(items[0])
+            }
+            else if(randomChance >= 70)
+            {
+                setItemFound(items[1])
+            }
+            else if(randomChance >= 30)
+            {
+                setItemFound(items[2])
+            }
+            else
+            {
+                const noItemFound = {
+                    name: "Nothing was found..."
+
+                }
+
+                setItemFound(noItemFound)
+            }
+        }
+    }, [items])
 
     const percentage = (100 * flashcardSetData.correctAnswers) / flashcardSetData.questionAmount
 
@@ -61,6 +99,8 @@ const StudyResults = () => {
                 You got {flashcardSetData.correctAnswers} out of {flashcardSetData.questionAmount} correct.
                 <br></br>
                 {message()}
+                <br></br>
+                Item Found: {itemFound.name}
                 <br></br>
                 <b>Accuracy:</b> {percentage}%
                 <br></br>

@@ -11,6 +11,7 @@ import {FlashCardSetProvider} from "./providers/FlashCardSetProvider"
 import { UserTypeProvider } from './providers/UserTypeProvider';
 import { SubscriptionProvider } from './providers/SubscriptionProvider';
 import { CharacterImageProvider } from './providers/CharacterImageProvider';
+import { ItemProvider } from './providers/ItemProvider';
 
 function App() {
   return (
@@ -24,8 +25,10 @@ function App() {
                                 <UserTypeProvider>
                                     <SubscriptionProvider>
                                         <CharacterImageProvider>
-                                            <Header />
-                                            <ApplicationViews />
+                                            <ItemProvider>
+                                                <Header />
+                                                <ApplicationViews />
+                                            </ItemProvider>
                                         </CharacterImageProvider>
                                     </SubscriptionProvider>
                                 </UserTypeProvider>
