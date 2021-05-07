@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState } from "react";
 import {FlashCardSetContext} from "../../providers/FlashCardSetProvider"
 import {ItemContext} from "../../providers/ItemProvider"
-import {UserProfileContext} from '../../providers/UserProfileProvider'
+import {UserItemContext} from '../../providers/UserItemProvider'
 import { useHistory } from 'react-router-dom';
 import { Container } from "nes-react";
 import {
@@ -18,6 +18,7 @@ import {
 const StudyResults = () => {
     const { flashcardSetData } = useContext(FlashCardSetContext);
     const { getAllItems, setItems, items } = useContext(ItemContext);
+    const { addUserItem } = useContext(UserItemContext);
     const [itemFound, setItemFound] = useState({})
 
     const history = useHistory();
@@ -56,6 +57,18 @@ const StudyResults = () => {
             }
         }
     }, [items])
+
+    useEffect(() => {
+        if(itemFound.id !== undefined && itemFound.name !== "Nothing was found...")
+        {
+            const userItemToAdd = {
+                UserId: flashcardSetData.userId,
+                ItemId: itemFound.id
+            }
+           
+            addUserItem(userItemToAdd)
+        }
+    }, [itemFound])
 
     const percentage = (100 * flashcardSetData.correctAnswers) / flashcardSetData.questionAmount
 

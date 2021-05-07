@@ -48,6 +48,7 @@ const StudySet = () => {
         {
             
             serverUser.experience += flashcardSetData.EXPgained
+            flashcardSetData.userId = serverUser.id
             console.log(serverUser)
             if(serverUser.experience >= serverUser.expToNextLevel)
             {

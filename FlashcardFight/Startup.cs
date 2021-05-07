@@ -40,6 +40,7 @@ namespace FlashcardFight
             services.AddTransient<ISubscriptionRepository, SubscriptionRepository>();
             services.AddTransient<ICharacterImageRepository, CharacterImageRepository>();
             services.AddTransient<IItemRepository, ItemRepository>();
+            services.AddTransient<IUserItemRepository, UserItemRepository>();
 
             var firebaseProjectId = Configuration.GetValue<string>("FirebaseProjectId");
             var googleTokenUrl = $"https://securetoken.google.com/{firebaseProjectId}";

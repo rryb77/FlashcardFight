@@ -20,7 +20,7 @@ namespace FlashcardFight.Repositories
                 using (var cmd = conn.CreateCommand())
                 {
                     cmd.CommandText = @"
-                    INSERT INTO Category ([UserId], [ItemId])
+                    INSERT INTO UserItems ([UserId], [ItemId])
                     OUTPUT INSERTED.ID
                     VALUES (@UserId, @ItemId)
                     ";

@@ -12,6 +12,7 @@ import { UserTypeProvider } from './providers/UserTypeProvider';
 import { SubscriptionProvider } from './providers/SubscriptionProvider';
 import { CharacterImageProvider } from './providers/CharacterImageProvider';
 import { ItemProvider } from './providers/ItemProvider';
+import { UserItemProvider } from './providers/UserItemProvider';
 
 function App() {
   return (
@@ -26,8 +27,10 @@ function App() {
                                     <SubscriptionProvider>
                                         <CharacterImageProvider>
                                             <ItemProvider>
-                                                <Header />
-                                                <ApplicationViews />
+                                                <UserItemProvider>
+                                                    <Header />
+                                                    <ApplicationViews />
+                                                </UserItemProvider>
                                             </ItemProvider>
                                         </CharacterImageProvider>
                                     </SubscriptionProvider>
