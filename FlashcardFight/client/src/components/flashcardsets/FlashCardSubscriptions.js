@@ -44,55 +44,59 @@ const FlashCardSubscriptions = () => {
     }
 
     return (
-        <>
-            <div className="container">
-            <div className="row justify-content-center">
-                <div className="cards-column">
-                {
-                    flashcards.map((flashcard) => (
-                      
-                        <Card className="m-4">
-                            <CardBody>
-                                <CardTitle tag="h2">
-                                    <strong> {flashcard.title}</strong>
-                                    {flashcard.difficulty.name === 'Beginner' ?
-                                        <Badge color={'success'}className="right pill">{flashcard.difficulty.name}</Badge>
-                                        :
-                                        null
-                                    }
-                                    {flashcard.difficulty.name === 'Intermediate' ?
-                                        <Badge color={'warning'}className="right pill">{flashcard.difficulty.name}</Badge>
-                                        :
-                                        null
-                                    }
-                                    {flashcard.difficulty.name === 'Expert' ?
-                                        <Badge color={'danger'}className="right pill">{flashcard.difficulty.name}</Badge>
-                                        :
-                                        null
-                                    }
-                                </CardTitle>
-                                <CardSubtitle tag="h6" className="mb-2 text-muted">
-                                    <br></br>
-                                    Author: {flashcard.userProfile.userName}
-                                </CardSubtitle>
-                                <CardSubtitle tag="h6" className="mb-2 text-muted">
-                                    Category: {flashcard.category.name}
-                                </CardSubtitle>
-                                <br></br>
-                                Description: {flashcard.description}
-                            </CardBody>
-                            <CardFooter>
-                                <Button type="button" color="info" onClick={() => study(flashcard.id)}>Study</Button> {'  '} <Button color="danger" onClick={() => battle(flashcard.id)}>Battle</Button>
-                                <Button type="button" color="secondary" className="right" onClick={() => details(flashcard.id)}>Details</Button>
-                                <Button type="button" color="success" className="right" onClick={() => unsubscribe(flashcard)}>Unsubscribe</Button>
-                            </CardFooter>
-                        </Card>
-                    ))
-                }
+        <div>
+            <div className="background">
+                <div class="firefly"></div><div class="firefly"></div><div class="firefly"></div><div class="firefly"></div><div class="firefly"></div><div class="firefly"></div><div class="firefly"></div><div class="firefly"></div><div class="firefly"></div><div class="firefly"></div><div class="firefly"></div><div class="firefly"></div>
+                    <div className="container">
+                        <div className="row justify-content-center">
+                            <div className="cards-column">
+                            {
+                                flashcards.map((flashcard) => (
+                                
+                                    <Card className="m-4">
+                                        <CardBody>
+                                            <CardTitle tag="h2">
+                                                <strong> {flashcard.title}</strong>
+                                                {flashcard.difficulty.name === 'Beginner' ?
+                                                    <Badge color={'success'}className="right pill">{flashcard.difficulty.name}</Badge>
+                                                    :
+                                                    null
+                                                }
+                                                {flashcard.difficulty.name === 'Intermediate' ?
+                                                    <Badge color={'warning'}className="right pill">{flashcard.difficulty.name}</Badge>
+                                                    :
+                                                    null
+                                                }
+                                                {flashcard.difficulty.name === 'Expert' ?
+                                                    <Badge color={'danger'}className="right pill">{flashcard.difficulty.name}</Badge>
+                                                    :
+                                                    null
+                                                }
+                                            </CardTitle>
+                                            <CardSubtitle tag="h6" className="mb-2 text-muted">
+                                                <br></br>
+                                                Author: {flashcard.userProfile.userName}
+                                            </CardSubtitle>
+                                            <CardSubtitle tag="h6" className="mb-2 text-muted">
+                                                Category: {flashcard.category.name}
+                                            </CardSubtitle>
+                                            <br></br>
+                                            Description: {flashcard.description}
+                                        </CardBody>
+                                        <CardFooter>
+                                            <Button type="button" color="info" onClick={() => study(flashcard.id)}>Study</Button> {'  '} <Button color="danger" onClick={() => battle(flashcard.id)}>Battle</Button>
+                                            <Button type="button" color="secondary" className="right" onClick={() => details(flashcard.id)}>Details</Button>
+                                            <Button type="button" color="success" className="right" onClick={() => unsubscribe(flashcard)}>Unsubscribe</Button>
+                                        </CardFooter>
+                                    </Card>
+                                ))
+                            }
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
-        </>
+        
     );
 };
 

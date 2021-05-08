@@ -4,6 +4,7 @@ import { FlashCardSetContext } from '../../providers/FlashCardSetProvider';
 import { QuestionContext } from '../../providers/QuestionProvider';
 import {UserProfileContext} from '../../providers/UserProfileProvider'
 import { Container, Radios, Button } from "nes-react";
+import './BattleSet.css'
 
 const BattleSet = () => {
     
@@ -185,7 +186,7 @@ const BattleSet = () => {
     }
 
     return (
-        <div className="studyBattleContainer BGsizer">
+        <div className="BattleContainer BGsizer">
             {!profile?.characterImage?.imageLocation ?
             null
             :

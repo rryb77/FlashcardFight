@@ -4,13 +4,12 @@ import { FlashCardSetContext } from '../../providers/FlashCardSetProvider';
 import { QuestionContext } from '../../providers/QuestionProvider';
 import {UserProfileContext} from '../../providers/UserProfileProvider'
 import './Study.css';
-import { Container } from "nes-react";
+import { Container, Button } from "nes-react";
 import {
     Badge,
     Card,
     CardBody,
     CardFooter,
-    Button,
     CardHeader,
     CardTitle,
     CardSubtitle,
@@ -152,45 +151,54 @@ const StudySet = () => {
         <div className="studyBattleContainer BGsizer">
                                
                 {hiddenAnswer ?
-            
+                
                 <div className="questionContainer nes-container with-title is-dark">
                     <h2 className="title"><text className="textSizer">Question {theCount + 1} </text></h2>
                     <div className="QandA"><text className="textSizer">{question.questionText}</text></div>
-                    <div className="buttonFooter">
-                        <button className="nes-btn studyBattleBtn" onClick={showHide}><div className="textSizer">Show Answer</div></button> {' '}
-                        <button className="nes-btn studyBattleBtn is-success" onClick={userCorrect}><div className="textSizer">I was right</div></button> {' '}
-                        <button className="nes-btn studyBattleBtn is-error" onClick={userWrong}><div className="textSizer">I was wrong</div></button> 
-                    </div>
+                    
+                        <button className="nes-btn" onClick={showHide}><div className="textSizer">Show Answer</div></button> {' '}
+                        <button className="nes-btn is-success" onClick={userCorrect}><div className="textSizer">I was right</div></button> {' '}
+                        <button className="nes-btn is-error" onClick={userWrong}><div className="textSizer">I was wrong</div></button> 
+                   
                 </div>
-
+                    // <Container className="questionContainer nes-container with-title is-dark">
+                    //     <Card className="m-4">
+                    //         <CardBody>
+                    //             <CardTitle tag="h2">
+                    //             Question:
+                    //             </CardTitle>
+                    //             <div className="QandA">{question?.questionText}</div>
+                    //         </CardBody>
+                    //         <CardFooter>
+                    //             <Button color="secondary" onClick={showHide}>Show Answer</Button> {' '}
+                    //             <Button color="success" className="" onClick={userCorrect}>I was right</Button> {' '}
+                    //             <Button color="danger" className="" onClick={userWrong}>I was wrong</Button> 
+                    //         </CardFooter>
+                    //     </Card>
+                    // </Container>
+                :
                 // <Card className="m-4 flashcard">
                 //     <CardBody>
                 //         <CardTitle tag="h2">
-                //         Question:
+                //         Answer:
                 //         </CardTitle>
-                //         <div className="QandA">{question.questionText}</div>
+                //         <div className="QandA">{correct.answerText}</div>
                 //     </CardBody>
                 //     <CardFooter>
-                //         <Button color="secondary" onClick={showHide}>Show Answer</Button>
+                //         <Button color="secondary" onClick={showHide}>Hide Answer</Button>
                 //         <Button color="success" className="right" onClick={userCorrect}>I was right</Button> {' '}
                 //         <Button color="danger" className="right" onClick={userWrong}>I was wrong</Button> 
                 //     </CardFooter>
                 // </Card>
-                :
-                <Card className="m-4 flashcard">
-                    <CardBody>
-                        <CardTitle tag="h2">
-                        Answer:
-                        </CardTitle>
-                        <div className="QandA">{correct.answerText}</div>
-                    </CardBody>
-                    <CardFooter>
-                        <Button color="secondary" onClick={showHide}>Hide Answer</Button>
-                        <Button color="success" className="right" onClick={userCorrect}>I was right</Button> {' '}
-                        <Button color="danger" className="right" onClick={userWrong}>I was wrong</Button> 
-                    </CardFooter>
+                <div className="questionContainer nes-container with-title is-dark">
+                    <h2 className="title"><text className="textSizer">Answer</text></h2>
+                    <div className="QandA"><text className="textSizer">{correct.answerText}</text></div>
                     
-                </Card>
+                        <button className="nes-btn" onClick={showHide}><div className="textSizer">Hide Answer</div></button> {' '}
+                        <button className="nes-btn is-success" onClick={userCorrect}><div className="textSizer">I was right</div></button> {' '}
+                        <button className="nes-btn is-error" onClick={userWrong}><div className="textSizer">I was wrong</div></button> 
+                    
+                </div>
                 }        
         </div>
         <div>

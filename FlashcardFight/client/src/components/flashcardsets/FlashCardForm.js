@@ -61,6 +61,9 @@ export const FlashCardForm = () => {
     }
 
     return (
+        <div className="background">
+        <div class="firefly"></div><div class="firefly"></div><div class="firefly"></div><div class="firefly"></div><div class="firefly"></div><div class="firefly"></div><div class="firefly"></div><div class="firefly"></div><div class="firefly"></div><div class="firefly"></div><div class="firefly"></div><div class="firefly"></div>
+           
         <div className="container pt-4">
             <div className="row justify-content-center">
                     <Card className="col-sm-12 col-lg-6">
@@ -125,6 +128,7 @@ export const FlashCardForm = () => {
                         </CardBody>
                     </Card>
             </div>
+        </div>
         </div>
     )
 }
