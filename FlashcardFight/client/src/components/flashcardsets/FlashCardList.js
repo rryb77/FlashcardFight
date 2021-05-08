@@ -13,9 +13,13 @@ import {
   CardSubtitle,
 } from "reactstrap";
 import {SubscriptionContext} from '../../providers/SubscriptionProvider'
+import {CategoryContext} from '../../providers/CategoryProvider'
 
 const FlashCardList = () => {
-    const { flashcards, setFlashcards, getAllWithoutUserSubscriptions } = useContext(FlashCardSetContext);
+    const { flashcards, setFlashcards, getAllWithoutUserSubscriptions, getAllWithoutUserSubsByCategory } = useContext(FlashCardSetContext);
+    const { getAllCategories } = useContext(CategoryContext);
+    const [categories, setCategories] = useState([])
+    const [filter, setFilter] = useState(0)
     const {AddSubscription} = useContext(SubscriptionContext)
 
     // This is returning JSON
@@ -26,11 +30,30 @@ const FlashCardList = () => {
     useEffect(() => {
         getAllWithoutUserSubscriptions(currentUser.id)
             .then(setFlashcards)
+            .then(getAllCategories)
+            .then(setCategories)
     }, []);
+
+    useEffect(() => {
+        console.log(categories)
+    }, [categories])
+
+    useEffect(() => {
+        console.log(filter)
+        if(filter !== null && filter > 0)
+        {
+            getAllWithoutUserSubsByCategory(currentUser.id, filter)
+                .then(setFlashcards)
+        }
+        else if(filter === "0")
+        {
+            getAllWithoutUserSubscriptions(currentUser.id)
+                .then(setFlashcards)
+        }
+    }, [filter])
     
 
     const history = useHistory();
-
 
     const study = (id) => {
         history.push(`study/${id}`);
@@ -60,6 +83,23 @@ const FlashCardList = () => {
         <div className="container">
             <div className="row justify-content-center">
                 <div className="cards-column">
+                <br></br>
+                
+                <div className="nes-select">
+                Sort By Category: 
+                    <select required id="category" onChange={(e) => setFilter(e.target.value)}>
+                        <option value={0} selected>Show All</option>
+                        {categories?.length > 0 ?                                   
+                            categories.map(c => (
+                                <option key={c.id} value={c.id}>
+                                    {c.name}
+                                </option>
+                            ))
+                            :
+                            null
+                        }
+                    </select>
+                </div>
                 {
                     flashcards.map((flashcard) => (
                       flashcard.creatorId !== currentUser.id ?

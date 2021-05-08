@@ -154,7 +154,9 @@ const BattleSet = () => {
             }
             else
             {
+                console.log(profile)
                 serverUser.experience = profile.experience
+                serverUser.expToNextLevel = profile.expToNextLevel
                 serverUser.level = profile.level
                 serverUser.hp = flashcardSetData.hp
                 serverUser.maxHP = profile.maxHP
@@ -171,6 +173,7 @@ const BattleSet = () => {
     const gameOver = () => {
         
         serverUser.experience = profile.experience
+        serverUser.expToNextLevel = profile.expToNextLevel
         serverUser.level = profile.level
         serverUser.hp = 0
         serverUser.maxHP = profile.maxHP
