@@ -157,9 +157,9 @@ const StudySet = () => {
                     <h2 className="title"><text className="textSizer">Question {theCount + 1} </text></h2>
                     <div className="QandA"><text className="textSizer">{question.questionText}</text></div>
                     <div className="buttonFooter">
-                        <button className="nes-btn" onClick={showHide}><div className="textSizer">Show Answer</div></button> {' '}
-                        <button className="nes-btn is-success" onClick={userCorrect}><div className="textSizer">I was right</div></button> {' '}
-                        <button className="nes-btn is-error" onClick={userWrong}><div className="textSizer">I was wrong</div></button> 
+                        <button className="nes-btn studyBattleBtn" onClick={showHide}><div className="textSizer">Show Answer</div></button> {' '}
+                        <button className="nes-btn studyBattleBtn is-success" onClick={userCorrect}><div className="textSizer">I was right</div></button> {' '}
+                        <button className="nes-btn studyBattleBtn is-error" onClick={userWrong}><div className="textSizer">I was wrong</div></button> 
                     </div>
                 </div>
 
