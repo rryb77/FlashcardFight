@@ -148,31 +148,34 @@ const StudySet = () => {
         {!profile?.characterImage?.imageLocation ?
         null
         :
+        <>
         <div className="studyBattleContainer BGsizer">
-                <Container className="heroContainer">
-                    <img className="playerHero" src={profile?.characterImage?.imageLocation} alt="Player hero"></img>
-                    <Container>
-                        <b>HP:</b> {profile.hp} <br></br>
-                        <b>EXP:</b> {profile.experience} <br></br>
-                        <b>Level:</b> {profile.level}
-                    </Container>
-                </Container>
-                
+                               
                 {hiddenAnswer ?
-                
-                <Card className="m-4 flashcard">
-                    <CardBody>
-                        <CardTitle tag="h2">
-                        Question:
-                        </CardTitle>
-                        <div className="QandA">{question.questionText}</div>
-                    </CardBody>
-                    <CardFooter>
-                        <Button color="secondary" onClick={showHide}>Show Answer</Button>
-                        <Button color="success" className="right" onClick={userCorrect}>I was right</Button> {' '}
-                        <Button color="danger" className="right" onClick={userWrong}>I was wrong</Button> 
-                    </CardFooter>
-                </Card>
+            
+                <div className="questionContainer nes-container with-title is-dark">
+                    <h2 className="title"><text className="textSizer">Question {theCount + 1} </text></h2>
+                    <div className="QandA"><text className="textSizer">{question.questionText}</text></div>
+                    <div className="buttonFooter">
+                        <button className="nes-btn" onClick={showHide}><div className="textSizer">Show Answer</div></button> {' '}
+                        <button className="nes-btn is-success" onClick={userCorrect}><div className="textSizer">I was right</div></button> {' '}
+                        <button className="nes-btn is-error" onClick={userWrong}><div className="textSizer">I was wrong</div></button> 
+                    </div>
+                </div>
+
+                // <Card className="m-4 flashcard">
+                //     <CardBody>
+                //         <CardTitle tag="h2">
+                //         Question:
+                //         </CardTitle>
+                //         <div className="QandA">{question.questionText}</div>
+                //     </CardBody>
+                //     <CardFooter>
+                //         <Button color="secondary" onClick={showHide}>Show Answer</Button>
+                //         <Button color="success" className="right" onClick={userCorrect}>I was right</Button> {' '}
+                //         <Button color="danger" className="right" onClick={userWrong}>I was wrong</Button> 
+                //     </CardFooter>
+                // </Card>
                 :
                 <Card className="m-4 flashcard">
                     <CardBody>
@@ -188,19 +191,43 @@ const StudySet = () => {
                     </CardFooter>
                     
                 </Card>
-                }
-
-                <Container>
-                    <img className="playerHero" src={'/bosses/dummy.gif'} alt="Player hero"></img>
-                    <Container>
-                        <b>HP:</b> 99999 <br></br>
-                        <b>EXP:</b> 0 <br></br>
-                        <b>Level:</b> 1
-                    </Container>
-                </Container>
-                {/* <img className="studyHero" src={profile?.characterImage?.imageLocation} alt="Player hero"></img>              
-                <img className="dummyBoss" src={'/bosses/dummy.gif'} alt="Player hero"></img> */}
+                }        
         </div>
+        <div>
+                
+        </div>
+        <div className="footerContainer">
+            <img className="studyHero" src={profile?.characterImage?.imageLocation} alt="Player hero"></img>              
+            <img className="dummyBoss" src={'/bosses/dummy.gif'} alt="Player hero"></img>
+            <Container className="heroFooterRight is-dark">
+                
+                <div className="footerStyle textSizer">
+                    <div className="textPosition">
+                        <text className="textSizer">
+                            <h5 className="textSizer">Practice Dummy</h5>
+                            <b>HP:</b> {'  '} 99999 <br></br>
+                            <b>EXP:</b>  0 <br></br>
+                            <b>Level:</b>  1
+                        </text>
+                    </div>
+                </div>
+            </Container>
+            <Container className="heroFooterLeft is-dark">
+                
+                <div className="footerStyle textSizer">
+                    <div className="textPosition">  
+                        
+                        <text className="textSizer">
+                            <h5 className="textSizer">{profile?.userName}</h5>
+                            <b>HP:</b> {'  '} {currentUser.hp} <br></br>
+                            <b>EXP:</b>  {currentUser.experience} <br></br>
+                            <b>Level:</b>  {currentUser.level}
+                        </text>
+                    </div>
+                </div>
+            </Container>
+        </div>
+        </>
         }
         </>
     )

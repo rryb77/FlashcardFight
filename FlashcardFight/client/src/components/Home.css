@@ -7,7 +7,7 @@
 } */
 
 .heroFooterLeft {
-  height: 20vh;
+  height: 15vh;
   width: 50%;
   position: absolute;
   bottom: 0vh;
@@ -32,7 +32,7 @@
 }
 
 .heroFooterRight {
-  height: 20vh;
+  height: 15vh;
   width: 50%;
   position: absolute;
   bottom: 0vh;

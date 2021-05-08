@@ -1,7 +1,7 @@
 .studyBattleContainer {
   width: 100%;
   height: 100vh;
-  padding: 10vh;
+  padding: 5vh;
   background-image: url(wastelandBG.png);
   -webkit-background-size: cover;
   -moz-background-size: cover;
@@ -24,19 +24,82 @@
   margin-bottom: 10px;
 }
 
-/* .dummyBoss {
+.dummyBoss {
   position: absolute;
-  left: 77%;
-  top: 65%;
+  right: 20vh;
+  /* top: 60vh; */
+  bottom: 15vh;
 }
 
 .studyHero {
   position: absolute;
-  left: 8%;
-  top: 70%;
+  left: 20vh;
+  bottom: 10vh;
+}
+
+.footerStyle {
+  height: 15vh;
+  width: 99.5%;
+  position: absolute;
+  bottom: 0vh;
+  right: 0vh;
+  color: whitesmoke;
+  z-index: -1;
+  background-image: linear-gradient(
+    to bottom,
+    #0a00ee,
+    #0028e9,
+    #003ae3,
+    #0047db,
+    #0052d1,
+    #0e55c8,
+    #1c58be,
+    #275ab4,
+    #2857aa,
+    #2953a0,
+    #295096,
+    #2a4c8c
+  );
+}
+
+.textPosition {
+  margin-top: 3vh;
+  margin-left: 5vh;
+}
+
+.shadow {
+  text-shadow: #000000;
+}
+
+text {
+  text-shadow: -2px 1.5px black;
+}
+
+.questionContainer {
+  position: absolute;
+  bottom: 40vh;
+  padding: 20;
+  margin-top: 10vh;
+  height: 50vh;
+  width: 50%;
+  /* background-color: white; */
+}
+
+/* .buttonFooter {
+  position: absolute;
+  height: 70vh;
+  top: 43vh;
+  width: 80vh;
 } */
 
-/* .heroContainer {
-  margin-top: 1.7%;
-  max-height: 45%;
-} */
+.nes-btn {
+  position: relative;
+  padding: 10;
+  bottom: -33vh;
+  width: 25vh;
+  height: 5vh;
+}
+
+.textSizer {
+  font-size: 1.8vh;
+}

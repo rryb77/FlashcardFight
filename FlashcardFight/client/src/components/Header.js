@@ -29,7 +29,7 @@ const Header = () => {
   return (
     <div>
       <Navbar color="dark" dark expand="md">
-        <NavbarBrand tag={RRNavLink} to="/">Flashcard Fight</NavbarBrand>
+        <NavbarBrand tag={RRNavLink} to="/">Study Hero</NavbarBrand>
         <NavbarToggler onClick={toggle} />
         <Collapse isOpen={isOpen} navbar>
           <Nav className="mr-auto" navbar>
