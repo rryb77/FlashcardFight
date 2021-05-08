@@ -5,6 +5,7 @@ import { QuestionContext } from '../../providers/QuestionProvider';
 import {UserProfileContext} from '../../providers/UserProfileProvider'
 import { Container, Radios, Button } from "nes-react";
 import './BattleSet.css'
+import '../studysets/Study.css'
 
 const BattleSet = () => {
     
@@ -45,7 +46,6 @@ const BattleSet = () => {
     useEffect(() => {
         if(serverUser.id > 0)
         {
-            debugger
             //Build out the user object with new info
             serverUser.experience += flashcardSetData.EXPgained
             serverUser.hp = flashcardSetData.hp
@@ -84,6 +84,7 @@ const BattleSet = () => {
         // If questions isn't undefined and ONLY when the count is equal to 0 then..
         if(questions !== undefined && theCount === 0)
         {            
+            console.log(battleSet)
             // Calculate and assign dmg amount per wrong answer
             setDmg(currentUser.hp / questions.length)
             setBossHP(questions.length * 1000)
@@ -186,22 +187,16 @@ const BattleSet = () => {
     }
 
     return (
-        <div className="BattleContainer BGsizer">
+        <div className="studyBattleContainer BGsizer">
             {!profile?.characterImage?.imageLocation ?
             null
             :
                 <>
-                <Container>
-                    <img className="playerHero" src={profile?.characterImage?.imageLocation} alt="Player hero"></img>
-                    <Container>
-                        <b>HP:</b> {HP} <br></br>
-                        <b>EXP:</b> {profile.experience} <br></br>
-                        <b>Level:</b> {profile.level}
-                    </Container>
-                </Container>
-                <Container>
+                
+                <div className="battleQuestionContainer nes-container with-title is-dark">
+                <h2 className="title"><text className="textSizer">Battle!</text></h2>
                     <div id="question">
-                        Question: {question?.questionText}<p></p>
+                        <text className="textSizer">Question: {question?.questionText}<p></p></text>
                     </div>
 
                     <div id="answers">
@@ -222,16 +217,39 @@ const BattleSet = () => {
                         </div>
                         <Button type="button" className="nes-btn is-normal nes-cursor" onClick={checkAnswer}>Submit</Button>
                     </div>
-                </Container>
+                </div>
 
-                <Container>
-                    <img className="playerHero" src={battleSet?.bossImage?.imageLocation} alt="Player hero"></img>
-                    <Container>
-                        <b>HP:</b> {bossHP} <br></br>
-                        <b>EXP:</b> {currentUser.experience * 2} <br></br>
-                        <b>Level:</b> {Math.round(currentUser.level * 1.2)}
+                <div className="footerContainer">
+                    <img className="studyHero" src={profile?.characterImage?.imageLocation} alt="Player hero"></img>              
+                    <img className="dummyBoss" src={battleSet.bossImage.imageLocation} alt="Player hero"></img>
+                    <Container className="battleFooterRight is-dark">
+                        
+                        <div className="footerStyle textSizer">
+                            <div className="textPosition">
+                                <text className="textSizer">
+                                    <h5 className="textSizer">{battleSet.title}</h5>
+                                    <b>HP:</b> {'  '} {bossHP} <br></br>
+                                    <b>EXP:</b>  {profile.experience * 1.7 * battleSet.difficultyId} <br></br>
+                                    <b>Level:</b>  {Math.round(profile.level * 1.7 * battleSet.difficultyId)}
+                                </text>
+                            </div>
+                        </div>
                     </Container>
-                </Container>
+                    <Container className="battleFooterLeft is-dark">
+                        
+                        <div className="footerStyle textSizer">
+                            <div className="textPosition">  
+                                
+                                <text className="textSizer">
+                                    <h5 className="textSizer">{profile?.userName}</h5>
+                                    <b>HP:</b> {'  '} {currentUser.hp} <br></br>
+                                    <b>EXP:</b>  {currentUser.experience} <br></br>
+                                    <b>Level:</b>  {currentUser.level}
+                                </text>
+                            </div>
+                        </div>
+                    </Container>
+                </div>
                 </>
             }
         </div>
