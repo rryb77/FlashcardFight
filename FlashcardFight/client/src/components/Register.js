@@ -17,6 +17,8 @@ import {
     Input
 } from "reactstrap";
 import { Container } from "nes-react"
+import "./login.css"
+import "./Register.css"
 
 
 export default function Register() {
@@ -68,8 +70,10 @@ export default function Register() {
 
     return (
         <>
-        <div className="registerContainer">
-            <div className="leftContainer">
+        <div className="mainContainer">
+        <div className="container pt-4">
+            <div className="row justify-content-center">
+                <Container className="login">
                 <Form onSubmit={registerClick}>
                     <fieldset>
                         <FormGroup>
@@ -110,7 +114,9 @@ export default function Register() {
                         </FormGroup>
                     </fieldset>
                 </Form>
+                </Container>
             </div>
+            
             <div className="rightContainer">
                 {selectedCharacter !== "" ?
                     <img className="playerHero" src={selectedCharacter} alt="Player hero"></img>
@@ -118,6 +124,7 @@ export default function Register() {
                     null
                 }
             </div>
+        </div>
         </div>
         </>
   );

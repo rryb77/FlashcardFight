@@ -1,0 +1,61 @@
+.heroContainer {
+  max-width: 350px;
+}
+
+/* .footerContainer {
+  position: relative;
+} */
+
+.heroFooterLeft {
+  height: 20vh;
+  width: 50%;
+  position: absolute;
+  bottom: 0vh;
+
+  color: whitesmoke;
+  z-index: -1;
+  background-image: linear-gradient(
+    to bottom,
+    #0a00ee,
+    #0028e9,
+    #003ae3,
+    #0047db,
+    #0052d1,
+    #0e55c8,
+    #1c58be,
+    #275ab4,
+    #2857aa,
+    #2953a0,
+    #295096,
+    #2a4c8c
+  );
+}
+
+.heroFooterRight {
+  height: 20vh;
+  width: 50%;
+  position: absolute;
+  bottom: 0vh;
+  right: 0vh;
+  color: whitesmoke;
+  z-index: -1;
+  background-image: linear-gradient(
+    to bottom,
+    #0a00ee,
+    #0028e9,
+    #003ae3,
+    #0047db,
+    #0052d1,
+    #0e55c8,
+    #1c58be,
+    #275ab4,
+    #2857aa,
+    #2953a0,
+    #295096,
+    #2a4c8c
+  );
+}
+
+.heroStats {
+  z-index: 1;
+}

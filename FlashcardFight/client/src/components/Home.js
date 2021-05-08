@@ -3,7 +3,7 @@ import {UserProfileContext} from '../../src/providers/UserProfileProvider'
 import {ItemContext} from '../../src/providers/ItemProvider'
 import {UserItemContext} from '../../src/providers/UserItemProvider'
 import React, {useContext, useState, useEffect} from "react";
-
+import './Home.css';
 
 const Home = () => {
     const { getUserProfileById, updateUserCharacter } = useContext(UserProfileContext);
@@ -42,7 +42,7 @@ const Home = () => {
     }
 
     return (
-        
+        <>
         <Container className="heroContainer">
             <img className="playerHero" src={currentUser?.characterImage?.imageLocation} alt="Player hero"></img>
             <Container>
@@ -56,13 +56,26 @@ const Home = () => {
                 {
                     userItems.map(item => {
                         return (
-                            <button onClick={() => userItem(item)}>{item.name}</button>
+                            <button className="nes-btn" onClick={() => userItem(item)}>{item.name}</button>
                         )
                     })
                 }
             </Container>
         </Container>
-        
+
+        <div className="footerContainer">
+            <Container className="heroFooterRight is-dark">
+                <b>HP:</b> {'  '} {currentUser.hp} <br></br>
+                <b>EXP:</b>  {currentUser.experience} <br></br>
+                <b>Level:</b>  {currentUser.level}
+            </Container>
+            <Container className="heroFooterLeft is-dark">
+                <b>HP:</b> {'  '} {currentUser.hp} <br></br>
+                <b>EXP:</b>  {currentUser.experience} <br></br>
+                <b>Level:</b>  {currentUser.level}
+            </Container>
+        </div>
+        </>
     )
 }
 
