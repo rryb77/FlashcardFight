@@ -17,7 +17,8 @@ import {CategoryContext} from '../../providers/CategoryProvider'
 import {DifficultyContext} from '../../providers/DifficultyProvider'
 
 const FlashCardList = () => {
-    const { flashcards, setFlashcards, getAllWithoutUserSubscriptions, getAllWithoutUserSubsByCategory, getAllWithoutUserSubsByDifficulty } = useContext(FlashCardSetContext);
+    const { flashcards, setFlashcards, getAllWithoutUserSubscriptions, getAllWithoutUserSubsByCategory, 
+        getAllWithoutUserSubsByDifficulty, getAllWithoutUserSubsByDifficultyAndCategory } = useContext(FlashCardSetContext);
     const { getAllCategories } = useContext(CategoryContext);
     const { getAllDifficulties } = useContext(DifficultyContext);
     const [difficulties, setDifficulties] = useState([])
@@ -25,7 +26,6 @@ const FlashCardList = () => {
     const [catFilter, setCatFilter] = useState(0)
     const [difFilter, setDifFilter] = useState(0)
     const [theFilters, setTheFilters] = useState({
-        userId: 0,
         difficultyId: 0,
         categoryId: 0,
     })
@@ -64,11 +64,12 @@ const FlashCardList = () => {
         
         if(theFilters.categoryId > 0 && theFilters.difficultyId > 0)
         {
-            console.log("filter by both")
+            getAllWithoutUserSubsByDifficultyAndCategory(currentUser.id, theFilters.difficultyId, theFilters.categoryId)
+                .then(setFlashcards)
         }
         else if(theFilters.categoryId > 0 && theFilters.difficultyId === 0)
         {
-            getAllWithoutUserSubsByCategory(currentUser.id, catFilter)
+            getAllWithoutUserSubsByCategory(currentUser.id, theFilters.categoryId)
                 .then(setFlashcards)
         }
         else if(theFilters.categoryId === 0 && theFilters.difficultyId === 0)
