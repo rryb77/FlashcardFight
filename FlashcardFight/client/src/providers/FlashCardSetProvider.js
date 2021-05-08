@@ -111,6 +111,19 @@ export const FlashCardSetProvider = (props) => {
         ))
     }
 
+    const getAllWithoutUserSubsByDifficulty = (id, difficultyId) => {
+        return getToken().then((token =>
+            fetch(`${apiUrl}/GetAllWithoutUserSubsFilteredByDifficulty/${id}/${difficultyId}`, {
+                method: "GET",
+                headers: {
+                  Authorization: `Bearer ${token}`,
+                  "Content-Type": "application/json"
+                }
+              })
+              .then((res) => res.json())
+        ))
+    }
+
     const getAllUserFlashcards = () => {
         return getToken().then((token =>
             fetch(`${apiUrl}/UserSets`, {
@@ -151,7 +164,8 @@ export const FlashCardSetProvider = (props) => {
     return (
         <FlashCardSetContext.Provider value={{addSet, flashcardSet, setFlashcardSet, flashcards, setFlashcards, getAllFlashcards, updateSet, 
                                               getAllUserFlashcards, getFlashcardSetWithQandA, flashcardSetData, setFlashcardSetData, deleteSet,
-                                              getAllByUserId, getAllFlashcardUserSubs, getAllWithoutUserSubscriptions, getAllWithoutUserSubsByCategory}}>
+                                              getAllByUserId, getAllFlashcardUserSubs, getAllWithoutUserSubscriptions, getAllWithoutUserSubsByCategory,
+                                              getAllWithoutUserSubsByDifficulty}}>
             {props.children}
         </FlashCardSetContext.Provider>
     )

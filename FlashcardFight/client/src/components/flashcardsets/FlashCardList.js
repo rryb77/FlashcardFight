@@ -14,12 +14,21 @@ import {
 } from "reactstrap";
 import {SubscriptionContext} from '../../providers/SubscriptionProvider'
 import {CategoryContext} from '../../providers/CategoryProvider'
+import {DifficultyContext} from '../../providers/DifficultyProvider'
 
 const FlashCardList = () => {
-    const { flashcards, setFlashcards, getAllWithoutUserSubscriptions, getAllWithoutUserSubsByCategory } = useContext(FlashCardSetContext);
+    const { flashcards, setFlashcards, getAllWithoutUserSubscriptions, getAllWithoutUserSubsByCategory, getAllWithoutUserSubsByDifficulty } = useContext(FlashCardSetContext);
     const { getAllCategories } = useContext(CategoryContext);
+    const { getAllDifficulties } = useContext(DifficultyContext);
+    const [difficulties, setDifficulties] = useState([])
     const [categories, setCategories] = useState([])
-    const [filter, setFilter] = useState(0)
+    const [catFilter, setCatFilter] = useState(0)
+    const [difFilter, setDifFilter] = useState(0)
+    const [theFilters, setTheFilters] = useState({
+        userId: 0,
+        difficultyId: 0,
+        categoryId: 0,
+    })
     const {AddSubscription} = useContext(SubscriptionContext)
 
     // This is returning JSON
@@ -32,26 +41,47 @@ const FlashCardList = () => {
             .then(setFlashcards)
             .then(getAllCategories)
             .then(setCategories)
+            .then(getAllDifficulties)
+            .then(setDifficulties)
     }, []);
 
     useEffect(() => {
-        console.log(categories)
-    }, [categories])
+        
+        theFilters.categoryId = parseInt(catFilter)
+        resultFiltering()
+
+    }, [catFilter])
 
     useEffect(() => {
-        console.log(filter)
-        if(filter !== null && filter > 0)
+       
+        theFilters.difficultyId = parseInt(difFilter)
+        resultFiltering()
+        
+    }, [difFilter])
+    
+    
+    const resultFiltering = () => {
+        
+        if(theFilters.categoryId > 0 && theFilters.difficultyId > 0)
         {
-            getAllWithoutUserSubsByCategory(currentUser.id, filter)
+            console.log("filter by both")
+        }
+        else if(theFilters.categoryId > 0 && theFilters.difficultyId === 0)
+        {
+            getAllWithoutUserSubsByCategory(currentUser.id, catFilter)
                 .then(setFlashcards)
         }
-        else if(filter === "0")
+        else if(theFilters.categoryId === 0 && theFilters.difficultyId === 0)
         {
             getAllWithoutUserSubscriptions(currentUser.id)
                 .then(setFlashcards)
         }
-    }, [filter])
-    
+        else if(theFilters.categoryId === 0 && theFilters.difficultyId > 0)
+        {
+            getAllWithoutUserSubsByDifficulty(currentUser.id, difFilter)
+                .then(setFlashcards)
+        }
+    }
 
     const history = useHistory();
 
@@ -81,25 +111,44 @@ const FlashCardList = () => {
   return (
     <>
         <div className="container">
+                <div className="nes-select">
+                    <br></br>
+                    Filter By Category: 
+                        <select required id="category" onChange={(e) => setCatFilter(e.target.value)}>
+                            <option key="categoryList" value={0} selected>Show All</option>
+                            {categories?.length > 0 ?                                   
+                                categories.map(c => (
+                                    <option key={c.id} value={c.id}>
+                                        {c.name}
+                                    </option>
+                                ))
+                                :
+                                null
+                            }
+                        </select>
+                </div>
+
+                <div className="nes-select">
+                    <br></br>
+                    Filter By Difficulty: 
+                        <select required id="difficulty" onChange={(e) => setDifFilter(e.target.value)}>
+                            <option key="difficultyList" value={0} selected>Show All</option>
+                            {difficulties?.length > 0 ?                                   
+                                difficulties.map(c => (
+                                    <option key={c.id} value={c.id}>
+                                        {c.name}
+                                    </option>
+                                ))
+                                :
+                                null
+                            }
+                        </select>
+                </div>
             <div className="row justify-content-center">
                 <div className="cards-column">
                 <br></br>
-                
-                <div className="nes-select">
-                Sort By Category: 
-                    <select required id="category" onChange={(e) => setFilter(e.target.value)}>
-                        <option value={0} selected>Show All</option>
-                        {categories?.length > 0 ?                                   
-                            categories.map(c => (
-                                <option key={c.id} value={c.id}>
-                                    {c.name}
-                                </option>
-                            ))
-                            :
-                            null
-                        }
-                    </select>
-                </div>
+            
+               
                 {
                     flashcards.map((flashcard) => (
                       flashcard.creatorId !== currentUser.id ?
