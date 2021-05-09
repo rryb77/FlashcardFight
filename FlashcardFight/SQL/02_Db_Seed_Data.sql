@@ -6,7 +6,8 @@ insert into [UserType] ([ID], [Name]) VALUES (1, 'Admin'), (2, 'User');
 set identity_insert [UserType] off
 
 set identity_insert [CharacterImage] on
-insert into [CharacterImage] ([ID], [ImageLocation]) VALUES (1, '/characters/fantasyGuy.gif')
+insert into [CharacterImage] ([ID], [ImageLocation]) VALUES (1, '/characters/Guy1.gif')
+insert into [CharacterImage] ([ID], [ImageLocation]) VALUES (2, '/characters/Girl1.gif')
 set identity_insert [CharacterImage] off
 
 set identity_insert [BossImage] on

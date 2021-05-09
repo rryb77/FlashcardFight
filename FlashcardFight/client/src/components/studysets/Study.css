@@ -38,9 +38,9 @@
 
 .studyHero {
   position: absolute;
-  left: 20vh;
+  left: 0vh;
   bottom: 14vh;
-  max-width: 400px;
+  max-width: 500px;
 }
 
 .footerStyle {

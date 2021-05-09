@@ -25,6 +25,7 @@ const BattleSet = () => {
     const [bossDMG, setBossDMG] = useState(0)
     const history = useHistory();  
     const {id} = useParams();
+    const [heroAction, setHeroAction] = useState();
 
     const [HP, setHP] = useState(0)
     // const [DMG, setDMG] = useState(0)
@@ -41,6 +42,7 @@ const BattleSet = () => {
     useEffect(() => {
         flashcardSetData.hp = profile.hp;
         setHP(profile.hp)
+        setHeroAction(profile?.characterImage?.imageLocation)
     }, [profile])
 
     // Update the user character once the last card was studied
@@ -122,10 +124,18 @@ const BattleSet = () => {
         }
     },[theCount])
 
+    const heroAttack = () => {
+        setTimeout(() => { 
+            flashcardSetData.dmgDone += 1000
+            setBossHP(() => bossHP - 1000)
+            flashcardSetData.correctAnswers += 1;
+            flashcardSetData.EXPgained += 40;
+            setHeroAction(profile.characterImage.imageLocation) }, 1100);
+    }
 
     // Check if the user was right or wrong
     const checkAnswer = () => {
-        
+        console.log('answer was clicked')
         // No choice was made
         if(answerChoice.correct !== true && answerChoice.correct !== false)
         {
@@ -134,12 +144,11 @@ const BattleSet = () => {
         // Correct
         else if(answerChoice.correct === true)
         {
+            setHeroAction('/characters/Guy1Attack.gif')
             console.log(bossDMG)
             setTheCount(theCount => theCount + 1)
-            flashcardSetData.dmgDone += 1000
-            setBossHP(() => bossHP - 1000)
-            flashcardSetData.correctAnswers += 1;
-            flashcardSetData.EXPgained += 40;
+            heroAttack()
+            
         }
         // Wrong
         else if(answerChoice.correct === false)
@@ -225,7 +234,7 @@ const BattleSet = () => {
                 </div>
 
                 <div className="footerContainer">
-                    <img className="studyHero" src={profile?.characterImage?.imageLocation} alt="Player hero"></img>              
+                    <img className="studyHero" src={heroAction} alt="Player hero"></img>              
                     <img className="dummyBoss" src={battleSet.bossImage.imageLocation} alt="Player hero"></img>
                     <Container className="battleFooterRight is-dark">
                         

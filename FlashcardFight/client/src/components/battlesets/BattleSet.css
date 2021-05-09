@@ -71,5 +71,6 @@
   margin-top: 63vh;
   /* height: 50vh; */
   width: 40%;
+  z-index: 1;
   /* background-color: white; */
 }
