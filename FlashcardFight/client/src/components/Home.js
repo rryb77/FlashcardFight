@@ -73,9 +73,23 @@ const Home = () => {
                     <div className="textPosition">
                         <text className="textSizer">
                         <b>Items:</b>
-                        <button className="inventoryButton nes-btn" onClick={() => userItem(minorPotionItems[0])}>{minorPotionItems[0]?.name} x{minorPotionItems?.length}</button>
-                        <button className="inventoryButton nes-btn" onClick={() => userItem(majorPotionItems[0])}>{majorPotionItems[0]?.name} x{majorPotionItems?.length}</button>
-                        <button className="inventoryButton nes-btn" onClick={() => userItem(fullPotionItems[0])}>{fullPotionItems[0]?.name} x{fullPotionItems?.length}</button>
+                        {minorPotionItems.length >= 1 ?
+                            <button className="inventoryButton nes-btn" onClick={() => userItem(minorPotionItems[0])}>{minorPotionItems[0]?.name} x{minorPotionItems?.length}</button>
+
+                        :
+                            null
+                        }
+
+                        {majorPotionItems.length >= 1 ?
+                            <button className="inventoryButton nes-btn" onClick={() => userItem(majorPotionItems[0])}>{majorPotionItems[0]?.name} x{majorPotionItems?.length}</button>
+                        :
+                            null
+                        }
+                        {fullPotionItems.length >= 1 ?
+                            <button className="inventoryButton nes-btn" onClick={() => userItem(fullPotionItems[0])}>{fullPotionItems[0]?.name} x{fullPotionItems?.length}</button>
+                        :
+                            null
+                        }
                         </text>
                     
                 </div>
@@ -89,12 +103,18 @@ const Home = () => {
                             <h5 className="textSizer">{currentUser?.userName} - Level {currentUser.level}</h5>
                             <b>HP:</b> {'  '}
                             <Progress className="progressBars" multi>
-                                <Progress bar color="success" value={currentUser.hp}>{currentUser.hp} / {currentUser.maxHP}</Progress>
+                                <Progress bar color="success" value={currentUser.hp}>{currentUser.hp} / {currentUser.maxHP} HP</Progress>
                                 <Progress bar animated color="danger" value={currentUser.maxHP - currentUser.hp}></Progress>
                             </Progress> 
                             <b>EXP:</b> {' '}
                             <Progress className="progressBars" multi>
-                                <Progress bar color="info" value={currentUser.experience}>{currentUser.experience} / {currentUser.expToNextLevel}</Progress>
+                                <Progress bar color="info" value={currentUser.experience}>
+                                    {currentUser.experience === 0 ?
+                                        null
+                                    :
+                                        <div>{currentUser.experience} / {currentUser.expToNextLevel}</div>
+                                    }
+                                </Progress>
                                 <Progress bar animated color="warning" value={currentUser.expToNextLevel - currentUser.experience}></Progress>
                             </Progress>
                         </text>

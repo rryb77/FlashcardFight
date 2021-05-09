@@ -138,16 +138,18 @@ const StudySet = () => {
     }
 
 
-    if(!question)
-    {
-        return null
-    }
+    // if(!question)
+    // {
+    //     return null
+    // }
 
 
     return (
         <>
         {!profile?.characterImage?.imageLocation ?
-        null
+        <div className="studyBattleContainer overflowOff BGsizer">
+            
+        </div>
         :
         <>
         <div className="studyBattleContainer overflowOff BGsizer">

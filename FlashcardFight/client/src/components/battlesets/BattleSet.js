@@ -26,6 +26,7 @@ const BattleSet = () => {
     const history = useHistory();  
     const {id} = useParams();
     const [heroAction, setHeroAction] = useState();
+    const [bossAction, setBossAction] = useState();
 
     const [HP, setHP] = useState(0)
     // const [DMG, setDMG] = useState(0)
@@ -43,6 +44,7 @@ const BattleSet = () => {
         flashcardSetData.hp = profile.hp;
         setHP(profile.hp)
         setHeroAction(profile?.characterImage?.imageLocation)
+        setBossAction(battleSet?.bossImage?.imageLocation)
     }, [profile])
 
     // Update the user character once the last card was studied
@@ -133,6 +135,38 @@ const BattleSet = () => {
             setHeroAction(profile.characterImage.imageLocation) }, 1100);
     }
 
+    const bossAttack = () => {
+        
+        setTimeout(() => {
+            // Character death check
+            if(flashcardSetData.hp <= 0)
+            {
+                flashcardSetData.hp = 0
+                gameOver()
+            }
+            else
+            {
+                serverUser.experience = profile.experience
+                serverUser.expToNextLevel = profile.expToNextLevel
+                serverUser.level = profile.level
+                serverUser.hp = flashcardSetData.hp
+                serverUser.maxHP = profile.maxHP
+                serverUser.email = profile.email
+                serverUser.userName = profile.userName
+                
+                // Boss reset to idle animation
+                setBossAction(battleSet?.bossImage?.imageLocation)
+
+                // Update the HP on the DOM
+                setHP(flashcardSetData.hp)
+
+                // Update the serverside with current character state
+                updateUserCharacter(serverUser)
+            }
+        }, 1100);
+        
+    }
+
     // Check if the user was right or wrong
     const checkAnswer = () => {
         console.log('answer was clicked')
@@ -145,7 +179,6 @@ const BattleSet = () => {
         else if(answerChoice.correct === true)
         {
             setHeroAction('/characters/Guy1Attack.gif')
-            console.log(bossDMG)
             setTheCount(theCount => theCount + 1)
             heroAttack()
             
@@ -153,6 +186,7 @@ const BattleSet = () => {
         // Wrong
         else if(answerChoice.correct === false)
         {
+            setBossAction('/bosses/ogreAttack.gif')
             // Increase count so the next question can be put on the DOM
             setTheCount(theCount => theCount + 1)
             // Update the flashcard set data object for results screen
@@ -160,28 +194,8 @@ const BattleSet = () => {
             flashcardSetData.dmgTaken += dmg
             flashcardSetData.hp -= dmg
             flashcardSetData.hp = Math.round(flashcardSetData.hp)
-            // Update the HP on the DOM
-            setHP(flashcardSetData.hp)
-            // Character death check
-            if(flashcardSetData.hp <= 0)
-            {
-                flashcardSetData.hp = 0
-                gameOver()
-            }
-            else
-            {
-                console.log(profile)
-                serverUser.experience = profile.experience
-                serverUser.expToNextLevel = profile.expToNextLevel
-                serverUser.level = profile.level
-                serverUser.hp = flashcardSetData.hp
-                serverUser.maxHP = profile.maxHP
-                serverUser.email = profile.email
-                serverUser.userName = profile.userName
 
-                updateUserCharacter(serverUser)
-            }
-
+            bossAttack()
         }
     }
 
@@ -235,7 +249,7 @@ const BattleSet = () => {
 
                 <div className="footerContainer">
                     <img className="studyHero" src={heroAction} alt="Player hero"></img>              
-                    <img className="dummyBoss" src={battleSet.bossImage.imageLocation} alt="Player hero"></img>
+                    <img className="boss" src={bossAction} alt="Player hero"></img>
                     <Container className="battleFooterRight is-dark">
                         
                         <div className="footerStyle textSizer">
@@ -265,8 +279,8 @@ const BattleSet = () => {
                                 <h5 className="textSizer">{profile?.userName} - Level {profile.level}</h5>
                                 <b>HP:</b> {'  '}
                                 <Progress className="progressBars" multi>
-                                    <Progress bar color="success" value={flashcardSetData.hp}>{flashcardSetData.hp} / {profile.maxHP}</Progress>
-                                    <Progress bar animated color="danger" value={profile.maxHP - flashcardSetData.hp}></Progress>
+                                    <Progress bar color="success" value={HP}>{HP} / {profile.maxHP}</Progress>
+                                    <Progress bar animated color="danger" value={profile.maxHP - HP}></Progress>
                                 </Progress> 
                                 <b>EXP:</b> {' '}
                                 <Progress className="progressBars" multi>

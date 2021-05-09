@@ -31,16 +31,17 @@
 
 .dummyBoss {
   position: absolute;
-  right: 20vh;
+  right: 10vh;
   /* top: 60vh; */
-  bottom: 20vh;
+  bottom: 25vh;
+  width: 300px;
 }
 
 .studyHero {
   position: absolute;
-  left: 0vh;
-  bottom: 14vh;
-  max-width: 500px;
+  left: -5vh;
+  bottom: 10vh;
+  max-width: 600px;
 }
 
 .footerStyle {
