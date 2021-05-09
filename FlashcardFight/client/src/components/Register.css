@@ -3,7 +3,7 @@
 }
 
 .mainContainer {
-  height: 94vh;
+  height: 100vh;
   /* max-height: 600px; */
 
   width: 100%;
@@ -22,4 +22,10 @@
     background-position: -5000px 101%, -800px 100%, 500px 90%, 1000px 90%,
       400px 0;
   }
+}
+
+.runningHero {
+  position: absolute;
+  max-width: 256px;
+  bottom: 3vh;
 }

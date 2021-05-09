@@ -132,7 +132,7 @@ const BattleSet = () => {
             setBossHP(() => bossHP - 1000)
             flashcardSetData.correctAnswers += 1;
             flashcardSetData.EXPgained += 40;
-            setHeroAction(profile.characterImage.imageLocation) }, 1100);
+            setHeroAction(profile.characterImage.imageLocation) }, 500);
     }
 
     const bossAttack = () => {
@@ -163,7 +163,7 @@ const BattleSet = () => {
                 // Update the serverside with current character state
                 updateUserCharacter(serverUser)
             }
-        }, 1100);
+        }, 700);
         
     }
 

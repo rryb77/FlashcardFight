@@ -15,6 +15,7 @@ const Home = () => {
     const [minorPotionItems, setMinorPotionItems] = useState([])
     const [majorPotionItems, setMajorPotionItems] = useState([])
     const [fullPotionItems, setFullPotionItems] = useState([])
+    const [heroAction, setHeroAction] = useState()
 
     useEffect(() => {
  
@@ -26,6 +27,7 @@ const Home = () => {
     useEffect(() => {
         if(currentUser.id !== undefined)
         {
+            setHeroAction(currentUser.characterImage.imageLocation)
             getUserItems(currentUser.id)
                 .then(setUserItems)
         }
@@ -44,30 +46,32 @@ const Home = () => {
     }, [userItems])
 
     const userItem = (item) => {
-        console.log(currentUser)
+        setHeroAction('/characters/Guy1UseItem.gif')
 
-        let newHp = currentUser.hp + item.hpBoost
-        if(newHp > currentUser.maxHP)
-        {
-            newHp = currentUser.maxHP
-        }
+        setTimeout(() => { 
+            let newHp = currentUser.hp + item.hpBoost
+            if(newHp > currentUser.maxHP)
+            {
+                newHp = currentUser.maxHP
+            }
 
-        currentUser.hp = newHp
-        updateUserCharacter(currentUser)
-            .then(() => deleteUserItem(item.userItemId))
-            .then(getUserProfileById)
-            .then(setCurrentUser)
+            currentUser.hp = newHp
+            updateUserCharacter(currentUser)
+                .then(() => deleteUserItem(item.userItemId))
+                .then(getUserProfileById)
+                .then(setCurrentUser)
+            setHeroAction(currentUser.characterImage.imageLocation) }, 500);
     }
 
 
     return (
         <>
         <div className="homeContainer">
-            <img className="studyHero" src={currentUser?.characterImage?.imageLocation} alt="Player hero"></img>        
+            <img className="studyHero" src={heroAction} alt="Player hero"></img>        
         </div>
 
         <div className="footerContainer">
-            <img className="studyHero" src={currentUser?.characterImage?.imageLocation} alt="Player hero"></img>              
+            <img className="studyHero" src={heroAction} alt="Player hero"></img>              
             <Container className="heroFooterRight">
                 
                     <div className="textPosition">
