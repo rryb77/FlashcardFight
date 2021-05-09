@@ -112,11 +112,13 @@ const StudyResults = () => {
         <Container className="resultsContainer is-dark">
             <div id="results">
                 <h1>Training Results For {flashcardSetData.flashcard.title}</h1>
+                {message()}
+                <br></br><br></br>
                 You got {flashcardSetData.correctAnswers} out of {flashcardSetData.questionAmount} correct.
                 <br></br>
-                {message()}
+                
                 <br></br>
-                Item Found: {itemFound.name}
+                <b>Item Found:</b> {itemFound.name}
                 <br></br>
                 <b>Accuracy:</b> {percentage}%
                 <br></br>

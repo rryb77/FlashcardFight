@@ -12,6 +12,8 @@ export const FlashCardSetProvider = (props) => {
         questionAmount: 0,
         correctAnswers: 0,
         wrongAnswers: 0,
+        dmgDone: 0,
+        dmgTaken: 0,
         setId: 0,
         EXPgained: 0,
         HP: 0,

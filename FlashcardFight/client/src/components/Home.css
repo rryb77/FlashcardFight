@@ -92,6 +92,13 @@
   width: 90%;
   position: relative;
   left: 6vh;
-  bottom: 3.5vh;
-  height: 3vh;
+  bottom: 4vh;
+  height: 4vh;
+  font-size: 4vh;
+}
+
+.inventoryButton {
+  width: 20vh;
+  font-size: 2vh;
+  margin-left: 2vh;
 }

@@ -6,6 +6,8 @@ import {UserProfileContext} from '../../providers/UserProfileProvider'
 import { Container, Radios, Button } from "nes-react";
 import './BattleSet.css'
 import '../studysets/Study.css'
+import { Progress } from 'reactstrap';
+
 
 const BattleSet = () => {
     
@@ -134,6 +136,7 @@ const BattleSet = () => {
         {
             console.log(bossDMG)
             setTheCount(theCount => theCount + 1)
+            flashcardSetData.dmgDone += 1000
             setBossHP(() => bossHP - 1000)
             flashcardSetData.correctAnswers += 1;
             flashcardSetData.EXPgained += 40;
@@ -145,6 +148,7 @@ const BattleSet = () => {
             setTheCount(theCount => theCount + 1)
             // Update the flashcard set data object for results screen
             flashcardSetData.wrongAnswers += 1;
+            flashcardSetData.dmgTaken += dmg
             flashcardSetData.hp -= dmg
             flashcardSetData.hp = Math.round(flashcardSetData.hp)
             // Update the HP on the DOM
@@ -227,11 +231,24 @@ const BattleSet = () => {
                         
                         <div className="footerStyle textSizer">
                             <div className="textPosition">
+                            <text className="textSizer">
+                            <h5 className="textSizer">{battleSet.title} - Level {Math.round(profile.level * 1.7 * battleSet.difficultyId)}</h5>
+                                    <b>HP:</b> {'  '}
+                                    <Progress className="progressBars" multi>
+                                        <Progress bar color="success" value={bossHP}>{bossHP} / {5000}</Progress>
+                                        <Progress bar animated color="danger" value={5000 - bossHP}></Progress>
+                                    </Progress> 
+                                    <b>EXP:</b>  
+                                <Progress className="progressBars" multi>
+                                    <Progress bar color="info" value={0}>???</Progress>
+                                    <Progress bar animated color="warning" value={100}>???</Progress>
+                                </Progress>
+                            </text>
+                                
                                 <text className="textSizer">
-                                    <h5 className="textSizer">{battleSet.title}</h5>
+                                    <h5 className="textSizer">{battleSet.title} - Level {Math.round(profile.level * 1.7 * battleSet.difficultyId)}</h5>
                                     <b>HP:</b> {'  '} {bossHP} <br></br>
-                                    <b>EXP:</b>  {profile.experience * 1.7 * battleSet.difficultyId} <br></br>
-                                    <b>Level:</b>  {Math.round(profile.level * 1.7 * battleSet.difficultyId)}
+                                    <b>EXP:</b>  {profile.experience * 1.7 * battleSet.difficultyId}
                                 </text>
                             </div>
                         </div>
@@ -241,12 +258,19 @@ const BattleSet = () => {
                         <div className="footerStyle textSizer">
                             <div className="textPosition">  
                                 
-                                <text className="textSizer">
-                                    <h5 className="textSizer">{profile?.userName}</h5>
-                                    <b>HP:</b> {'  '} {HP} <br></br>
-                                    <b>EXP:</b>  {currentUser.experience} <br></br>
-                                    <b>Level:</b>  {currentUser.level}
-                                </text>
+                            <text className="textSizer">
+                                <h5 className="textSizer">{profile?.userName} - Level {profile.level}</h5>
+                                <b>HP:</b> {'  '}
+                                <Progress className="progressBars" multi>
+                                    <Progress bar color="success" value={flashcardSetData.hp}>{flashcardSetData.hp} / {profile.maxHP}</Progress>
+                                    <Progress bar animated color="danger" value={profile.maxHP - flashcardSetData.hp}></Progress>
+                                </Progress> 
+                                <b>EXP:</b> {' '}
+                                <Progress className="progressBars" multi>
+                                    <Progress bar color="info" value={profile.experience}>{profile.experience} / {profile.expToNextLevel}</Progress>
+                                    <Progress bar animated color="warning" value={profile.expToNextLevel - profile.experience}></Progress>
+                                </Progress>
+                            </text>
                             </div>
                         </div>
                     </Container>

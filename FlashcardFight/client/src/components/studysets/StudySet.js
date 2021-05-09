@@ -5,6 +5,8 @@ import { QuestionContext } from '../../providers/QuestionProvider';
 import {UserProfileContext} from '../../providers/UserProfileProvider'
 import './Study.css';
 import { Container, Button } from "nes-react";
+import { Progress } from 'reactstrap';
+
 import {
     Badge,
     Card,
@@ -212,11 +214,14 @@ const StudySet = () => {
                 <div className="footerStyle textSizer">
                     <div className="textPosition">
                         <text className="textSizer">
-                            <h5 className="textSizer">Practice Dummy</h5>
-                            <b>HP:</b> {'  '} 99999 <br></br>
-                            <b>EXP:</b>  0 <br></br>
-                            <b>Level:</b>  1
-                        </text>
+                            <h5 className="textSizer">Practice Dummy - Level 1</h5>
+                            <b>HP:</b> 
+                            <Progress className="progressBars" multi>
+                                <Progress bar color="success" value={999999}>{profile.hp} / {profile.maxHP}</Progress>
+                                <Progress bar animated color="danger" value={profile.maxHP - profile.hp}></Progress>
+                            </Progress> 
+                            <b>EXP:</b>  0
+                            </text>
                     </div>
                 </div>
             </Container>
@@ -225,11 +230,18 @@ const StudySet = () => {
                 <div className="footerStyle textSizer">
                     <div className="textPosition">  
                         
-                        <text className="textSizer">
-                            <h5 className="textSizer">{profile?.userName}</h5>
-                            <b>HP:</b> {'  '} {currentUser.hp} <br></br>
-                            <b>EXP:</b>  {currentUser.experience} <br></br>
-                            <b>Level:</b>  {currentUser.level}
+                    <text className="textSizer">
+                            <h5 className="textSizer">{profile?.userName} - Level {profile.level}</h5>
+                            <b>HP:</b> {'  '}
+                            <Progress className="progressBars" multi>
+                                <Progress bar color="success" value={profile.hp}>{profile.hp} / {profile.maxHP}</Progress>
+                                <Progress bar animated color="danger" value={profile.maxHP - profile.hp}></Progress>
+                            </Progress> 
+                            <b>EXP:</b> {' '}
+                            <Progress className="progressBars" multi>
+                                <Progress bar color="info" value={profile.experience}>{profile.experience} / {profile.expToNextLevel}</Progress>
+                                <Progress bar animated color="warning" value={profile.expToNextLevel - profile.experience}></Progress>
+                            </Progress>
                         </text>
                     </div>
                 </div>

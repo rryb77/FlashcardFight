@@ -21,27 +21,31 @@ const BattleResults = () => {
 
 
     return (
-        <Container>
+        <div className="resultsBackground row justify-content-center">
+        <div class="firefly"></div><div class="firefly"></div><div class="firefly"></div><div class="firefly"></div><div class="firefly"></div><div class="firefly"></div><div class="firefly"></div><div class="firefly"></div><div class="firefly"></div><div class="firefly"></div><div class="firefly"></div><div class="firefly"></div>
             
+        <Container className="resultsContainer is-dark">
             <div id="results">
-                <h1>Battle Results For {flashcardSetData.flashcard.title}</h1>
+                <h1>Training Results For {flashcardSetData.flashcard.title}</h1>
+                <br></br>
                 You got {flashcardSetData.correctAnswers} out of {flashcardSetData.questionAmount} correct.
                 <br></br>
-                {/* {message()} */}
+                
+                
+                {/* <b>Item Found:</b> {itemFound.name} */}
                 <br></br>
                 <b>Accuracy:</b> {percentage}%
                 <br></br>
-                {/* May change this to give the user some slack, currently XP is gained only when they get ALL questions right */}
-                {percentage === 100 ?
-                <b>EXP Gained: +{flashcardSetData.EXPgained}</b>
-                :
-                <b>EXP Gained: 0</b>
-                }
+                <b>Damage Done:</b> {flashcardSetData.dmgDone}
                 <br></br>
-                <Button type="button" color="info" onClick={() => history.push(`/study/${flashcardSetData.setId}`)}>Study</Button> {'  '} <Button color="danger" onClick={() => history.push(`/battle/${flashcardSetData.setId}`)}>Battle Again</Button>
+                <b>Damage Taken:</b> {flashcardSetData.dmgTaken}
+                <br></br>
+                <b>EXP Gained:</b> +{flashcardSetData.EXPgained}
+                <br></br>
+                <Button type="button" color="info" onClick={() => history.push(`/study/${flashcardSetData.setId}`)}>Study Again</Button> {'  '} <Button color="danger" onClick={() => history.push(`/battle/${flashcardSetData.setId}`)}>Battle</Button>
             </div>
-
         </Container>
+        </div>
     )
 
 }

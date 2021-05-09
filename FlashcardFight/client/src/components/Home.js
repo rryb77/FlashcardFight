@@ -12,6 +12,9 @@ const Home = () => {
     const { deleteUserItem } = useContext(UserItemContext);
     const [currentUser, setCurrentUser] = useState({})
     const [userItems, setUserItems] = useState([])
+    const [minorPotionItems, setMinorPotionItems] = useState([])
+    const [majorPotionItems, setMajorPotionItems] = useState([])
+    const [fullPotionItems, setFullPotionItems] = useState([])
 
     useEffect(() => {
         getUserProfileById()
@@ -25,6 +28,22 @@ const Home = () => {
                 .then(setUserItems)
         }
     },[currentUser])
+
+    useEffect(() => {
+        if(userItems.length > 0)
+        {
+            const minorPotions = userItems.filter(mp => mp.id === 1)
+            setMinorPotionItems(minorPotions)
+            const majorPotions = userItems.filter(mp => mp.id === 2)
+            setMajorPotionItems(majorPotions)
+            const fullPotions = userItems.filter(mp => mp.id === 3)
+            setFullPotionItems(fullPotions)
+        }
+    }, [userItems])
+
+    useEffect(() => {
+        console.log(minorPotionItems)
+    }, [minorPotionItems])
 
     const userItem = (item) => {
         console.log(currentUser)
@@ -42,6 +61,7 @@ const Home = () => {
             .then(setCurrentUser)
     }
 
+
     return (
         <>
         <div className="homeContainer">
@@ -55,13 +75,9 @@ const Home = () => {
                     <div className="textPosition">
                         <text className="textSizer">
                         <b>Items:</b>
-                        {
-                            userItems.map(item => {
-                                return (
-                                    <button className="nes-btn" onClick={() => userItem(item)}>{item.name}</button>
-                                )
-                            })
-                        }
+                        <button className="inventoryButton nes-btn" onClick={() => userItem(minorPotionItems[0])}>{minorPotionItems[0]?.name} x{minorPotionItems?.length}</button>
+                        <button className="inventoryButton nes-btn" onClick={() => userItem(majorPotionItems[0])}>{majorPotionItems[0]?.name} x{majorPotionItems?.length}</button>
+                        <button className="inventoryButton nes-btn" onClick={() => userItem(fullPotionItems[0])}>{fullPotionItems[0]?.name} x{fullPotionItems?.length}</button>
                         </text>
                     
                 </div>
