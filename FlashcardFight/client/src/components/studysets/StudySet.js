@@ -150,7 +150,7 @@ const StudySet = () => {
         null
         :
         <>
-        <div className="studyBattleContainer BGsizer">
+        <div className="studyBattleContainer overflowOff BGsizer">
                                
                 {hiddenAnswer ?
                 
@@ -163,35 +163,7 @@ const StudySet = () => {
                         <button className="nes-btn is-error" onClick={userWrong}><div className="textSizer">I was wrong</div></button> 
                    
                 </div>
-                    // <Container className="questionContainer nes-container with-title is-dark">
-                    //     <Card className="m-4">
-                    //         <CardBody>
-                    //             <CardTitle tag="h2">
-                    //             Question:
-                    //             </CardTitle>
-                    //             <div className="QandA">{question?.questionText}</div>
-                    //         </CardBody>
-                    //         <CardFooter>
-                    //             <Button color="secondary" onClick={showHide}>Show Answer</Button> {' '}
-                    //             <Button color="success" className="" onClick={userCorrect}>I was right</Button> {' '}
-                    //             <Button color="danger" className="" onClick={userWrong}>I was wrong</Button> 
-                    //         </CardFooter>
-                    //     </Card>
-                    // </Container>
                 :
-                // <Card className="m-4 flashcard">
-                //     <CardBody>
-                //         <CardTitle tag="h2">
-                //         Answer:
-                //         </CardTitle>
-                //         <div className="QandA">{correct.answerText}</div>
-                //     </CardBody>
-                //     <CardFooter>
-                //         <Button color="secondary" onClick={showHide}>Hide Answer</Button>
-                //         <Button color="success" className="right" onClick={userCorrect}>I was right</Button> {' '}
-                //         <Button color="danger" className="right" onClick={userWrong}>I was wrong</Button> 
-                //     </CardFooter>
-                // </Card>
                 <div className="questionContainer nes-container with-title is-dark">
                     <h2 className="title"><text className="textSizer">Answer</text></h2>
                     <div className="QandA"><text className="textSizer">{correct.answerText}</text></div>
@@ -202,9 +174,6 @@ const StudySet = () => {
                     
                 </div>
                 }        
-        </div>
-        <div>
-                
         </div>
         <div className="footerContainer">
             <img className="studyHero" src={profile?.characterImage?.imageLocation} alt="Player hero"></img>              

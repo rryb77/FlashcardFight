@@ -244,12 +244,6 @@ const BattleSet = () => {
                                     <Progress bar animated color="warning" value={100}>???</Progress>
                                 </Progress>
                             </text>
-                                
-                                <text className="textSizer">
-                                    <h5 className="textSizer">{battleSet.title} - Level {Math.round(profile.level * 1.7 * battleSet.difficultyId)}</h5>
-                                    <b>HP:</b> {'  '} {bossHP} <br></br>
-                                    <b>EXP:</b>  {profile.experience * 1.7 * battleSet.difficultyId}
-                                </text>
                             </div>
                         </div>
                     </Container>

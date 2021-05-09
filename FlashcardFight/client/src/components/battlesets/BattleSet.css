@@ -9,6 +9,7 @@
   -o-background-size: cover;
   background-size: cover;
   z-index: -10;
+  overflow: hidden;
 }
 
 .battleFooterLeft {
@@ -67,7 +68,7 @@
   left: 60vh;
   bottom: 48vh;
   padding: 10;
-  margin-top: 53vh;
+  margin-top: 63vh;
   /* height: 50vh; */
   width: 40%;
   /* background-color: white; */

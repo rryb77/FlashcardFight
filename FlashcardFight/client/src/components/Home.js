@@ -7,7 +7,7 @@ import './Home.css';
 import { Progress } from 'reactstrap';
 
 const Home = () => {
-    const { getUserProfileById, updateUserCharacter } = useContext(UserProfileContext);
+    const { getUserProfileById, updateUserCharacter,  } = useContext(UserProfileContext);
     const { getUserItems } = useContext(ItemContext);
     const { deleteUserItem } = useContext(UserItemContext);
     const [currentUser, setCurrentUser] = useState({})
@@ -17,8 +17,10 @@ const Home = () => {
     const [fullPotionItems, setFullPotionItems] = useState([])
 
     useEffect(() => {
+ 
         getUserProfileById()
-            .then(setCurrentUser)
+        .then(setCurrentUser)
+        
     },[])
 
     useEffect(() => {
@@ -40,10 +42,6 @@ const Home = () => {
             setFullPotionItems(fullPotions)
         }
     }, [userItems])
-
-    useEffect(() => {
-        console.log(minorPotionItems)
-    }, [minorPotionItems])
 
     const userItem = (item) => {
         console.log(currentUser)

@@ -1,14 +1,18 @@
 .studyBattleContainer {
   margin-top: 6vh;
   width: 100%;
-  height: 93vh;
-  padding: 5vh;
+  height: 99vh;
+  padding: 1vh;
   background-image: url(Forest.png);
   -webkit-background-size: cover;
   -moz-background-size: cover;
   -o-background-size: cover;
   background-size: cover;
   z-index: -10;
+}
+
+.overflowOff {
+  overflow: hidden;
 }
 
 .BGsizer {
@@ -36,6 +40,7 @@
   position: absolute;
   left: 20vh;
   bottom: 14vh;
+  max-width: 400px;
 }
 
 .footerStyle {
@@ -82,25 +87,8 @@ text {
   bottom: 60vh;
   padding: 20;
   margin-top: 10vh;
-  /* height: 50vh; */
   width: 50%;
-  /* background-color: white; */
 }
-
-/* .buttonFooter {
-  position: absolute;
-  height: 70vh;
-  top: 43vh;
-  width: 80vh;
-} */
-
-/* .studyBattleBtn {
-  position: relative;
-  margin-top: 30vh;
-  padding: 10;
-  width: 25vh;
-  height: 5vh;
-} */
 
 .textSizer {
   font-size: 2.8vh;

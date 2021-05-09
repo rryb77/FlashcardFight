@@ -86,7 +86,7 @@ namespace FlashcardFight.Repositories
                                         Level, Experience, ExpToNextLevel, HP, MaxHP, Attempts, Wins, Deactivated)
                                     OUTPUT INSERTED.ID
                                     VALUES (@FirebaseUserId, @UserName, @Email, @JoinDate, @UserTypeId, @CharacterImageId,
-                                        @Level, @Experience, @ExpToNextLevel, @HP, @Attempts, @Wins, @Deactivated)";
+                                        @Level, @Experience, @ExpToNextLevel, @HP, @MaxHP, @Attempts, @Wins, @Deactivated)";
                     DbUtils.AddParameter(cmd, "@FirebaseUserId", userProfile.FirebaseUserId);
                     DbUtils.AddParameter(cmd, "@UserName", userProfile.UserName);
                     DbUtils.AddParameter(cmd, "@Email", userProfile.Email);
