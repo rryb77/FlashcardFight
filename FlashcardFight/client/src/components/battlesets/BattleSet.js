@@ -41,7 +41,6 @@ const BattleSet = () => {
         setHP(profile.hp)
     }, [profile])
 
-
     // Update the user character once the last card was studied
     useEffect(() => {
         if(serverUser.id > 0)
@@ -88,7 +87,7 @@ const BattleSet = () => {
             // Calculate and assign dmg amount per wrong answer
             setDmg(currentUser.hp / questions.length)
             setBossHP(questions.length * 1000)
-            setBossDMG(bossHP / questions.length)
+            
             // Populate the flashcard data for details screen
             flashcardSetData.questionAmount = questions.length;
             flashcardSetData.setId = id;
@@ -106,6 +105,7 @@ const BattleSet = () => {
         // If it is greater than 0 and less than the amount of questions the user has to study...
         if(theCount > 0 && theCount < questions?.length)
         {
+            
             // Assign the next question
             setQuestion(questions[theCount])
             // Randomize the answer order
@@ -132,8 +132,9 @@ const BattleSet = () => {
         // Correct
         else if(answerChoice.correct === true)
         {
+            console.log(bossDMG)
             setTheCount(theCount => theCount + 1)
-            setBossHP(bossHP - bossDMG)
+            setBossHP(() => bossHP - 1000)
             flashcardSetData.correctAnswers += 1;
             flashcardSetData.EXPgained += 40;
         }
@@ -187,7 +188,7 @@ const BattleSet = () => {
     }
 
     return (
-        <div className="studyBattleContainer BGsizer">
+        <div className="battleContainer BGsizer">
             {!profile?.characterImage?.imageLocation ?
             null
             :
@@ -215,7 +216,7 @@ const BattleSet = () => {
                             }
                             
                         </div>
-                        <Button type="button" className="nes-btn is-normal nes-cursor" onClick={checkAnswer}>Submit</Button>
+                        <button type="button right" className="nes-btn is-normal nes-cursor" onClick={checkAnswer}>Submit</button>
                     </div>
                 </div>
 
@@ -242,7 +243,7 @@ const BattleSet = () => {
                                 
                                 <text className="textSizer">
                                     <h5 className="textSizer">{profile?.userName}</h5>
-                                    <b>HP:</b> {'  '} {currentUser.hp} <br></br>
+                                    <b>HP:</b> {'  '} {HP} <br></br>
                                     <b>EXP:</b>  {currentUser.experience} <br></br>
                                     <b>Level:</b>  {currentUser.level}
                                 </text>

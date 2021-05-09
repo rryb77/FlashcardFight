@@ -41,6 +41,7 @@ export function UserProfileProvider(props) {
     };
 
     const logout = () => {
+        debugger
         return firebase.auth().signOut()
         .then(() => {
             sessionStorage.clear()

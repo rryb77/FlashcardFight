@@ -4,7 +4,7 @@ import {ItemContext} from '../../src/providers/ItemProvider'
 import {UserItemContext} from '../../src/providers/UserItemProvider'
 import React, {useContext, useState, useEffect} from "react";
 import './Home.css';
-
+import { Progress } from 'reactstrap';
 
 const Home = () => {
     const { getUserProfileById, updateUserCharacter } = useContext(UserProfileContext);
@@ -50,8 +50,8 @@ const Home = () => {
 
         <div className="footerContainer">
             <img className="studyHero" src={currentUser?.characterImage?.imageLocation} alt="Player hero"></img>              
-            <Container className="heroFooterRight is-dark">
-                <div className="footerStyle textSizer">
+            <Container className="heroFooterRight">
+                
                     <div className="textPosition">
                         <text className="textSizer">
                         <b>Items:</b>
@@ -63,7 +63,7 @@ const Home = () => {
                             })
                         }
                         </text>
-                    </div>
+                    
                 </div>
             </Container>
             <Container className="heroFooterLeft is-dark">
@@ -72,10 +72,17 @@ const Home = () => {
                     <div className="textPosition">  
                         
                         <text className="textSizer">
-                            <h5 className="textSizer">{currentUser?.userName}</h5>
-                            <b>HP:</b> {'  '} {currentUser.hp} <br></br>
-                            <b>EXP:</b>  {currentUser.experience} <br></br>
-                            <b>Level:</b>  {currentUser.level}
+                            <h5 className="textSizer">{currentUser?.userName} - Level {currentUser.level}</h5>
+                            <b>HP:</b> {'  '}
+                            <Progress className="progressBars" multi>
+                                <Progress bar color="success" value={currentUser.hp}>{currentUser.hp} / {currentUser.maxHP}</Progress>
+                                <Progress bar animated color="danger" value={currentUser.maxHP - currentUser.hp}></Progress>
+                            </Progress> 
+                            <b>EXP:</b> {' '}
+                            <Progress className="progressBars" multi>
+                                <Progress bar color="info" value={currentUser.experience}>{currentUser.experience} / {currentUser.expToNextLevel}</Progress>
+                                <Progress bar animated color="warning" value={currentUser.expToNextLevel - currentUser.experience}></Progress>
+                            </Progress>
                         </text>
                     </div>
                 </div>

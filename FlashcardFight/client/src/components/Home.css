@@ -7,11 +7,11 @@
 } */
 
 .heroFooterLeft {
-  height: 15vh;
+  height: 20vh;
   width: 50%;
   position: absolute;
   bottom: 0vh;
-
+  border-color: white;
   color: whitesmoke;
   z-index: 1;
   background-image: linear-gradient(
@@ -31,14 +31,25 @@
   );
 }
 
+.nes-container::after {
+  top: 2px;
+  right: 2px;
+  bottom: 2px;
+  left: 2px;
+  border-color: #ffffff;
+  border-style: solid;
+  border-width: 4px;
+  border-radius: 4px;
+}
+
 .heroFooterRight {
-  height: 15vh;
+  height: 20vh;
   width: 50%;
   position: absolute;
   bottom: 0vh;
   right: 0vh;
   color: whitesmoke;
-  z-index: 0;
+  z-index: 1;
   background-image: linear-gradient(
     to bottom,
     #0a00ee,
@@ -71,4 +82,16 @@
   -o-background-size: cover;
   background-size: cover;
   z-index: -10;
+}
+
+.nes-progress {
+  width: 80%;
+}
+
+.progressBars {
+  width: 90%;
+  position: relative;
+  left: 6vh;
+  bottom: 3.5vh;
+  height: 3vh;
 }
