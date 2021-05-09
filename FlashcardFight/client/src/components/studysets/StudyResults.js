@@ -76,7 +76,7 @@ const StudyResults = () => {
 
         if(percentage === 100)
         {
-            return "WOW! You're training was flawless! You should battle the boss."
+            return "WOW! Your training was flawless! You should battle the boss."
         }
         else if (percentage >= 90)
         {
@@ -105,8 +105,11 @@ const StudyResults = () => {
     }
 
     return (
-        <Container>
+        
+        <div className="resultsBackground row justify-content-center">
+        <div class="firefly"></div><div class="firefly"></div><div class="firefly"></div><div class="firefly"></div><div class="firefly"></div><div class="firefly"></div><div class="firefly"></div><div class="firefly"></div><div class="firefly"></div><div class="firefly"></div><div class="firefly"></div><div class="firefly"></div>
             
+        <Container className="resultsContainer is-dark">
             <div id="results">
                 <h1>Training Results For {flashcardSetData.flashcard.title}</h1>
                 You got {flashcardSetData.correctAnswers} out of {flashcardSetData.questionAmount} correct.
@@ -121,8 +124,8 @@ const StudyResults = () => {
                 <br></br>
                 <Button type="button" color="info" onClick={() => history.push(`/study/${flashcardSetData.setId}`)}>Study Again</Button> {'  '} <Button color="danger" onClick={() => history.push(`/battle/${flashcardSetData.setId}`)}>Battle</Button>
             </div>
-
         </Container>
+        </div>
     )
 
 }

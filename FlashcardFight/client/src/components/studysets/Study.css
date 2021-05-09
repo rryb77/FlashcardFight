@@ -105,3 +105,15 @@ text {
 .textSizer {
   font-size: 2.8vh;
 }
+
+.resultsBackground {
+  width: 100.8%;
+  height: 100vh;
+  padding: 5vh;
+  background-image: url(Wood.png);
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+  z-index: -10;
+}

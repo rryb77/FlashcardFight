@@ -63,3 +63,10 @@ tr:nth-child(odd) {
 .leftMargin {
   margin-left: 15px;
 }
+
+.resultsContainer {
+  z-index: 1;
+  max-width: 80vh;
+  max-height: 60vh;
+  margin-top: 10vh;
+}
