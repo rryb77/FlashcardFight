@@ -67,7 +67,7 @@ tr:nth-child(odd) {
 .resultsContainer {
   z-index: 1;
   max-width: 80vh;
-  max-height: 60vh;
+  max-height: 40vh;
   margin-top: 10vh;
 }
 
