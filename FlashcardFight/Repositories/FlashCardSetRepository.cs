@@ -203,7 +203,7 @@ namespace FlashcardFight.Repositories
             }
         }
 
-        // Get a list of all set tjat the user is NOT subscribed to and filtered by difficulty
+        // Get a list of all set that the user is NOT subscribed to and filtered by difficulty
         public List<FlashCardSet> GetAllWithoutSubsFilteredByDifficulty(int id, int difficultyId)
         {
             using (var conn = Connection)

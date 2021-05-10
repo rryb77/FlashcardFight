@@ -77,14 +77,6 @@
 }
 
 .battleQuestionContainer {
-  /* position: absolute;
-  right: 60vh;
-  bottom: 50vh;
-  padding: 10;
-  margin-top: 63vh;
-  min-width: 40%;
-  z-index: 1; */
-
   position: absolute;
   top: 50%;
   left: 50%;
@@ -97,9 +89,9 @@
 
 .boss {
   position: absolute;
-  right: -30vh;
-  bottom: -12vh;
-  max-width: 1024px;
+  right: -20vh;
+  bottom: -7vh;
+  width: 100vh;
 }
 
 .resultsHero {

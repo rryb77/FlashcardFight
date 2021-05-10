@@ -70,7 +70,7 @@ export default function Register() {
 
     return (
         <>
-        <div className="mainContainer">
+        <div className="mainContainer" id="mainContainer">
             <div className="container pt-4">
                 <div className="row justify-content-center">
                     <Container className="login">

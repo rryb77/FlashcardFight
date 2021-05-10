@@ -26,6 +26,7 @@
 
 .runningHero {
   position: absolute;
-  max-width: 256px;
-  bottom: 3vh;
+  width: 50vh;
+  bottom: -5vh;
+  left: 10vh;
 }

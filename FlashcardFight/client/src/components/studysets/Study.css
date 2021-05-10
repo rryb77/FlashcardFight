@@ -34,14 +34,15 @@
   right: 10vh;
   /* top: 60vh; */
   bottom: 25vh;
-  width: 300px;
+  width: 40vh;
 }
 
 .studyHero {
   position: absolute;
   left: -5vh;
   bottom: 10vh;
-  max-width: 600px;
+  /* max-width: 600px; */
+  width: 70vh;
   z-index: 1;
 }
 
