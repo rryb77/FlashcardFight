@@ -41,10 +41,10 @@ export function UserProfileProvider(props) {
     };
 
     const logout = () => {
+        setIsLoggedIn(false)
         return firebase.auth().signOut()
         .then(() => {
             sessionStorage.clear()
-            setIsLoggedIn(false)
             setIsAdmin(false)
         }).then(history.push('/'));
     };
