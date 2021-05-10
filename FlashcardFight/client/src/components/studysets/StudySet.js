@@ -40,6 +40,19 @@ const StudySet = () => {
 
     // Initial load
     useEffect(() => {
+        
+        // reset the flashcard set data object on load
+        flashcardSetData.questionAmount = 0
+        flashcardSetData.correctAnswers = 0
+        flashcardSetData.wrongAnswers = 0
+        flashcardSetData.dmgDone = 0
+        flashcardSetData.dmgTaken = 0
+        flashcardSetData.setId = 0
+        flashcardSetData.EXPgained = 0
+        flashcardSetData.HP = 0
+        flashcardSetData.Level = 0
+        flashcardSetData.ExpToNextLevel = 0
+
         getFlashcardSetWithQandA(id)
             .then(setStudySet)
             .then(() => getUserProfile(currentUser.firebaseUserId))
@@ -67,12 +80,14 @@ const StudySet = () => {
 
             updateUserCharacter(serverUser)
             history.push(`${id}/results`)
+            setTheCount(0)
         }
     }, [serverUser])
 
     useEffect(() => {
         if(studySet?.id > 0)
         {
+            
             setQuestions(studySet.questions)
         }
     }, [studySet])
