@@ -50,7 +50,7 @@ namespace FlashcardFight.Repositories
                     SELECT f.Id AS SetId, f.Title, f.Description, f.CreateDateTime,
                         c.id As CategoryId, c.Name AS CategoryName,
                         d.id AS DifficultyId, d.Name AS DifficultyName,
-                        b.id AS BossImageId, b.ImageLocation AS BossImageLocation,
+                        b.id AS BossImageId, b.ImageLocation AS BossImageLocation, b.Attack, b.Death, b.Hurt,
                         u.id AS UserId, u.UserName, u.Email
                     FROM FlashCardSet f
                     LEFT JOIN Category c ON c.id = f.CategoryId
@@ -87,7 +87,7 @@ namespace FlashcardFight.Repositories
                     SELECT f.Id AS SetId, f.Title, f.Description, f.CreateDateTime,
                         c.id As CategoryId, c.Name AS CategoryName,
                         d.id AS DifficultyId, d.Name AS DifficultyName,
-                        b.id AS BossImageId, b.ImageLocation AS BossImageLocation,
+                        b.id AS BossImageId, b.ImageLocation AS BossImageLocation, b.Attack, b.Death, b.Hurt,
                         u.id AS UserId, u.UserName, u.Email
                     FROM FlashCardSet f
                     LEFT JOIN Category c ON c.id = f.CategoryId
@@ -123,7 +123,7 @@ namespace FlashcardFight.Repositories
                     SELECT f.Id AS SetId, f.Title, f.Description, f.CreateDateTime,
                         c.id As CategoryId, c.Name AS CategoryName,
                         d.id AS DifficultyId, d.Name AS DifficultyName,
-                        b.id AS BossImageId, b.ImageLocation AS BossImageLocation,
+                        b.id AS BossImageId, b.ImageLocation AS BossImageLocation, b.Attack, b.Death, b.Hurt,
                         u.id AS UserId, u.UserName, u.Email
                     FROM FlashCardSet f
                     LEFT JOIN Category c ON c.id = f.CategoryId
@@ -168,7 +168,7 @@ namespace FlashcardFight.Repositories
                     SELECT f.Id AS SetId, f.Title, f.Description, f.CreateDateTime,
                         c.id As CategoryId, c.Name AS CategoryName,
                         d.id AS DifficultyId, d.Name AS DifficultyName,
-                        b.id AS BossImageId, b.ImageLocation AS BossImageLocation,
+                        b.id AS BossImageId, b.ImageLocation AS BossImageLocation, b.Attack, b.Death, b.Hurt,
                         u.id AS UserId, u.UserName, u.Email
                     FROM FlashCardSet f
                     LEFT JOIN Category c ON c.id = f.CategoryId
@@ -215,7 +215,7 @@ namespace FlashcardFight.Repositories
                     SELECT f.Id AS SetId, f.Title, f.Description, f.CreateDateTime,
                         c.id As CategoryId, c.Name AS CategoryName,
                         d.id AS DifficultyId, d.Name AS DifficultyName,
-                        b.id AS BossImageId, b.ImageLocation AS BossImageLocation,
+                        b.id AS BossImageId, b.ImageLocation AS BossImageLocation, b.Attack, b.Death, b.Hurt,
                         u.id AS UserId, u.UserName, u.Email
                     FROM FlashCardSet f
                     LEFT JOIN Category c ON c.id = f.CategoryId
@@ -261,7 +261,7 @@ namespace FlashcardFight.Repositories
                     SELECT f.Id AS SetId, f.Title, f.Description, f.CreateDateTime,
                         c.id As CategoryId, c.Name AS CategoryName,
                         d.id AS DifficultyId, d.Name AS DifficultyName,
-                        b.id AS BossImageId, b.ImageLocation AS BossImageLocation,
+                        b.id AS BossImageId, b.ImageLocation AS BossImageLocation, b.Attack, b.Death, b.Hurt,
                         u.id AS UserId, u.UserName, u.Email
                     FROM FlashCardSet f
                     LEFT JOIN Category c ON c.id = f.CategoryId
@@ -307,7 +307,7 @@ namespace FlashcardFight.Repositories
                     SELECT f.Id AS SetId, f.Title, f.Description, f.CreateDateTime,
                         c.id As CategoryId, c.Name AS CategoryName,
                         d.id AS DifficultyId, d.Name AS DifficultyName,
-                        b.id AS BossImageId, b.ImageLocation AS BossImageLocation,
+                        b.id AS BossImageId, b.ImageLocation AS BossImageLocation, b.Attack, b.Death, b.Hurt,
                         u.id AS UserId, u.UserName, u.Email
                     FROM FlashCardSet f
                     LEFT JOIN Category c ON c.id = f.CategoryId
@@ -376,7 +376,7 @@ namespace FlashcardFight.Repositories
                             BossImage = new BossImage()
                             {
                                 Id = DbUtils.GetInt(reader, "BossImageId"),
-                                ImageLocation = DbUtils.GetString(reader, "BossImageLocation")
+                                ImageLocation = DbUtils.GetString(reader, "BossImageLocation"),
                             },
                             CreatorId = DbUtils.GetInt(reader, "UserId"),
                             UserProfile = new UserProfile()
@@ -422,7 +422,7 @@ namespace FlashcardFight.Repositories
                     SELECT f.Id AS SetId, f.Title, f.Description, f.CreateDateTime,
                         c.id As CategoryId, c.Name AS CategoryName,
                         d.id AS DifficultyId, d.Name AS DifficultyName,
-                        b.id AS BossImageId, b.ImageLocation AS BossImageLocation,
+                        b.id AS BossImageId, b.ImageLocation AS BossImageLocation, b.Attack, b.Death, b.Hurt,
                         u.id AS UserId, u.UserName, u.Email,
                         q.Id AS QuestionId, q.QuestionText,
                         a.Id AS AnswerId, a.AnswerText, a.Correct
@@ -583,7 +583,10 @@ namespace FlashcardFight.Repositories
                 BossImage = new BossImage()
                 {
                     Id = DbUtils.GetInt(reader, "BossImageId"),
-                    ImageLocation = DbUtils.GetString(reader, "BossImageLocation")
+                    ImageLocation = DbUtils.GetString(reader, "BossImageLocation"),
+                    Attack = DbUtils.GetString(reader, "Attack"),
+                    Death = DbUtils.GetString(reader, "Death"),
+                    Hurt = DbUtils.GetString(reader, "Hurt"),
                 },
                 CreatorId = DbUtils.GetInt(reader, "UserId"),
                 UserProfile = new UserProfile()

@@ -6,12 +6,12 @@ insert into [UserType] ([ID], [Name]) VALUES (1, 'Admin'), (2, 'User');
 set identity_insert [UserType] off
 
 set identity_insert [CharacterImage] on
-insert into [CharacterImage] ([ID], [ImageLocation], [Attack], [Death], [Hurt], [Run], [UseItem], [Victory]) VALUES (1, '/characters/Guy1.gif', '/characters/Guy1Attack.gif', '/characters/Guy1Death.gif', '/characters/Guy1Hurt.gif', '/characters/Guy1Run.gif', '/characters/Guy1UseItem.gif', '/characters/GuyVictory.gif')
-insert into [CharacterImage] ([ID], [ImageLocation]) VALUES (2, '/characters/Girl1.gif')
+insert into [CharacterImage] ([ID], [ImageLocation], [Attack], [Death], [Hurt], [Run], [UseItem], [Victory]) VALUES (1, '/characters/Guy1.gif', '/characters/Guy1Attack.gif', '/characters/Guy1Death.gif', '/characters/Guy1Hurt.gif', '/characters/Guy1Run.gif', '/characters/Guy1UseItem.gif', '/characters/Guy1Victory.gif')
+insert into [CharacterImage] ([ID], [ImageLocation], [Attack], [Death], [Hurt], [Run], [UseItem], [Victory]) VALUES (2, '/characters/Girl1.gif', '/characters/Girl1Attack.gif', '/characters/Girl1Death.gif', '/characters/Girl1Hurt.gif', '/characters/Girl1Run.gif', '/characters/Girl1UseItem.gif', '/characters/Girl1Victory.gif')
 set identity_insert [CharacterImage] off
 
 set identity_insert [BossImage] on
-insert into [BossImage] ([ID], [ImageLocation], [Attack], [Death], [Hurt],) VALUES (1, '/bosses/ogre.gif', '/bosses/ogreAttack.gif', '/bosses/ogreDeath.gif', '/bosses/ogreHurt.gif')
+insert into [BossImage] ([ID], [ImageLocation], [Attack], [Death], [Hurt]) VALUES (1, '/bosses/ogre.gif', '/bosses/ogreAttack.gif', '/bosses/ogreDeath.gif', '/bosses/ogreHurt.gif')
 set identity_insert [BossImage] off
 
 set identity_insert [Category] on

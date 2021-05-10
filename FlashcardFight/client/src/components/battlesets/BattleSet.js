@@ -149,7 +149,7 @@ const BattleSet = () => {
 
     const heroAttack = () => {
         setTimeout(() => { 
-            setBossAction('/bosses/ogreHurt.gif')
+            setBossAction(battleSet.bossImage.hurt)
             flashcardSetData.dmgDone += 1000
             setBossHP(() => bossHP - 1000)
             flashcardSetData.correctAnswers += 1;
@@ -158,7 +158,7 @@ const BattleSet = () => {
             setTheCount(theCount => theCount + 1)}, 500);
 
         setTimeout(() => {
-            setBossAction('/bosses/ogre.gif')
+            setBossAction(battleSet.bossImage.imageLocation)
         }, 1100);
     }
 
@@ -183,7 +183,7 @@ const BattleSet = () => {
                 serverUser.userName = profile.userName
                 
                 // Boss reset to idle animation
-                setBossAction(battleSet?.bossImage?.imageLocation)
+                setBossAction(battleSet.bossImage.imageLocation)
 
                 // Update the HP on the DOM
                 setHP(flashcardSetData.hp)
@@ -218,7 +218,7 @@ const BattleSet = () => {
         // Wrong
         else if(answerChoice.correct === false)
         {
-            setBossAction('/bosses/ogreAttack.gif')
+            setBossAction(battleSet.bossImage.attack)
             // Update the flashcard set data object for results screen
             flashcardSetData.wrongAnswers += 1;
             flashcardSetData.dmgTaken += dmg
