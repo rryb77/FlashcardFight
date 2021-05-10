@@ -6,6 +6,7 @@ import './FlashCardList.css'
 const FlashCardUserList = () => {
   const { flashcards, setFlashcards, getAllUserFlashcards } = useContext(FlashCardSetContext);
 
+  // Initial load - Get flashcard sets that user created
   useEffect(() => {
     getAllUserFlashcards().then(setFlashcards)
   }, []);

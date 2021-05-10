@@ -37,6 +37,8 @@ const FlashCardList = () => {
     // Parsing the JSON returned above into an object so we can use it
     var currentUser = JSON.parse(userProfile);
 
+
+    // Initial load
     useEffect(() => {
         getAllWithoutUserSubscriptions(currentUser.id)
             .then(setFlashcards)
@@ -47,8 +49,8 @@ const FlashCardList = () => {
     }, []);
 
 
+    // Update the category filter
     useEffect(() => {
-        
 
         setTheFilters((prevState) => {
             let filter = {
@@ -62,6 +64,7 @@ const FlashCardList = () => {
     }, [catFilter])
 
 
+    // Update the difficulty filter
     useEffect(() => {
        
         setTheFilters((prevState) => {
@@ -75,6 +78,7 @@ const FlashCardList = () => {
     }, [difFilter])
 
     
+    // Return the filtered results
     useEffect(() => {
 
         if(theFilters.categoryId > 0 && theFilters.difficultyId > 0)
@@ -99,22 +103,26 @@ const FlashCardList = () => {
         }
 
     }, [theFilters])
-    
+
 
     const history = useHistory();
 
+    // Study button was clicked
     const study = (id) => {
         history.push(`study/${id}`);
     }
 
+    // Battle button was clicked
     const battle = (id) => {
         history.push(`battle/${id}`);
     }
 
+    // Details button was clicked
     const details = (id) => {
         history.push(`flashcards/details/${id}`);
     }
 
+    // Subscribe button was clicked
     const subscribe = (flashcard) => {
         const subscription = {
             UserId: parseInt(currentUser.id),

@@ -230,6 +230,7 @@ const FlashCardEdit = () => {
     }
 
     
+    // The question was added, now we can add the answers
     useEffect(() => {
         if(questionAdded.id > 0)
         {

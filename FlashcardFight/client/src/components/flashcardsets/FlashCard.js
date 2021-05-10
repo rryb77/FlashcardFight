@@ -12,28 +12,29 @@ import {
 import { Container } from "nes-react";
 import './FlashCard.css';
 import { useHistory } from 'react-router-dom';
-// import {SubscriptionContext} from '../../providers/SubscriptionProvider'
 
 const FlashCard = ({flashcard}) => {
-    
-    // const {AddSubscription} = useContext(SubscriptionContext)
-    
+        
     const history = useHistory();
 
     let difficultyCSS = ""
 
+    // Study button was clicked
     const study = (id) => {
         history.push(`study/${id}`);
     }
 
+    // Battle button was clicked
     const battle = (id) => {
         history.push(`battle/${id}`);
     }
 
+    // Details button was clicked
     const details = (id) => {
         history.push(`flashcards/details/${id}`);
     }
 
+    // Add proper difficulty CSS to each card
     if(flashcard.difficulty.name === "Beginner")
     {
         difficultyCSS = "success"

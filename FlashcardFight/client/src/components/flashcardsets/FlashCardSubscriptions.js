@@ -20,22 +20,28 @@ const FlashCardSubscriptions = () => {
     const {id} = useParams();
     const history = useHistory();
 
+    // Initial load - get the flashcard sets the user is subscribed to
     useEffect(() => {
         getAllFlashcardUserSubs(id).then(setFlashcards)
     }, []);
 
+
+    // Study button was clicked
     const study = (id) => {
         history.push(`/study/${id}`);
     }
 
+    // Battle button was clicked
     const battle = (id) => {
         history.push(`/battle/${id}`);
     }
 
+    // Details button was clicked
     const details = (id) => {
         history.push(`/flashcards/details/${id}`);
     }
 
+    // Unsubscribe button was clicked
     const unsubscribe = (flashcard) => {
 
         DeleteSubscription(flashcard.subId)
