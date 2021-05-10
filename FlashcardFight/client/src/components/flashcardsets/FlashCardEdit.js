@@ -497,7 +497,7 @@ const FlashCardEdit = () => {
                 <Modal isOpen={flashcardDeleteModal} toggle={toggleFlashcardDeleteModal} className="nes-dialog">
                     <ModalHeader toggle={toggleFlashcardDeleteModal}>Delete {flashcardSet.title}?</ModalHeader>
                     <ModalBody>
-                        Are you sure you want to delete this? This will delete ALL questions and answers as well, and it is NOT reversable.
+                        Are you sure you want to delete this? This will delete ALL questions and answers as well, and it is NOT reversible.
                     </ModalBody>
                     <ModalFooter>
                         <Button color="danger" onClick={deleteFlashcardSet}>Delete</Button>{' '}
@@ -511,7 +511,7 @@ const FlashCardEdit = () => {
                     <ModalBody>
                         <div><b>Are you sure you want to delete this?</b></div><br></br>
                         <div><b>Question:</b> {questionInfo.questionText}</div><br></br>
-                        <div><b>This will delete the question and all answers as well. This is NOT reversable.</b></div>
+                        <div><b>This will delete the question and all answers as well. This is NOT reversible.</b></div>
                     </ModalBody>
                     <ModalFooter>
                         <Button color="danger" onClick={() => questionDelete(questionInfo.id)}>Delete</Button>{' '}
