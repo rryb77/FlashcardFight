@@ -90,10 +90,8 @@ const BattleSet = () => {
     }, [serverUser])
 
     useEffect(() => {
-        console.log(battleSet)
         if(battleSet.id > 0)
         {
-            console.log('setting questions')
             setQuestions(battleSet.questions)
         }
     }, [battleSet])
@@ -151,12 +149,17 @@ const BattleSet = () => {
 
     const heroAttack = () => {
         setTimeout(() => { 
+            setBossAction('/bosses/ogreHurt.gif')
             flashcardSetData.dmgDone += 1000
             setBossHP(() => bossHP - 1000)
             flashcardSetData.correctAnswers += 1;
             flashcardSetData.EXPgained += 40;
             setHeroAction(profile.characterImage.imageLocation) 
             setTheCount(theCount => theCount + 1)}, 500);
+
+        setTimeout(() => {
+            setBossAction('/bosses/ogre.gif')
+        }, 1100);
     }
 
     const bossAttack = () => {
@@ -170,6 +173,7 @@ const BattleSet = () => {
             }
             else
             {
+                setHeroAction(profile.characterImage.hurt)
                 serverUser.experience = profile.experience
                 serverUser.expToNextLevel = profile.expToNextLevel
                 serverUser.level = profile.level
@@ -192,11 +196,13 @@ const BattleSet = () => {
             }
         }, 700);
         
+        setTimeout(() => {
+            setHeroAction(profile.characterImage.imageLocation)
+        }, 1100);
     }
 
     // Check if the user was right or wrong
     const checkAnswer = () => {
-        console.log('answer was clicked')
         // No choice was made
         if(answerChoice.correct !== true && answerChoice.correct !== false)
         {
@@ -205,8 +211,7 @@ const BattleSet = () => {
         // Correct
         else if(answerChoice.correct === true)
         {
-            setHeroAction('/characters/Guy1Attack.gif')
-            
+            setHeroAction(profile.characterImage.attack)
             heroAttack()
             
         }

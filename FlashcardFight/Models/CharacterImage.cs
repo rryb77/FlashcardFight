@@ -12,6 +12,7 @@ namespace FlashcardFight.Models
         public string ImageLocation { get; set; }
         public string Attack { get; set; }
         public string Death { get; set; }
+        public string Hurt { get; set; }
         public string Run { get; set; }
         public string UseItem { get; set; }
 

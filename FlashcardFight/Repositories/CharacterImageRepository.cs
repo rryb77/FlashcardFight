@@ -20,7 +20,7 @@ namespace FlashcardFight.Repositories
                 using(var cmd = conn.CreateCommand())
                 {
                     cmd.CommandText = @"
-                    SELECT Id, ImageLocation FROM CharacterImage
+                    SELECT Id, ImageLocation, Attack, Death, Hurt, Run, UseItem, Victory FROM CharacterImage
                     ";
 
                     var reader = cmd.ExecuteReader();
@@ -32,7 +32,13 @@ namespace FlashcardFight.Repositories
                         characterImages.Add(new CharacterImage()
                         {
                             Id = DbUtils.GetInt(reader, "Id"),
-                            ImageLocation = DbUtils.GetString(reader, "ImageLocation")
+                            ImageLocation = DbUtils.GetString(reader, "ImageLocation"),
+                            Attack = DbUtils.GetString(reader, "Attack"),
+                            Death = DbUtils.GetString(reader, "Death"),
+                            Hurt = DbUtils.GetString(reader, "Hurt"),
+                            Run = DbUtils.GetString(reader, "Run"),
+                            UseItem = DbUtils.GetString(reader, "UseItem"),
+                            Victory = DbUtils.GetString(reader, "Victory"),
                         });
                     }
 

@@ -24,7 +24,7 @@ namespace FlashcardFight.Repositories
                            
                            ut.Name AS UserTypeName,
                            
-                           c.ImageLocation                         
+                           c.ImageLocation, c.Attack, c.Death, c.Hurt, c.Run, c.UseItem, c.Victory                         
 
                         FROM UserProfile up
                             LEFT JOIN UserType ut on up.UserTypeId = ut.Id
@@ -61,6 +61,12 @@ namespace FlashcardFight.Repositories
                             {
                                 Id = DbUtils.GetInt(reader, "CharacterImageId"),
                                 ImageLocation = DbUtils.GetString(reader, "ImageLocation"),
+                                Attack = DbUtils.GetString(reader, "Attack"),
+                                Death = DbUtils.GetString(reader, "Death"),
+                                Hurt = DbUtils.GetString(reader, "Hurt"),
+                                Run = DbUtils.GetString(reader, "Run"),
+                                UseItem = DbUtils.GetString(reader, "UseItem"),
+                                Victory = DbUtils.GetString(reader, "Victory"),
                             },
                             Attempts = DbUtils.GetInt(reader, "Attempts"),
                             Wins = DbUtils.GetInt(reader, "Wins"),
@@ -253,7 +259,7 @@ namespace FlashcardFight.Repositories
                            
                            ut.Name AS UserTypeName,
                            
-                           c.ImageLocation                         
+                           c.ImageLocation, c.Attack, c.Death, c.Hurt, c.Run, c.UseItem, c.Victory                          
 
                         FROM UserProfile up
                             LEFT JOIN UserType ut on up.UserTypeId = ut.Id
@@ -290,6 +296,12 @@ namespace FlashcardFight.Repositories
                             {
                                 Id = DbUtils.GetInt(reader, "CharacterImageId"),
                                 ImageLocation = DbUtils.GetString(reader, "ImageLocation"),
+                                Attack = DbUtils.GetString(reader, "Attack"),
+                                Death = DbUtils.GetString(reader, "Death"),
+                                Hurt = DbUtils.GetString(reader, "Hurt"),
+                                Run = DbUtils.GetString(reader, "Run"),
+                                UseItem = DbUtils.GetString(reader, "UseItem"),
+                                Victory = DbUtils.GetString(reader, "Victory"),
                             },
                             Attempts = DbUtils.GetInt(reader, "Attempts"),
                             Wins = DbUtils.GetInt(reader, "Wins"),

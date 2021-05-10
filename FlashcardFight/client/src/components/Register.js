@@ -45,7 +45,7 @@ export default function Register() {
             console.log(characterImages)
             let chosen = characterImages.find(c => c.id === parseInt(characterImageId))
             console.log(chosen)
-            setSelectedCharacter(chosen.imageLocation);
+            setSelectedCharacter(chosen.run);
         }
 
         console.log(characterImageId)
@@ -119,7 +119,7 @@ export default function Register() {
                 
                 <div className="rightContainer">
                     {selectedCharacter !== "" ?
-                        <img className="runningHero" src={'/characters/Guy1Run.gif'} alt="Player hero"></img>
+                        <img className="runningHero" src={selectedCharacter} alt="Player hero"></img>
                         :
                         null
                     }

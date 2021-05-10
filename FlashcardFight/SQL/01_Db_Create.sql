@@ -115,13 +115,22 @@ GO
 
 CREATE TABLE [CharacterImage] (
   [Id] int PRIMARY KEY IDENTITY NOT NULL,
-  [ImageLocation] nvarchar(MAX) NOT NULL
+  [ImageLocation] nvarchar(MAX) NOT NULL,
+  [Attack] nvarchar(MAX) NOT NULL,
+  [Death] nvarchar(MAX) NOT NULL,
+  [Hurt] nvarchar(MAX) NOT NULL,
+  [Run] nvarchar(MAX) NOT NULL,
+  [UseItem] nvarchar(MAX) NOT NULL,
+  [Victory] nvarchar(MAX) NOT NULL
 )
 GO
 
 CREATE TABLE [BossImage] (
   [Id] int PRIMARY KEY IDENTITY NOT NULL,
-  [ImageLocation] nvarchar(MAX) NOT NULL
+  [ImageLocation] nvarchar(MAX) NOT NULL,
+  [Attack] nvarchar(MAX) NOT NULL,
+  [Death] nvarchar(MAX) NOT NULL,
+  [Hurt] nvarchar(MAX) NOT NULL
 )
 GO
 
