@@ -60,7 +60,7 @@ const Home = () => {
                 .then(() => deleteUserItem(item.userItemId))
                 .then(getUserProfileById)
                 .then(setCurrentUser)
-            setHeroAction(currentUser.characterImage.imageLocation) }, 500);
+            setHeroAction(currentUser.characterImage.imageLocation) }, 900);
     }
 
 
@@ -78,19 +78,19 @@ const Home = () => {
                         <text className="textSizer">
                         <b>Items:</b>
                         {minorPotionItems.length >= 1 ?
-                            <button className="inventoryButton nes-btn" onClick={() => userItem(minorPotionItems[0])}>{minorPotionItems[0]?.name} x{minorPotionItems?.length}</button>
+                            <button className="inventoryButton nes-btn is-error" onClick={() => userItem(minorPotionItems[0])}>{minorPotionItems[0]?.name} x{minorPotionItems?.length}</button>
 
                         :
                             null
                         }
 
                         {majorPotionItems.length >= 1 ?
-                            <button className="inventoryButton nes-btn" onClick={() => userItem(majorPotionItems[0])}>{majorPotionItems[0]?.name} x{majorPotionItems?.length}</button>
+                            <button className="inventoryButton nes-btn is-error" onClick={() => userItem(majorPotionItems[0])}>{majorPotionItems[0]?.name} x{majorPotionItems?.length}</button>
                         :
                             null
                         }
                         {fullPotionItems.length >= 1 ?
-                            <button className="inventoryButton nes-btn" onClick={() => userItem(fullPotionItems[0])}>{fullPotionItems[0]?.name} x{fullPotionItems?.length}</button>
+                            <button className="inventoryButton nes-btn is-error" onClick={() => userItem(fullPotionItems[0])}>{fullPotionItems[0]?.name} x{fullPotionItems?.length}</button>
                         :
                             null
                         }

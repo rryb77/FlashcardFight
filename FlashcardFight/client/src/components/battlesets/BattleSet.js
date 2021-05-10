@@ -27,6 +27,7 @@ const BattleSet = () => {
     const {id} = useParams();
     const [heroAction, setHeroAction] = useState();
     const [bossAction, setBossAction] = useState();
+    const [questions, setQuestions] = useState();
 
     const [HP, setHP] = useState(0)
     // const [DMG, setDMG] = useState(0)
@@ -75,6 +76,14 @@ const BattleSet = () => {
         }
     }, [serverUser])
 
+    useEffect(() => {
+        console.log(battleSet)
+        if(battleSet.id > 0)
+        {
+            console.log('setting questions')
+            setQuestions(battleSet.questions)
+        }
+    }, [battleSet])
 
     // This is returning JSON
     const userProfile = sessionStorage.getItem("userProfile");
@@ -82,10 +91,11 @@ const BattleSet = () => {
     var currentUser = JSON.parse(userProfile);
 
     // Isolate the list of questions with answers
-    let questions = battleSet.questions;
+    // let questions = battleSet.questions;
 
     // When questions state changes...
     useEffect(() => {
+        console.log(questions)
         // If questions isn't undefined and ONLY when the count is equal to 0 then..
         if(questions !== undefined && theCount === 0)
         {            
@@ -132,7 +142,8 @@ const BattleSet = () => {
             setBossHP(() => bossHP - 1000)
             flashcardSetData.correctAnswers += 1;
             flashcardSetData.EXPgained += 40;
-            setHeroAction(profile.characterImage.imageLocation) }, 500);
+            setHeroAction(profile.characterImage.imageLocation) 
+            setTheCount(theCount => theCount + 1)}, 500);
     }
 
     const bossAttack = () => {
@@ -160,6 +171,9 @@ const BattleSet = () => {
                 // Update the HP on the DOM
                 setHP(flashcardSetData.hp)
 
+                // Increase count so the next question can be put on the DOM
+                setTheCount(theCount => theCount + 1)
+
                 // Update the serverside with current character state
                 updateUserCharacter(serverUser)
             }
@@ -179,7 +193,7 @@ const BattleSet = () => {
         else if(answerChoice.correct === true)
         {
             setHeroAction('/characters/Guy1Attack.gif')
-            setTheCount(theCount => theCount + 1)
+            
             heroAttack()
             
         }
@@ -187,8 +201,6 @@ const BattleSet = () => {
         else if(answerChoice.correct === false)
         {
             setBossAction('/bosses/ogreAttack.gif')
-            // Increase count so the next question can be put on the DOM
-            setTheCount(theCount => theCount + 1)
             // Update the flashcard set data object for results screen
             flashcardSetData.wrongAnswers += 1;
             flashcardSetData.dmgTaken += dmg
@@ -217,7 +229,7 @@ const BattleSet = () => {
     return (
         <div className="battleContainer BGsizer">
             {!profile?.characterImage?.imageLocation ?
-            null
+            <img className="loadingHero" src={'/characters/Guy1Run.gif'} alt="Player hero"></img>
             :
                 <>
                 

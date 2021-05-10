@@ -70,3 +70,20 @@ tr:nth-child(odd) {
   max-height: 60vh;
   margin-top: 10vh;
 }
+
+.detailsContainer {
+  background-color: aliceblue;
+  font-size: 3vh;
+}
+
+h5 {
+  color: rgb(236, 147, 14);
+}
+
+.loadingHero {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  max-width: 256px;
+  transform: translateX(-50%) translateY(-50%);
+}

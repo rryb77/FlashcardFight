@@ -30,17 +30,20 @@ const StudySet = () => {
     const [hiddenAnswer, setHiddenAnswer] = useState(true);
     const [serverUser, setServerUser] = useState({})
     const [profile, setProfile] = useState({})
+    const [correct, setCorrect] = useState({})
     const history = useHistory();  
+
+    // This is returning JSON
+    const userProfile = sessionStorage.getItem("userProfile");
+    // Parsing the JSON returned above into an object so we can use it
+    var currentUser = JSON.parse(userProfile);
 
     // Initial load
     useEffect(() => {
         getFlashcardSetWithQandA(id)
-            .then((res) => {
-                setStudySet(res)
-                setQuestions(res.questions)
-            })
+            .then(setStudySet)
             .then(() => getUserProfile(currentUser.firebaseUserId))
-            .then((res) => setProfile(res))
+            .then(setProfile)
     },[])
 
     // Update the user character once the last card was studied
@@ -67,20 +70,21 @@ const StudySet = () => {
         }
     }, [serverUser])
 
-
-    // This is returning JSON
-    const userProfile = sessionStorage.getItem("userProfile");
-    // Parsing the JSON returned above into an object so we can use it
-    var currentUser = JSON.parse(userProfile);
+    useEffect(() => {
+        if(studySet?.id > 0)
+        {
+            setQuestions(studySet.questions)
+        }
+    }, [studySet])
 
     // Grab the correct answer for each question
-    let correct = question?.answers?.find(a => a.correct === true)
+    // let correct = question?.answers?.find(a => a.correct === true)
 
 
     // When questions state changes...
     useEffect(() => {
         // if questions isn't undefined and ONLY when the count is equal to 0 then..
-        if(questions !== undefined && theCount === 0)
+        if(questions !== null && theCount === 0)
         {
             flashcardSetData.questionAmount = questions.length;
             flashcardSetData.setId = parseInt(id);
@@ -89,6 +93,12 @@ const StudySet = () => {
         }
     },[questions])
 
+    useEffect(() => {
+        if(question?.answers !== undefined)
+        {
+           setCorrect(question?.answers.find(a => a.correct === true)) 
+        }
+    }, [question])
 
     // When theCount state changes...
     useEffect(() => {
@@ -137,18 +147,11 @@ const StudySet = () => {
         }
     }
 
-
-    // if(!question)
-    // {
-    //     return null
-    // }
-
-
     return (
         <>
         {!profile?.characterImage?.imageLocation ?
         <div className="studyBattleContainer overflowOff BGsizer">
-            
+            <img className="loadingHero" src={'/characters/Guy1Run.gif'} alt="Player hero"></img>
         </div>
         :
         <>
@@ -158,7 +161,7 @@ const StudySet = () => {
                 
                 <div className="questionContainer nes-container with-title is-dark">
                     <h2 className="title"><text className="textSizer">Question {theCount + 1} </text></h2>
-                    <div className="QandA"><text className="textSizer">{question.questionText}</text></div>
+                    <div className="QandA"><text className="textSizer">{question?.questionText}</text></div>
                     
                         <button className="nes-btn" onClick={showHide}><div className="textSizer">Show Answer</div></button> {' '}
                         <button className="nes-btn is-success" onClick={userCorrect}><div className="textSizer">I was right</div></button> {' '}
@@ -168,7 +171,7 @@ const StudySet = () => {
                 :
                 <div className="questionContainer nes-container with-title is-dark">
                     <h2 className="title"><text className="textSizer">Answer</text></h2>
-                    <div className="QandA"><text className="textSizer">{correct.answerText}</text></div>
+                    <div className="QandA"><text className="textSizer">{correct?.answerText}</text></div>
                     
                         <button className="nes-btn" onClick={showHide}><div className="textSizer">Hide Answer</div></button> {' '}
                         <button className="nes-btn is-success" onClick={userCorrect}><div className="textSizer">I was right</div></button> {' '}

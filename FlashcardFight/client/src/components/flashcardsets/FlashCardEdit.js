@@ -292,16 +292,19 @@ const FlashCardEdit = () => {
     }
 
     return (
+        <div className="background">
+        <div class="firefly"></div><div class="firefly"></div><div class="firefly"></div><div class="firefly"></div><div class="firefly"></div><div class="firefly"></div><div class="firefly"></div><div class="firefly"></div><div class="firefly"></div><div class="firefly"></div><div class="firefly"></div><div class="firefly"></div>
+        
         <div className="container pt-4">
             <div className="justify-content-center">
                 
                 {/* Flashcard details */}
-                <Container>
+                <Container className="detailsContainer">
                     <h1>Flashcard Set Details</h1>
-                    <div>Title: {flashcardSet?.title}</div>
-                    <div>Description: {flashcardSet?.description}</div>
-                    <div>Category: {flashcardSet?.category.name}</div>
-                    <div>Difficulty: {flashcardSet?.difficulty.name}</div>
+                    <div><b>Title:</b> {flashcardSet?.title}</div>
+                    <div><b>Description:</b> {flashcardSet?.description}</div>
+                    <div><b>Category:</b> {flashcardSet?.category.name}</div>
+                    <div><b>Difficulty:</b> {flashcardSet?.difficulty.name}</div>
                     {
                         userIsCreator ?
                                 <div><Button color="danger" className="right" onClick={toggleFlashcardDeleteModal}>Delete</Button><Button color="secondary" className="right" onClick={toggleFlashcardModal}>Edit</Button></div>
@@ -313,7 +316,7 @@ const FlashCardEdit = () => {
                 </Container>
 
                 {/* List of questions and answers */}
-                <Container>
+                <Container className="detailsContainer">
                     <h1>Q/A Details</h1><br></br>
                     {
                         userIsCreator ? <Button color="primary" className="marginBottom" onClick={toggleAddQuestionModal}>Add Question</Button> : null
@@ -366,6 +369,7 @@ const FlashCardEdit = () => {
                     }
                 </Container>
             </div>
+        </div>
                 
                 {/* ----------------
                 |     MODALS       |

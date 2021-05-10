@@ -1,3 +1,13 @@
+.filterContainer {
+  /* background-color: aliceblue; */
+  color: rgb(255, 255, 255);
+  font-size: 3vh;
+}
+
+.nes-select {
+  margin-right: 2vh;
+}
+
 .background {
   width: 100%;
   background-image: url(Wood.png);

@@ -114,10 +114,12 @@ const FlashCardList = () => {
     <>
     <div className="background">
         <div class="firefly"></div><div class="firefly"></div><div class="firefly"></div><div class="firefly"></div><div class="firefly"></div><div class="firefly"></div><div class="firefly"></div><div class="firefly"></div><div class="firefly"></div><div class="firefly"></div><div class="firefly"></div><div class="firefly"></div>
-            <div className="container">
+            <div className="container justify-content-center">
+                
+                <div className="filterContainer row justify-content-center">
                     <div className="nes-select">
                         <br></br>
-                        Filter By Category: 
+                        <b>Filter By Category: </b>
                             <select required id="category" onChange={(e) => setCatFilter(e.target.value)}>
                                 <option key="categoryList" value={0} selected>Show All</option>
                                 {categories?.length > 0 ?                                   
@@ -131,10 +133,10 @@ const FlashCardList = () => {
                                 }
                             </select>
                     </div>
-
+                
                     <div className="nes-select">
                         <br></br>
-                        Filter By Difficulty: 
+                        <b>Filter By Difficulty:</b> 
                             <select required id="difficulty" onChange={(e) => setDifFilter(e.target.value)}>
                                 <option key="difficultyList" value={0} selected>Show All</option>
                                 {difficulties?.length > 0 ?                                   
@@ -148,6 +150,8 @@ const FlashCardList = () => {
                                 }
                             </select>
                     </div>
+                </div>
+
                 <div className="row justify-content-center">
                     <div className="cards-column">
                     <br></br>

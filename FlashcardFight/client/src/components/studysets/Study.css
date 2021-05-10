@@ -42,6 +42,7 @@
   left: -5vh;
   bottom: 10vh;
   max-width: 600px;
+  z-index: -1;
 }
 
 .footerStyle {
@@ -53,19 +54,19 @@
   color: whitesmoke;
   z-index: -1;
   background-image: linear-gradient(
-    to bottom,
-    #0a00ee,
-    #0028e9,
-    #003ae3,
-    #0047db,
-    #0052d1,
-    #0e55c8,
-    #1c58be,
-    #275ab4,
-    #2857aa,
-    #2953a0,
-    #295096,
-    #2a4c8c
+    to top,
+    #6d3c7e,
+    #6a448b,
+    #654c99,
+    #5e54a6,
+    #525db3,
+    #4759b2,
+    #3956b0,
+    #2852af,
+    #1e419f,
+    #14318f,
+    #09207f,
+    #000e6f
   );
 }
 
@@ -84,11 +85,16 @@ text {
 }
 
 .questionContainer {
-  position: absolute;
+  /* position: absolute;
   bottom: 60vh;
   padding: 20;
   margin-top: 10vh;
-  width: 50%;
+  width: 50%; */
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  min-width: 40%;
+  transform: translateX(-50%) translateY(-50%);
 }
 
 .textSizer {

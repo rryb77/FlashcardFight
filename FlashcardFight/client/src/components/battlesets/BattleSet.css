@@ -64,14 +64,20 @@
 }
 
 .battleQuestionContainer {
-  /* position: absolute; */
-  left: 60vh;
-  bottom: 48vh;
+  /* position: absolute;
+  right: 60vh;
+  bottom: 50vh;
   padding: 10;
   margin-top: 63vh;
-  /* height: 50vh; */
-  width: 40%;
-  z-index: 1;
+  min-width: 40%;
+  z-index: 1; */
+
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  min-width: 30%;
+  min-height: 50%;
+  transform: translateX(-50%) translateY(-50%);
 }
 
 .boss {
