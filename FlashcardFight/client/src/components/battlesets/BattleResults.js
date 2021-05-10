@@ -42,8 +42,7 @@ const BattleResults = () => {
     },[])
 
     return (
-        <div className="resultsBackground row justify-content-center">
-            <div class="firefly"></div><div class="firefly"></div><div class="firefly"></div><div class="firefly"></div><div class="firefly"></div><div class="firefly"></div><div class="firefly"></div><div class="firefly"></div><div class="firefly"></div><div class="firefly"></div><div class="firefly"></div><div class="firefly"></div>
+        <div className="battleResultsContainer row justify-content-center">
                 
             <Container className="resultsContainer is-dark">
                 <div id="results">
@@ -91,7 +90,7 @@ const BattleResults = () => {
                             <div className="textPosition">  
                                 
                             <text className="textSizer">
-                                <h5 className="textSizer">Name here - Level Whatever</h5>
+                                <h5 className="textSizer">{currentUser.userName} - Level {currentUser.level}</h5>
                                 <b>HP:</b> {'  '}
                                 
                                 <b>EXP:</b> {' '}

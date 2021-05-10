@@ -247,7 +247,7 @@ const BattleSet = () => {
 
     return (
         <div className="battleContainer BGsizer">
-            {!profile?.characterImage?.imageLocation ?
+            {!profile?.characterImage?.imageLocation && !battleSet?.boss?.imageLocation ?
             <img className="loadingHero" src={'/characters/Guy1Run.gif'} alt="Player hero"></img>
             :
                 <>

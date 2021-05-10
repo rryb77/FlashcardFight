@@ -46,23 +46,37 @@ const FlashCardList = () => {
             .then(setDifficulties)
     }, []);
 
+
     useEffect(() => {
         
-        theFilters.categoryId = parseInt(catFilter)
-        resultFiltering()
+
+        setTheFilters((prevState) => {
+            let filter = {
+                ...prevState
+            }
+
+            filter.categoryId = parseInt(catFilter)
+            return filter
+        })
 
     }, [catFilter])
 
+
     useEffect(() => {
        
-        theFilters.difficultyId = parseInt(difFilter)
-        resultFiltering()
+        setTheFilters((prevState) => {
+            let filter = {
+                ...prevState,
+            }
+            filter.difficultyId = parseInt(difFilter)
+            return filter
+        })
         
     }, [difFilter])
+
     
-    
-    const resultFiltering = () => {
-        
+    useEffect(() => {
+
         if(theFilters.categoryId > 0 && theFilters.difficultyId > 0)
         {
             getAllWithoutUserSubsByDifficultyAndCategory(currentUser.id, theFilters.difficultyId, theFilters.categoryId)
@@ -83,7 +97,9 @@ const FlashCardList = () => {
             getAllWithoutUserSubsByDifficulty(currentUser.id, difFilter)
                 .then(setFlashcards)
         }
-    }
+
+    }, [theFilters])
+    
 
     const history = useHistory();
 

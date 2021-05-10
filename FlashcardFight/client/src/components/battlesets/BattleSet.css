@@ -12,6 +12,19 @@
   overflow: hidden;
 }
 
+.battleResultsContainer {
+  width: 100.8%;
+  height: 90vh;
+  padding: 0vh;
+  background-image: url(DeadSea.png);
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+  z-index: -10;
+  overflow: hidden;
+}
+
 .battleFooterLeft {
   height: 20vh;
   width: 50%;
@@ -77,7 +90,9 @@
   left: 50%;
   min-width: 30%;
   min-height: 50%;
+  max-width: 40%;
   transform: translateX(-50%) translateY(-50%);
+  z-index: 29;
 }
 
 .boss {
