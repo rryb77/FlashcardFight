@@ -23,6 +23,7 @@ const BattleSet = () => {
     const [shuffled, setShuffled] = useState([])
     const [bossHP, setBossHP] = useState(0)
     const [bossDMG, setBossDMG] = useState(0)
+    const [maxBossHP, setMaxBossHP] = useState(0)
     const history = useHistory();  
     const {id} = useParams();
     const [heroAction, setHeroAction] = useState();
@@ -30,7 +31,6 @@ const BattleSet = () => {
     const [questions, setQuestions] = useState();
 
     const [HP, setHP] = useState(0)
-    // const [DMG, setDMG] = useState(0)
 
     // Initial load
     useEffect(() => {
@@ -101,9 +101,6 @@ const BattleSet = () => {
     // Parsing the JSON returned above into an object so we can use it
     var currentUser = JSON.parse(userProfile);
 
-    // Isolate the list of questions with answers
-    // let questions = battleSet.questions;
-
     // When questions state changes...
     useEffect(() => {
         console.log(questions)
@@ -114,7 +111,7 @@ const BattleSet = () => {
             // Calculate and assign dmg amount per wrong answer
             setDmg(currentUser.hp / questions.length)
             setBossHP(questions.length * 1000)
-            
+            setMaxBossHP(questions.length * 1000)
             // Populate the flashcard data for details screen
             flashcardSetData.questionAmount = questions.length;
             flashcardSetData.setId = id;
@@ -289,8 +286,8 @@ const BattleSet = () => {
                             <h5 className="textSizer">{battleSet.title} - Level {Math.round(profile.level * 1.7 * battleSet.difficultyId)}</h5>
                                     <b>HP:</b> {'  '}
                                     <Progress className="progressBars" multi>
-                                        <Progress bar color="success" value={bossHP}>{bossHP} / {5000}</Progress>
-                                        <Progress bar animated color="danger" value={5000 - bossHP}></Progress>
+                                        <Progress bar color="success" value={bossHP}>{bossHP} / {questions.length * 1000}</Progress>
+                                        <Progress bar animated color="danger" value={maxBossHP - bossHP}></Progress>
                                     </Progress> 
                                     <b>EXP:</b>  
                                 <Progress className="progressBars" multi>

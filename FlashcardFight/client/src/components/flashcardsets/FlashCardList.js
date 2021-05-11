@@ -160,7 +160,7 @@ const FlashCardList = () => {
                 
                     <div className="nes-select">
                         <br></br>
-                        <b>Filter By Difficulty:</b> 
+                        <b>Filter By Difficulty: </b> 
                             <select required id="difficulty" onChange={(e) => setDifFilter(e.target.value)}>
                                 <option key="difficultyList" value={0} selected>Show All</option>
                                 {difficulties?.length > 0 ?                                   

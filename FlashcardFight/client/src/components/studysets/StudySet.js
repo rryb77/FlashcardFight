@@ -32,6 +32,11 @@ const StudySet = () => {
     const [profile, setProfile] = useState({})
     const [correct, setCorrect] = useState({})
     const history = useHistory();  
+    const [heroAction, setHeroAction] = useState();
+    const [bossAction, setBossAction] = useState();
+    const [dmg, setDmg] = useState(0)
+    const [bossHP, setBossHP] = useState(0)
+    const [maxBossHP, setMaxBossHP] = useState(0)
 
     // This is returning JSON
     const userProfile = sessionStorage.getItem("userProfile");
@@ -58,6 +63,11 @@ const StudySet = () => {
             .then(() => getUserProfile(currentUser.firebaseUserId))
             .then(setProfile)
     },[])
+
+    useEffect(() => {
+        setHeroAction(profile?.characterImage?.imageLocation)
+        setBossAction('/bosses/dummy.gif')
+    }, [profile])
 
     // Update the user character once the last card was studied
     useEffect(() => {
@@ -86,14 +96,11 @@ const StudySet = () => {
 
     useEffect(() => {
         if(studySet?.id > 0)
-        {
-            
-            setQuestions(studySet.questions)
+        {    
+            setQuestions(studySet?.questions)
+            setDmg(1000)
         }
     }, [studySet])
-
-    // Grab the correct answer for each question
-    // let correct = question?.answers?.find(a => a.correct === true)
 
 
     // When questions state changes...
@@ -101,6 +108,8 @@ const StudySet = () => {
         // if questions isn't undefined and ONLY when the count is equal to 0 then..
         if(questions !== null && theCount === 0)
         {
+            setBossHP(studySet?.questions?.length * 1000)
+            setMaxBossHP(studySet?.questions?.length * 1000)
             flashcardSetData.questionAmount = questions.length;
             flashcardSetData.setId = parseInt(id);
             flashcardSetData.flashcard = studySet;
@@ -135,11 +144,24 @@ const StudySet = () => {
         setHiddenAnswer(!hiddenAnswer)
     }
 
+    const heroAttack = () => {
+        setTimeout(() => { 
+            setBossAction('/bosses/dummyHurt.gif')
+            flashcardSetData.dmgDone += 1000
+            setBossHP(() => bossHP - 1000)
+            flashcardSetData.correctAnswers += 1;
+            flashcardSetData.EXPgained += 40;
+            setHeroAction(profile.characterImage.imageLocation) 
+            setTheCount(theCount => theCount + 1)}, 500);
+
+        setTimeout(() => {
+            setBossAction('/bosses/dummy.gif')
+        }, 1100);
+    }
 
     // User was correct so record data and set the count to show the next question
     const userCorrect = () => {
         
-        setTheCount(theCount => theCount + 1)
         flashcardSetData.correctAnswers += 1;
         flashcardSetData.EXPgained += 2;
 
@@ -147,6 +169,8 @@ const StudySet = () => {
         {
             setHiddenAnswer(true)
         }
+        setHeroAction(profile.characterImage.attack)
+        heroAttack()
     }
 
 
@@ -196,8 +220,8 @@ const StudySet = () => {
                 }        
         </div>
         <div className="footerContainer">
-            <img className="studyHero" src={profile?.characterImage?.imageLocation} alt="Player hero"></img>              
-            <img className="dummyBoss" src={'/bosses/dummy.gif'} alt="Player hero"></img>
+            <img className="studyHero" src={heroAction} alt="Player hero"></img>              
+            <img className="dummyBoss" src={bossAction} alt="Player hero"></img>
             <Container className="heroFooterRight is-dark">
                 
                 <div className="footerStyle textSizer">
@@ -206,8 +230,8 @@ const StudySet = () => {
                             <h5 className="textSizer">Practice Dummy - Level 1</h5>
                             <b>HP:</b> 
                             <Progress className="progressBars" multi>
-                                <Progress bar color="success" value={999999}>{profile.hp} / {profile.maxHP}</Progress>
-                                <Progress bar animated color="danger" value={profile.maxHP - profile.hp}></Progress>
+                                <Progress bar color="success" value={bossHP}>{bossHP} / {maxBossHP}</Progress>
+                                <Progress bar animated color="danger" value={maxBossHP - bossHP}></Progress>
                             </Progress> 
                             <b>EXP:</b>  0
                             </text>
