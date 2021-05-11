@@ -151,11 +151,20 @@ const BattleSet = () => {
             setBossHP(() => bossHP - 1000)
             flashcardSetData.correctAnswers += 1;
             flashcardSetData.EXPgained += 40;
-            setHeroAction(profile.characterImage.imageLocation) 
-            setTheCount(theCount => theCount + 1)}, 500);
+            setHeroAction(profile.characterImage.imageLocation)
+            
+            
+        }, 500);
 
         setTimeout(() => {
-            setBossAction(battleSet.bossImage.imageLocation)
+            
+            if(bossHP !== 0)
+            {
+                setBossAction(battleSet.bossImage.imageLocation)
+            }
+
+            setTheCount(theCount => theCount + 1)
+            
         }, 1100);
     }
 
@@ -166,7 +175,6 @@ const BattleSet = () => {
             if(flashcardSetData.hp <= 0)
             {
                 flashcardSetData.hp = 0
-                gameOver()
             }
             else
             {
@@ -194,8 +202,18 @@ const BattleSet = () => {
         }, 700);
         
         setTimeout(() => {
-            setHeroAction(profile.characterImage.imageLocation)
-        }, 1100);
+            
+            if(flashcardSetData.hp === 0)
+            {
+                setHeroAction(profile.characterImage.death)
+                gameOver()
+            }
+            else
+            {
+                setHeroAction(profile.characterImage.imageLocation)
+            }
+            
+        }, 1000);
     }
 
     // Check if the user was right or wrong
@@ -237,9 +255,11 @@ const BattleSet = () => {
         serverUser.email = profile.email
         serverUser.userName = profile.userName
 
-        updateUserCharacter(serverUser)
-        history.push(`${id}/results`)
-        setTheCount(0)
+        setTimeout(() => {
+            updateUserCharacter(serverUser)
+            history.push(`${id}/results`)
+            setTheCount(0)
+        }, 700)
     }
 
     return (

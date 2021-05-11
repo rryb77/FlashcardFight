@@ -148,22 +148,31 @@ const StudySet = () => {
         setTimeout(() => { 
             setBossAction('/bosses/dummyHurt.gif')
             flashcardSetData.dmgDone += 1000
-            setBossHP(() => bossHP - 1000)
+            setBossHP(() => bossHP - dmg)
             flashcardSetData.correctAnswers += 1;
-            flashcardSetData.EXPgained += 40;
+            flashcardSetData.EXPgained += 2;
             setHeroAction(profile.characterImage.imageLocation) 
-            setTheCount(theCount => theCount + 1)}, 500);
+            
+            if(theCount !== questions.length - 1)
+            {
+                setTheCount(theCount => theCount + 1)
+            }
+        
+        }, 500);
 
         setTimeout(() => {
+            
+            if(theCount === questions.length - 1)
+            {
+                setTheCount(theCount => theCount + 1)
+            }
+            
             setBossAction('/bosses/dummy.gif')
         }, 1100);
     }
 
     // User was correct so record data and set the count to show the next question
     const userCorrect = () => {
-        
-        flashcardSetData.correctAnswers += 1;
-        flashcardSetData.EXPgained += 2;
 
         if(hiddenAnswer === false)
         {
