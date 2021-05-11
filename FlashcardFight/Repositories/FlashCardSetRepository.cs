@@ -94,7 +94,7 @@ namespace FlashcardFight.Repositories
                     LEFT JOIN Difficulty d ON d.id = f.DifficultyId
                     LEFT JOIN BossImage b ON b.id = f.BossImageId
                     LEFT JOIN UserProfile u ON u.Id = f.CreatorId
-                    ORDER BY f.CreateDateTime
+                    ORDER BY f.CreateDateTime DESC
                     ";
 
                     var reader = cmd.ExecuteReader();
@@ -137,6 +137,7 @@ namespace FlashcardFight.Repositories
                         AND subS.userId = @id
                     ) s ON f.Id = s.flashcardId 
                     WHERE s.flashcardId IS NULL
+                    ORDER BY f.CreateDateTime DESC
                     ";
 
                     DbUtils.AddParameter(cmd, "@id", id);
@@ -182,6 +183,7 @@ namespace FlashcardFight.Repositories
                         AND subS.userId = @id
                     ) s ON f.Id = s.flashcardId 
                     WHERE s.flashcardId IS NULL AND c.id = @categoryId
+                    ORDER BY f.CreateDateTime DESC
                     ";
 
                     DbUtils.AddParameter(cmd, "@id", id);
@@ -229,6 +231,7 @@ namespace FlashcardFight.Repositories
                         AND subS.userId = @id
                     ) s ON f.Id = s.flashcardId 
                     WHERE s.flashcardId IS NULL AND d.id = @difficultyId
+                    ORDER BY f.CreateDateTime DESC
                     ";
 
                     DbUtils.AddParameter(cmd, "@id", id);
@@ -275,6 +278,7 @@ namespace FlashcardFight.Repositories
                         AND subS.userId = @id
                     ) s ON f.Id = s.flashcardId 
                     WHERE s.flashcardId IS NULL AND d.id = @difficultyId AND c.id = @categoryId
+                    ORDER BY f.CreateDateTime DESC
                     ";
 
                     DbUtils.AddParameter(cmd, "@id", id);
@@ -315,7 +319,7 @@ namespace FlashcardFight.Repositories
                     LEFT JOIN BossImage b ON b.id = f.BossImageId
                     LEFT JOIN UserProfile u ON u.Id = f.CreatorId
                     WHERE f.CreatorId = @Id
-                    ORDER BY f.CreateDateTime
+                    ORDER BY f.CreateDateTime DESC
                     ";
 
                     DbUtils.AddParameter(cmd, "Id", id);
@@ -356,7 +360,7 @@ namespace FlashcardFight.Repositories
                     LEFT JOIN UserProfile u ON u.Id = f.CreatorId
                     LEFT JOIN Subscription s ON s.FlashCardSetId = f.Id
                     WHERE s.UserId = @id
-                    ORDER BY f.CreateDateTime
+                    ORDER BY f.CreateDateTime DESC
                     ";
 
                     DbUtils.AddParameter(cmd, "Id", id);

@@ -208,6 +208,7 @@ const StudySet = () => {
         </div>
         :
         <>
+        
         <div className="studyBattleContainer overflowOff BGsizer">
                                
                 {hiddenAnswer ?
