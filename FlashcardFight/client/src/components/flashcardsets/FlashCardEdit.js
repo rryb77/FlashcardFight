@@ -5,12 +5,11 @@ import { CategoryContext } from '../../providers/CategoryProvider';
 import { QuestionContext } from '../../providers/QuestionProvider';
 import { AnswerContext } from '../../providers/AnswerProvider';
 import { DifficultyContext } from '../../providers/DifficultyProvider';
-import { Container } from "nes-react"
+import { Container, Button } from "nes-react"
 import {
     Form,
     FormGroup,
     Label,
-    Button,
     Input,
     Modal, 
     ModalHeader, 
@@ -308,7 +307,7 @@ const FlashCardEdit = () => {
                     <div><b>Difficulty:</b> {flashcardSet?.difficulty.name}</div>
                     {
                         userIsCreator ?
-                                <div><Button color="danger" className="right" onClick={toggleFlashcardDeleteModal}>Delete</Button><Button color="secondary" className="right" onClick={toggleFlashcardModal}>Edit</Button></div>
+                                <div><Button className="is-error right" onClick={toggleFlashcardDeleteModal}>Delete</Button><Button color="secondary" className="right" onClick={toggleFlashcardModal}>Edit</Button></div>
                             :
                                 null
 
@@ -320,7 +319,7 @@ const FlashCardEdit = () => {
                 <Container className="detailsContainer">
                     <h1>Q/A Details</h1><br></br>
                     {
-                        userIsCreator ? <Button color="primary" className="marginBottom" onClick={toggleAddQuestionModal}>Add Question</Button> : null
+                        userIsCreator ? <Button className="marginBottom is-success" onClick={toggleAddQuestionModal}>Add Question</Button> : null
                     }
                     {
                         userIsCreator ? 
@@ -341,7 +340,7 @@ const FlashCardEdit = () => {
                                                     <b>Wrong Answer:</b> {q.answers[3].answerText}
                                                 </div>
                                                 <div>
-                                                <Button color="secondary" onClick={() => questionEdit(q.id)}>Edit</Button> {' '} <Button color="danger" onClick={() => questionFinder(q.id)}>Delete</Button>
+                                                <Button color="secondary" onClick={() => questionEdit(q.id)}>Edit</Button> {' '} <Button className="is-error" onClick={() => questionFinder(q.id)}>Delete</Button>
                                                 </div>
                                             </details>
                                         </div>
@@ -431,8 +430,8 @@ const FlashCardEdit = () => {
                         </Form>
                     </ModalBody>
                     <ModalFooter>
-                        <Button color="success" onClick={saveFlashcardEdit}>Save</Button>
-                        <Button color="secondary" onClick={toggleFlashcardModal}>Cancel</Button>
+                        <Button className="is-success marginRight" onClick={saveFlashcardEdit}>Save</Button>
+                        <Button onClick={toggleFlashcardModal}>Cancel</Button>
                     </ModalFooter>
                 </Modal>
 
@@ -489,8 +488,8 @@ const FlashCardEdit = () => {
                         </Form>
                     </ModalBody>
                     <ModalFooter>
-                        <Button color="primary" onClick={() => saveQAndAdEdit(questionId)}>Save</Button>
-                        <Button color="secondary" onClick={toggleQAndAModal}>Cancel</Button>
+                        <Button className="is-success marginRight" onClick={() => saveQAndAdEdit(questionId)}>Save</Button>
+                        <Button onClick={toggleQAndAModal}>Cancel</Button>
                     </ModalFooter>
                 </Modal>
 
@@ -501,8 +500,8 @@ const FlashCardEdit = () => {
                         Are you sure you want to delete this? This will delete ALL questions and answers as well, and it is NOT reversible.
                     </ModalBody>
                     <ModalFooter>
-                        <Button color="danger" onClick={deleteFlashcardSet}>Delete</Button>{' '}
-                        <Button color="secondary" onClick={toggleFlashcardDeleteModal}>Cancel</Button>
+                        <Button className="is-error marginRight" onClick={deleteFlashcardSet}>Delete</Button>{' '}
+                        <Button onClick={toggleFlashcardDeleteModal}>Cancel</Button>
                     </ModalFooter>
                 </Modal>
 
@@ -515,8 +514,8 @@ const FlashCardEdit = () => {
                         <div><b>This will delete the question and all answers as well. This is NOT reversible.</b></div>
                     </ModalBody>
                     <ModalFooter>
-                        <Button color="danger" onClick={() => questionDelete(questionInfo.id)}>Delete</Button>{' '}
-                        <Button color="secondary" onClick={toggleQAndADeleteModal}>Cancel</Button>
+                        <Button className="is-error marginRight" onClick={() => questionDelete(questionInfo.id)}>Delete</Button>{' '}
+                        <Button onClick={toggleQAndADeleteModal}>Cancel</Button>
                     </ModalFooter>
                 </Modal>
                 
@@ -573,8 +572,8 @@ const FlashCardEdit = () => {
                         </Form>
                     </ModalBody>
                     <ModalFooter>
-                        <Button color="primary nes-btn" onClick={questionAdd}>Save</Button>
-                        <Button color="secondary right nes-btn" onClick={toggleAddQuestionModal}>Cancel</Button>
+                        <Button className="is-success marginRight" onClick={questionAdd}>Save</Button>
+                        <Button className="right" onClick={toggleAddQuestionModal}>Cancel</Button>
                     </ModalFooter>
                 </Modal>
 

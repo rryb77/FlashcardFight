@@ -10,20 +10,26 @@ import {
   CardHeader,
   CardTitle,
   CardSubtitle,
+  Tooltip
 } from "reactstrap";
 import {SubscriptionContext} from '../../providers/SubscriptionProvider'
 import {CategoryContext} from '../../providers/CategoryProvider'
 import {DifficultyContext} from '../../providers/DifficultyProvider'
+import {UserProfileContext} from '../../providers/UserProfileProvider'
 import './FlashCardList.css'
 import { Button } from "nes-react"
+
 
 const FlashCardList = () => {
     const { flashcards, setFlashcards, getAllWithoutUserSubscriptions, getAllWithoutUserSubsByCategory, 
         getAllWithoutUserSubsByDifficulty, getAllWithoutUserSubsByDifficultyAndCategory } = useContext(FlashCardSetContext);
     const { getAllCategories } = useContext(CategoryContext);
     const { getAllDifficulties } = useContext(DifficultyContext);
+    const {getUserProfileById} = useContext(UserProfileContext);
     const [difficulties, setDifficulties] = useState([])
+    const [tooltipOpen, setTooltipOpen] = useState(false);
     const [categories, setCategories] = useState([])
+    const [profile, setProfile] = useState({});
     const [catFilter, setCatFilter] = useState(0)
     const [difFilter, setDifFilter] = useState(0)
     const [theFilters, setTheFilters] = useState({
@@ -31,6 +37,8 @@ const FlashCardList = () => {
         categoryId: 0,
     })
     const {AddSubscription} = useContext(SubscriptionContext)
+
+    const toggle = () => setTooltipOpen(!tooltipOpen);
 
     // This is returning JSON
     const userProfile = sessionStorage.getItem("userProfile");
@@ -40,14 +48,15 @@ const FlashCardList = () => {
 
     // Initial load
     useEffect(() => {
-        getAllWithoutUserSubscriptions(currentUser.id)
+        getUserProfileById()
+        .then(setProfile)
+        .then(() => getAllWithoutUserSubscriptions(currentUser.id) )
             .then(setFlashcards)
             .then(getAllCategories)
             .then(setCategories)
             .then(getAllDifficulties)
             .then(setDifficulties)
     }, []);
-
 
     // Update the category filter
     useEffect(() => {
@@ -134,6 +143,7 @@ const FlashCardList = () => {
             .then(setFlashcards)
     }
 
+
   return (
     <>
     <div className="background">
@@ -180,7 +190,6 @@ const FlashCardList = () => {
                     <div className="cards-column">
                     <br></br>
                 
-                
                     {
                         flashcards.map((flashcard) => (
                         flashcard.creatorId !== currentUser.id ?
@@ -216,10 +225,20 @@ const FlashCardList = () => {
                                 </CardBody>
                                 <CardFooter>
                                     <Button type="button" className="is-primary" onClick={() => study(flashcard.id)}>Study</Button> {'  '}
-                                    {currentUser.hp > 0 ?
-                                        <Button className="is-error" onClick={() => battle(flashcard.id)}>Battle</Button>
+                                    {profile.hp > 0 ?
+                                        <Button className="is-error" onClick={() => battle(flashcard.id)}>Battle!</Button>
                                     :
-                                        <Button className="is-disabled">Battle</Button>
+                                        <span>
+                                            <Button className="is-disabled" id={"Tooltip-" + flashcard.id}>Battle!</Button>
+                                            <Tooltip
+                                                placement={"top"}
+                                                isOpen={tooltipOpen}
+                                                target={"Tooltip-" + flashcard.id}
+                                                toggle={toggle}
+                                            >
+                                                You need to heal first. Use items at Home or study more to gain health items!
+                                            </Tooltip>
+                                        </span>
                                     }
                                      
                                     <Button type="button" color="secondary" className="right" onClick={() => details(flashcard.id)}>Details</Button>

@@ -17,10 +17,11 @@ const StudyResults = () => {
 
     useEffect(() => {
         
+        // Create a copy of the flashcardSetData object to be used in the JSX
         const dataCopy = {...flashcardSetData}
         setResultData(dataCopy)
 
-        // reset the flashcard set data object on load
+        // Create a copy of the flashcard set data object so I can properly reset it
         const dataReset = {...flashcardSetData}
             
         dataReset.questionAmount = 0
@@ -34,6 +35,7 @@ const StudyResults = () => {
         dataReset.Level = 0
         dataReset.ExpToNextLevel = 0
         
+        // Update the flashcard set data object with the
         setFlashcardSetData(dataReset)
 
         getAllItems()
@@ -62,7 +64,6 @@ const StudyResults = () => {
             {
                 const noItemFound = {
                     name: "Nothing was found..."
-
                 }
 
                 setItemFound(noItemFound)

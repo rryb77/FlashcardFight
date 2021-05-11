@@ -170,11 +170,10 @@ export const FlashCardForm = () => {
                                 </FormGroup>
                             </Form>
                             <button 
-                                class="nes-btn is-primary nes-pointer"
-                                color="info"
+                                className="nes-btn is-success nes-pointer"
                                 disabled={isLoading} 
                                 onClick={submit}>
-                                SUBMIT
+                                Add Question
                             </button>
                         </CardBody>
                     </Card>
@@ -188,8 +187,8 @@ export const FlashCardForm = () => {
                     <label>Would you like to add another?</label>
                     </ModalBody>
                     <ModalFooter>
-                        <Button color="nes-btn is-primary" onClick={resetForm}> Yes, please! </Button>{' '}
-                        <Button color="secondary" onClick={completeSet}>No, I'm done.</Button>
+                        <Button className="nes-btn is-success" onClick={resetForm}> Yes, please! </Button>{' '}
+                        <Button className="is-error" onClick={completeSet}>No, I'm done.</Button>
                     </ModalFooter>
                 </Modal>
             </div>

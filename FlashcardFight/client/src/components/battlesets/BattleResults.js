@@ -20,12 +20,14 @@ const BattleResults = () => {
 
     useEffect(() => {
         
+        // Create a copy of the flashcardSetData object to be used in the JSX
         const dataCopy = {...flashcardSetData}
         setResultData(dataCopy)
 
-        // reset the flashcard set data object on load
+        // Create a copy of the flashcard set data object so I can properly reset it
         const dataReset = {...flashcardSetData}
             
+        // Set all properties to 0
         dataReset.questionAmount = 0
         dataReset.correctAnswers = 0
         dataReset.wrongAnswers = 0
@@ -37,6 +39,7 @@ const BattleResults = () => {
         dataReset.Level = 0
         dataReset.ExpToNextLevel = 0
         
+        // Update the flashcard set data object with the
         setFlashcardSetData(dataReset)
 
 

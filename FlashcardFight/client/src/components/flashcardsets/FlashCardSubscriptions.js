@@ -2,26 +2,35 @@ import React, { useContext, useEffect, useState } from "react";
 import { useHistory, useParams } from "react-router-dom";
 import { FlashCardSetContext } from '../../providers/FlashCardSetProvider';
 import { SubscriptionContext } from '../../providers/SubscriptionProvider';
+import {UserProfileContext} from '../../providers/UserProfileProvider'
 import {
     Badge,
-    Button,
     Card,
     CardBody,
     CardFooter,
     CardHeader,
     CardTitle,
     CardSubtitle,
+    Tooltip
 } from "reactstrap";
+import { Button } from "nes-react"
 
 const FlashCardSubscriptions = () => {
     const { flashcards, setFlashcards, getAllFlashcardUserSubs } = useContext(FlashCardSetContext);
     const {DeleteSubscription} = useContext(SubscriptionContext)
+    const {getUserProfileById} = useContext(UserProfileContext);
+    const [profile, setProfile] = useState({});
+    const [tooltipOpen, setTooltipOpen] = useState(false);
+    const toggle = () => setTooltipOpen(!tooltipOpen);
+
 
     const {id} = useParams();
     const history = useHistory();
 
     // Initial load - get the flashcard sets the user is subscribed to
     useEffect(() => {
+        getUserProfileById()
+            .then(setProfile)
         getAllFlashcardUserSubs(id).then(setFlashcards)
     }, []);
 
@@ -90,9 +99,25 @@ const FlashCardSubscriptions = () => {
                                             Description: {flashcard.description}
                                         </CardBody>
                                         <CardFooter>
-                                            <Button type="button" color="info" onClick={() => study(flashcard.id)}>Study</Button> {'  '} <Button color="danger" onClick={() => battle(flashcard.id)}>Battle</Button>
-                                            <Button type="button" color="secondary" className="right" onClick={() => details(flashcard.id)}>Details</Button>
-                                            <Button type="button" color="success" className="right" onClick={() => unsubscribe(flashcard)}>Unsubscribe</Button>
+                                            <Button type="button" className="is-primary" onClick={() => study(flashcard.id)}>Study</Button> {'  '} 
+                                            {profile.hp > 0 ?
+                                                <Button className="is-error" onClick={() => battle(flashcard.id)}>Battle!</Button>
+                                            :
+                                                <span>
+                                                    <Button className="is-disabled" id={"Tooltip-" + flashcard.id}>Battle!</Button>
+                                                    <Tooltip
+                                                        placement={"top"}
+                                                        isOpen={tooltipOpen}
+                                                        target={"Tooltip-" + flashcard.id}
+                                                        toggle={toggle}
+                                                    >
+                                                        You need to heal first. Use items at Home or study more to gain health items!
+                                                    </Tooltip>
+                                                </span>
+                                            }
+                                            
+                                            <Button type="button" className="right" onClick={() => details(flashcard.id)}>Details</Button>
+                                            <Button type="button" className="is-success right" onClick={() => unsubscribe(flashcard)}>Unsubscribe</Button>
                                         </CardFooter>
                                     </Card>
                                 ))

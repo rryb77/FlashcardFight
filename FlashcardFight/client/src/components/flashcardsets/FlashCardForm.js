@@ -6,16 +6,13 @@ import {
   CardBody,
   Label,
   Input,
-  Button,
-  Row,
-  Col,
 } from "reactstrap";
 import { CategoryContext } from '../../providers/CategoryProvider';
 import { DifficultyContext } from '../../providers/DifficultyProvider';
 import {FlashCardSetContext} from '../../providers/FlashCardSetProvider'
 import { useHistory } from 'react-router-dom';
 import { CardHeader } from "reactstrap";
-import { Container } from "nes-react"
+import { Button } from "nes-react"
 import './FlashCard.css';
 
 
@@ -120,7 +117,7 @@ export const FlashCardForm = () => {
                             </FormGroup>
                         </Form>
                         <Button 
-                            color="success"
+                            className="is-success"
                             disabled={isLoading} 
                             onClick={submit}>
                             SUBMIT

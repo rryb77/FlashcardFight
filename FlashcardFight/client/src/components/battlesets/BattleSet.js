@@ -42,22 +42,30 @@ const BattleSet = () => {
     // Once profile is in state
     useEffect(() => {
         
-        // Create a copy of the flashcardSetData object
-        const battleData = {...flashcardSetData}
-        // Add the player HP to the new object
-        battleData.hp = profile.hp
+        if(profile.hp === 0)
+        {
+            history.push("/")
+        }
+        else
+        {
+            // Create a copy of the flashcardSetData object
+            const battleData = {...flashcardSetData}
+            // Add the player HP to the new object
+            battleData.hp = profile.hp
 
-        // Update the flashcardSetData object
-        setFlashcardSetData(battleData)
+            // Update the flashcardSetData object
+            setFlashcardSetData(battleData)
 
-        // Set initial HP for the user character
-        setHP(profile.hp)
+            // Set initial HP for the user character
+            setHP(profile.hp)
 
-        // Set the initial image for the user character
-        setHeroAction(profile?.characterImage?.imageLocation)
+            // Set the initial image for the user character
+            setHeroAction(profile?.characterImage?.imageLocation)
 
-        // Set the initial image for the boss character
-        setBossAction(battleSet?.bossImage?.imageLocation)
+            // Set the initial image for the boss character
+            setBossAction(battleSet?.bossImage?.imageLocation)
+        }
+        
     }, [profile])
 
     // Update the user character once the last card was studied
@@ -224,8 +232,8 @@ const BattleSet = () => {
 
                 // Update the properties on the new object
                 battleData.wrongAnswers += 1;
-                battleData.dmgTaken += dmg
-                battleData.hp -= Math.round(dmg)                
+                battleData.dmgTaken += dmg + 10
+                battleData.hp -= Math.round(dmg + 10)                
                 battleData.experience = profile.experience
                 battleData.expToNextLevel = profile.expToNextLevel
                 battleData.level = profile.level
@@ -253,7 +261,7 @@ const BattleSet = () => {
         setTimeout(() => {
             
             // User character death check
-            if(battleData.hp === 0)
+            if(battleData.hp <= 0)
             {
                 // Set user character image to death
                 setHeroAction(profile.characterImage.death)
