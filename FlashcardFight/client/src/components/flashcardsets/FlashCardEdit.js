@@ -340,7 +340,17 @@ const FlashCardEdit = () => {
                                                     <b>Wrong Answer:</b> {q.answers[3].answerText}
                                                 </div>
                                                 <div>
-                                                <Button color="secondary" onClick={() => questionEdit(q.id)}>Edit</Button> {' '} <Button className="is-error" onClick={() => questionFinder(q.id)}>Delete</Button>
+                                                {flashcardSet.questions.length > 1 ?
+                                                    <div>
+                                                    <Button color="secondary" onClick={() => questionEdit(q.id)}>Edit</Button>
+                                                    <Button className="is-error" onClick={() => questionFinder(q.id)}>Delete</Button>
+                                                    </div>        
+                                                :
+                                                    <div>
+                                                       <Button color="secondary" onClick={() => questionEdit(q.id)}>Edit</Button>
+                                                    </div>
+                                                }
+                                                
                                                 </div>
                                             </details>
                                         </div>

@@ -137,7 +137,7 @@ const StudyResults = () => {
                 <br></br>
                 <b>EXP Gained:</b> +{resultData?.EXPgained}
                 <br></br>
-                <Button type="button" color="info" onClick={() => history.push(`/study/${resultData?.setId}`)}>Study Again</Button> {'  '} <Button color="danger" onClick={() => history.push(`/battle/${flashcardSetData?.setId}`)}>Battle</Button>
+                <Button type="button" color="info" onClick={() => history.push(`/study/${resultData?.setId}`)}>Study Again</Button> {'  '} <Button color="danger" onClick={() => history.push(`/battle/${resultData?.setId}`)}>Battle</Button>
             </div>
         </Container>
         </div>

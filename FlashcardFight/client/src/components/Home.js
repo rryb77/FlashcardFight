@@ -88,7 +88,7 @@ const Home = () => {
                             return (
                             
                             <tr className="tr-leaderboard" key={l.id}>
-                                <td className="td-leaderboard">{rank++}</td>
+                                <td className="td-leaderboard"><b>{rank++}</b></td>
                                 <td className="td-leaderboard">{l.userName}</td>
                                 <td className="td-leaderboard">{l.experience}</td>
                             </tr>
