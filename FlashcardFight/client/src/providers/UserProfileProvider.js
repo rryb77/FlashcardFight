@@ -102,6 +102,18 @@ export function UserProfileProvider(props) {
         })
     }
 
+    const getLeaderboard = () => {
+        return getToken().then((token) => {
+        return fetch(`${apiUrl}/Leaderboard`, {
+            method: "GET",
+            headers: {
+            Authorization: `Bearer ${token}`
+            }
+        })
+            .then((res) => res.json())
+        })
+    }
+
     const deactivateUserById = (id) => {
         return getToken().then((token) =>
         fetch(`${apiUrl}/DeactivateUserById/${id}`, {
@@ -152,7 +164,7 @@ export function UserProfileProvider(props) {
 
   return (
     <UserProfileContext.Provider value={{ isLoggedIn, login, logout, register, getToken, getUserProfile, getAllProfiles, deactivateUserById, 
-                                        reactivateUserById, updateUserCharacter, isAdmin, getUserProfileById }}>
+                                        reactivateUserById, updateUserCharacter, isAdmin, getUserProfileById, getLeaderboard }}>
       {isFirebaseReady
         ? props.children
         : <Spinner className="app-spinner dark"/>}

@@ -39,7 +39,12 @@ namespace FlashcardFight.Controllers
         {
             return Ok(_userProfileRepository.GetUserProfiles());
         }
-            
+
+        [HttpGet("Leaderboard")]
+        public IActionResult GetLeaderboard()
+        {
+            return Ok(_userProfileRepository.GetLeaderBoard());
+        }
 
         [HttpPost]
         public IActionResult Post(UserProfile userProfile)

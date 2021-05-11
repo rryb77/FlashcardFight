@@ -101,4 +101,39 @@
   width: 20vh;
   font-size: 2vh;
   margin-left: 5vh;
+  height: 5vh;
+}
+
+.leaderboard {
+  position: absolute;
+  width: 40vh;
+  right: 30vh;
+  top: 20vh;
+}
+
+.th-leaderboard {
+  background-color: #ffffff;
+  border: 1px solid #000000;
+  text-align: left;
+  padding: 4px;
+}
+
+.tr-leaderboard:nth-of-type(1) {
+  background-color: #e7eb0d;
+}
+
+.tr-leaderboard:nth-of-type(2) {
+  background-color: #c4cfbf;
+  /* white-space: pre-wrap; */
+}
+
+.tr-leaderboard:nth-child(3) {
+  background-color: #b48f14;
+  white-space: pre-wrap;
+  color: #000000;
+}
+
+.tr-leaderboard:nth-of-type(4) {
+  background-color: #ffffff;
+  /* white-space: pre-wrap; */
 }

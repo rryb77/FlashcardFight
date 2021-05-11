@@ -7,7 +7,7 @@ import './Home.css';
 import { Progress } from 'reactstrap';
 
 const Home = () => {
-    const { getUserProfileById, updateUserCharacter,  } = useContext(UserProfileContext);
+    const { getUserProfileById, updateUserCharacter, getLeaderboard } = useContext(UserProfileContext);
     const { getUserItems } = useContext(ItemContext);
     const { deleteUserItem } = useContext(UserItemContext);
     const [currentUser, setCurrentUser] = useState({})
@@ -15,12 +15,15 @@ const Home = () => {
     const [minorPotionItems, setMinorPotionItems] = useState([])
     const [majorPotionItems, setMajorPotionItems] = useState([])
     const [fullPotionItems, setFullPotionItems] = useState([])
+    const [leaderboard, setLeaderboard] = useState([])
     const [heroAction, setHeroAction] = useState()
 
     useEffect(() => {
  
         getUserProfileById()
-        .then(setCurrentUser)
+            .then(setCurrentUser)
+            .then(getLeaderboard)
+                .then(setLeaderboard)
         
     },[])
 
@@ -63,11 +66,36 @@ const Home = () => {
             setHeroAction(currentUser.characterImage.imageLocation) }, 900);
     }
 
+    let rank = 1;
+
 
     return (
         <>
         <div className="homeContainer">
-            <img className="studyHero" src={heroAction} alt="Player hero"></img>        
+            <img className="studyHero" src={heroAction} alt="Player hero"></img>
+            
+            <table className="leaderboard">
+                <thead className="thead-leaderboard">
+                    <tr className="tr-leaderboard">
+                        <th className="th-leaderboard">Rank</th>
+                        <th className="th-leaderboard">Username</th>
+                        <th className="th-leaderboard">Experience</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {
+                        leaderboard.map(l => {
+                            return (
+                            
+                            <tr className="tr-leaderboard" key={l.id}>
+                                <td className="td-leaderboard">{rank++}</td>
+                                <td className="td-leaderboard">{l.userName}</td>
+                                <td className="td-leaderboard">{l.experience}</td>
+                            </tr>
+                        )})
+                    }
+                </tbody>     
+            </table>
         </div>
 
         <div className="footerContainer">
