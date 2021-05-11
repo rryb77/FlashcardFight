@@ -4,16 +4,7 @@ import {ItemContext} from "../../providers/ItemProvider"
 import {UserItemContext} from '../../providers/UserItemProvider'
 import { useHistory } from 'react-router-dom';
 import { Container } from "nes-react";
-import {
-    Badge,
-    Button,
-    Card,
-    CardBody,
-    CardFooter,
-    CardHeader,
-    CardTitle,
-    CardSubtitle,
-} from "reactstrap";
+import { Button } from "reactstrap";
 
 const StudyResults = () => {
     const { flashcardSetData, setFlashcardSetData } = useContext(FlashCardSetContext);

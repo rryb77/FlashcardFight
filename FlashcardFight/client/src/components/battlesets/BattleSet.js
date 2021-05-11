@@ -22,7 +22,6 @@ const BattleSet = () => {
     const [dmg, setDmg] = useState(0)
     const [shuffled, setShuffled] = useState([])
     const [bossHP, setBossHP] = useState(0)
-    const [bossDMG, setBossDMG] = useState(0)
     const [maxBossHP, setMaxBossHP] = useState(0)
     const history = useHistory();  
     const {id} = useParams();
@@ -40,15 +39,24 @@ const BattleSet = () => {
             .then(setProfile)
     },[])
 
-    // Profile is loaded
+    // Once profile is in state
     useEffect(() => {
         
+        // Create a copy of the flashcardSetData object
         const battleData = {...flashcardSetData}
+        // Add the player HP to the new object
         battleData.hp = profile.hp
+
+        // Update the flashcardSetData object
         setFlashcardSetData(battleData)
 
+        // Set initial HP for the user character
         setHP(profile.hp)
+
+        // Set the initial image for the user character
         setHeroAction(profile?.characterImage?.imageLocation)
+
+        // Set the initial image for the boss character
         setBossAction(battleSet?.bossImage?.imageLocation)
     }, [profile])
 
@@ -56,11 +64,11 @@ const BattleSet = () => {
     useEffect(() => {
         if(serverUser.id > 0)
         {
-            
-
             // Send the update and push user to results
             updateUserCharacter(serverUser)
             history.push(`${id}/results`)
+
+            // reset theCount to 0
             setTheCount(0)
         }
     }, [serverUser])
@@ -68,6 +76,7 @@ const BattleSet = () => {
     useEffect(() => {
         if(battleSet.id > 0)
         {
+            // battle set is in state so set the questions
             setQuestions(battleSet.questions)
         }
     }, [battleSet])
@@ -79,21 +88,27 @@ const BattleSet = () => {
 
     // When questions state changes...
     useEffect(() => {
-        console.log(questions)
         // If questions isn't undefined and ONLY when the count is equal to 0 then..
         if(questions !== undefined && theCount === 0)
         {            
-            console.log(battleSet)
             // Calculate and assign dmg amount per wrong answer
             setDmg(currentUser.hp / questions.length)
+
+            // Calculate and assign the initial boss HP amount
             setBossHP(questions.length * 1000)
+
+            // Set the max HP for the boss
             setMaxBossHP(questions.length * 1000)
             
+            // Create a copy of the flashcardSetData object
             const battleData = {...flashcardSetData}
+
             // Populate the flashcard data for details screen
             battleData.questionAmount = questions.length;
             battleData.setId = id;
             battleData.flashcard = battleSet;
+
+            // Update the flashcardSetData object
             setFlashcardSetData(battleData)
 
             // Assign the first question
@@ -109,7 +124,6 @@ const BattleSet = () => {
         // If it is greater than 0 and less than the amount of questions the user has to study...
         if(theCount > 0 && theCount < questions?.length)
         {
-            
             // Assign the next question
             setQuestion(questions[theCount])
             // Randomize the answer order
@@ -118,6 +132,7 @@ const BattleSet = () => {
         // Last question was answered
         else if(theCount === questions?.length)
         {
+            // Create a copy of the profile object
             const characterData = {...profile}
 
             //Build out the user object with new info
@@ -130,41 +145,61 @@ const BattleSet = () => {
             // Check for character level up
             if(characterData.experience >= characterData.expToNextLevel)
             {
+                // Calculate new experience to next level amount
                 let levelScale = characterData.expToNextLevel * 2.1
+
+                // Calculate new user HP/maxHP
                 let hpScale = characterData.hp * 1.4
+
+                // Add updated properties to the characterData object
                 characterData.expToNextLevel = Math.round(levelScale)
                 characterData.hp = Math.round(hpScale)
                 characterData.maxHP = Math.round(hpScale)
                 characterData.level += 1
             }
 
+            // Send the new data to be saved to the DB
             setServerUser(characterData)
         }
     },[theCount])
 
     const heroAttack = () => {
+        
+        // Time the image and data changes properly
         setTimeout(() => { 
+            // Change the boss image to hurt
             setBossAction(battleSet.bossImage.hurt);
+            // Update boss HP
             setBossHP(() => bossHP - 1000);
 
+            // Create a copy of the flashcardSetData object
             const battleData = {...flashcardSetData};
+            
+            // Update the properties of the new object
             battleData.dmgDone += 1000;
             battleData.correctAnswers += 1;
             battleData.EXPgained += 40;
+
+            // Update the flashcardSetData object with the new data
             setFlashcardSetData(battleData);
 
+            // Set the hero image back to default state
             setHeroAction(profile.characterImage.imageLocation)
             
             
         }, 500);
 
+        // Time the changes back to default state properly
         setTimeout(() => {
             
+            // If the boss wasn't defeated
             if(bossHP !== 0)
             {
+                // Set the boss image back to default state
                 setBossAction(battleSet.bossImage.imageLocation)
             }
 
+            // Increase theCount so the next question is shown
             setTheCount(theCount => theCount + 1)
             
         }, 1100);
@@ -172,8 +207,10 @@ const BattleSet = () => {
 
     const bossAttack = () => {
         
+        // Create a copy of the flashcardSetData object
         const battleData = {...flashcardSetData}
 
+        // Time the image and data updates properly
         setTimeout(() => {
             // Character death check
             if(battleData.hp <= 0)
@@ -182,9 +219,10 @@ const BattleSet = () => {
             }
             else
             {
+                // Set the user character image to hurt
                 setHeroAction(profile.characterImage.hurt)
 
-                const battleData = {...flashcardSetData}
+                // Update the properties on the new object
                 battleData.wrongAnswers += 1;
                 battleData.dmgTaken += dmg
                 battleData.hp -= Math.round(dmg)                
@@ -194,6 +232,8 @@ const BattleSet = () => {
                 battleData.maxHP = profile.maxHP
                 battleData.email = profile.email
                 battleData.userName = profile.userName
+
+                // Set the flashcardSetData object with the new properties above
                 setFlashcardSetData(battleData)
                 
                 // Boss reset to idle animation
@@ -212,13 +252,18 @@ const BattleSet = () => {
         
         setTimeout(() => {
             
+            // User character death check
             if(battleData.hp === 0)
             {
+                // Set user character image to death
                 setHeroAction(profile.characterImage.death)
+                
+                // Call gameOver to end the battle session
                 gameOver()
             }
             else
             {
+                // Set the user character image back to default state
                 setHeroAction(profile.characterImage.imageLocation)
             }
             
@@ -227,22 +272,24 @@ const BattleSet = () => {
 
     // Check if the user was right or wrong
     const checkAnswer = () => {
-        // No choice was made
-        if(answerChoice.correct !== true && answerChoice.correct !== false)
-        {
-            console.log("Select an answer")
-        }
+
         // Correct
-        else if(answerChoice.correct === true)
+        if(answerChoice.correct === true)
         {
+            // Set the user character image to attack
             setHeroAction(profile.characterImage.attack)
+            
+            // Call heroAttack to handle image and data updates
             heroAttack()
             
         }
         // Wrong
         else if(answerChoice.correct === false)
         {
+            // Set the boss character image to attack
             setBossAction(battleSet.bossImage.attack)
+
+            // Call bossAttack to handle image and data updates
             bossAttack()
         }
     }
@@ -250,7 +297,10 @@ const BattleSet = () => {
     // User HP hit 0
     const gameOver = () => {
         
+        // Create a copy of the flashcardSetData object
         const battleData = {...flashcardSetData}
+        
+        // Update the needed properties of the new object
         battleData.experience = profile.experience
         battleData.expToNextLevel = profile.expToNextLevel
         battleData.level = profile.level
@@ -258,11 +308,17 @@ const BattleSet = () => {
         battleData.maxHP = profile.maxHP
         battleData.email = profile.email
         battleData.userName = profile.userName
+
+        // Set changed properties on the flashcardSetData object
         setFlashcardSetData(battleData)
 
+        // Simple timeout to allow the final hit to take place
         setTimeout(() => {
+            // Update the API with the new character properties and then push to the results
             updateUserCharacter(battleData)
             history.push(`${id}/results`)
+
+            // Reset the count
             setTheCount(0)
         }, 700)
     }
