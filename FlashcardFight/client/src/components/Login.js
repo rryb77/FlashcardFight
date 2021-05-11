@@ -1,6 +1,6 @@
 import React, { useState, useContext } from "react";
-import { Button, Form, FormGroup, Label, Input } from 'reactstrap';
-import { Container } from "nes-react"
+import { Form, FormGroup, Label, Input } from 'reactstrap';
+import { Container, Button } from "nes-react"
 import { useHistory, Link } from "react-router-dom";
 import { UserProfileContext } from "../providers/UserProfileProvider";
 import "./login.css"
@@ -25,8 +25,8 @@ export default function Login() {
   return (
     <div className="container pt-4">
         <div className="row justify-content-center">
-          <Container className="login">
-            <Form onSubmit={loginSubmit}>
+          <Container className="login is-dark">
+            <Form className="loginForm" onSubmit={loginSubmit}>
               <fieldset>
                 <FormGroup>
                   <Label for="email">Email</Label>

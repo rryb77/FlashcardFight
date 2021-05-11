@@ -4,7 +4,6 @@ import FlashCard from "./FlashCard";
 import { useHistory } from 'react-router-dom';
 import {
   Badge,
-  Button,
   Card,
   CardBody,
   CardFooter,
@@ -16,6 +15,7 @@ import {SubscriptionContext} from '../../providers/SubscriptionProvider'
 import {CategoryContext} from '../../providers/CategoryProvider'
 import {DifficultyContext} from '../../providers/DifficultyProvider'
 import './FlashCardList.css'
+import { Button } from "nes-react"
 
 const FlashCardList = () => {
     const { flashcards, setFlashcards, getAllWithoutUserSubscriptions, getAllWithoutUserSubsByCategory, 
@@ -215,9 +215,15 @@ const FlashCardList = () => {
                                     Description: {flashcard.description}
                                 </CardBody>
                                 <CardFooter>
-                                    <Button type="button" color="info" onClick={() => study(flashcard.id)}>Study</Button> {'  '} <Button color="danger" onClick={() => battle(flashcard.id)}>Battle</Button>
+                                    <Button type="button" className="is-primary" onClick={() => study(flashcard.id)}>Study</Button> {'  '}
+                                    {currentUser.hp > 0 ?
+                                        <Button className="is-error" onClick={() => battle(flashcard.id)}>Battle</Button>
+                                    :
+                                        <Button className="is-disabled">Battle</Button>
+                                    }
+                                     
                                     <Button type="button" color="secondary" className="right" onClick={() => details(flashcard.id)}>Details</Button>
-                                    <Button type="button" color="success" className="right" onClick={() => subscribe(flashcard)}>Subscribe</Button>
+                                    <Button type="button" color="success" className="is-success right" onClick={() => subscribe(flashcard)}>Subscribe</Button>
                                 </CardFooter>
                             </Card>
                             :

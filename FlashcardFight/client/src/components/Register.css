@@ -30,3 +30,11 @@
   bottom: -5vh;
   left: 10vh;
 }
+
+.register {
+  max-width: 50vh;
+  z-index: 1;
+}
+.registerForm {
+  width: 40vh;
+}

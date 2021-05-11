@@ -16,14 +16,35 @@ import {
 } from "reactstrap";
 
 const StudyResults = () => {
-    const { flashcardSetData } = useContext(FlashCardSetContext);
+    const { flashcardSetData, setFlashcardSetData } = useContext(FlashCardSetContext);
     const { getAllItems, setItems, items } = useContext(ItemContext);
     const { addUserItem } = useContext(UserItemContext);
     const [itemFound, setItemFound] = useState({})
-
+    const [resultData, setResultData] = useState({})
     const history = useHistory();
 
+
     useEffect(() => {
+        
+        const dataCopy = {...flashcardSetData}
+        setResultData(dataCopy)
+
+        // reset the flashcard set data object on load
+        const dataReset = {...flashcardSetData}
+            
+        dataReset.questionAmount = 0
+        dataReset.correctAnswers = 0
+        dataReset.wrongAnswers = 0
+        dataReset.dmgDone = 0
+        dataReset.dmgTaken = 0
+        dataReset.setId = 0
+        dataReset.EXPgained = 0
+        dataReset.HP = 0
+        dataReset.Level = 0
+        dataReset.ExpToNextLevel = 0
+        
+        setFlashcardSetData(dataReset)
+
         getAllItems()
             .then(setItems)
     }, [])
@@ -70,7 +91,7 @@ const StudyResults = () => {
         }
     }, [itemFound])
 
-    const percentage = (100 * flashcardSetData.correctAnswers) / flashcardSetData.questionAmount
+    const percentage = (100 * resultData.correctAnswers) / resultData.questionAmount
 
     const message = () => {
 
@@ -111,10 +132,10 @@ const StudyResults = () => {
             
         <Container className="resultsContainer is-dark">
             <div id="results">
-                <h1>Training Results For {flashcardSetData.flashcard.title}</h1>
+                <h1>Training Results For {resultData?.flashcard?.title}</h1>
                 {message()}
                 <br></br><br></br>
-                You got {flashcardSetData.correctAnswers} out of {flashcardSetData.questionAmount} correct.
+                You got {resultData?.correctAnswers} out of {resultData?.questionAmount} correct.
                 <br></br>
                 
                 <br></br>
@@ -122,9 +143,9 @@ const StudyResults = () => {
                 <br></br>
                 <b>Accuracy:</b> {percentage}%
                 <br></br>
-                <b>EXP Gained:</b> +{flashcardSetData.EXPgained}
+                <b>EXP Gained:</b> +{resultData?.EXPgained}
                 <br></br>
-                <Button type="button" color="info" onClick={() => history.push(`/study/${flashcardSetData.setId}`)}>Study Again</Button> {'  '} <Button color="danger" onClick={() => history.push(`/battle/${flashcardSetData.setId}`)}>Battle</Button>
+                <Button type="button" color="info" onClick={() => history.push(`/study/${resultData?.setId}`)}>Study Again</Button> {'  '} <Button color="danger" onClick={() => history.push(`/battle/${flashcardSetData?.setId}`)}>Battle</Button>
             </div>
         </Container>
         </div>

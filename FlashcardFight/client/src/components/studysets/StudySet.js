@@ -20,7 +20,7 @@ import {
 } from "reactstrap";
 
 const StudySet = () => {
-    const { getFlashcardSetWithQandA, flashcardSetData } = useContext(FlashCardSetContext);
+    const { getFlashcardSetWithQandA, flashcardSetData, setFlashcardSetData } = useContext(FlashCardSetContext);
     const { updateUserCharacter, getUserProfile } = useContext(UserProfileContext);
     let { theCount, setTheCount } = useContext(QuestionContext);
     const {id} = useParams();
@@ -46,17 +46,21 @@ const StudySet = () => {
     // Initial load
     useEffect(() => {
         
-        // reset the flashcard set data object on load
-        flashcardSetData.questionAmount = 0
-        flashcardSetData.correctAnswers = 0
-        flashcardSetData.wrongAnswers = 0
-        flashcardSetData.dmgDone = 0
-        flashcardSetData.dmgTaken = 0
-        flashcardSetData.setId = 0
-        flashcardSetData.EXPgained = 0
-        flashcardSetData.HP = 0
-        flashcardSetData.Level = 0
-        flashcardSetData.ExpToNextLevel = 0
+        // // reset the flashcard set data object on load
+        // const dataReset = {...flashcardSetData}
+            
+        // dataReset.questionAmount = 0
+        // dataReset.correctAnswers = 0
+        // dataReset.wrongAnswers = 0
+        // dataReset.dmgDone = 0
+        // dataReset.dmgTaken = 0
+        // dataReset.setId = 0
+        // dataReset.EXPgained = 0
+        // dataReset.HP = 0
+        // dataReset.Level = 0
+        // dataReset.ExpToNextLevel = 0
+
+        // setFlashcardSetData(dataReset)
 
         getFlashcardSetWithQandA(id)
             .then(setStudySet)
@@ -75,18 +79,10 @@ const StudySet = () => {
         {
             
             serverUser.experience += flashcardSetData.EXPgained
-            flashcardSetData.userId = serverUser.id
-            console.log(serverUser)
-            if(serverUser.experience >= serverUser.expToNextLevel)
-            {
-                let levelScale = serverUser.expToNextLevel * 2.1
-                let hpScale = serverUser.hp * 1.4
-                console.log(levelScale)
-                serverUser.expToNextLevel = Math.round(levelScale)
-                serverUser.hp = Math.round(hpScale)
-                serverUser.maxHP = Math.round(hpScale)
-                serverUser.level += 1
-            }
+            
+            const studyData = {...flashcardSetData}
+            studyData.userId = serverUser.id
+            setFlashcardSetData(studyData)
 
             updateUserCharacter(serverUser)
             history.push(`${id}/results`)
@@ -105,14 +101,20 @@ const StudySet = () => {
 
     // When questions state changes...
     useEffect(() => {
+        console.log(flashcardSetData)
         // if questions isn't undefined and ONLY when the count is equal to 0 then..
         if(questions !== null && theCount === 0)
         {
+
             setBossHP(studySet?.questions?.length * 1000)
             setMaxBossHP(studySet?.questions?.length * 1000)
-            flashcardSetData.questionAmount = questions.length;
-            flashcardSetData.setId = parseInt(id);
-            flashcardSetData.flashcard = studySet;
+            
+            const studyData = {...flashcardSetData}
+            studyData.questionAmount = questions.length;
+            studyData.setId = parseInt(id);
+            studyData.flashcard = studySet;
+
+            setFlashcardSetData(studyData)
             setQuestion(() => questions[theCount]);
         }
     },[questions])
@@ -133,8 +135,19 @@ const StudySet = () => {
         }
         else if(theCount > 0 && theCount=== questions?.length)
         {
-            getUserProfile(currentUser.firebaseUserId)
-                .then(setServerUser)
+            const characterData = {...profile}
+
+            if(characterData.experience >= characterData.expToNextLevel)
+            {
+                let levelScale = characterData.expToNextLevel * 2.1
+                let hpScale = characterData.hp * 1.4
+                characterData.expToNextLevel = Math.round(levelScale)
+                characterData.hp = Math.round(hpScale)
+                characterData.maxHP = Math.round(hpScale)
+                characterData.level += 1
+            }
+            
+            setServerUser(characterData)
         }
     },[theCount])
 
@@ -147,10 +160,15 @@ const StudySet = () => {
     const heroAttack = () => {
         setTimeout(() => { 
             setBossAction('/bosses/dummyHurt.gif')
-            flashcardSetData.dmgDone += 1000
             setBossHP(() => bossHP - dmg)
-            flashcardSetData.correctAnswers += 1;
-            flashcardSetData.EXPgained += 2;
+            
+            const studyData = {...flashcardSetData}
+
+            studyData.dmgDone += 1000
+            studyData.correctAnswers += 1;
+            studyData.EXPgained += 2;
+
+            setFlashcardSetData(studyData)
             setHeroAction(profile.characterImage.imageLocation) 
             
             if(theCount !== questions.length - 1)
@@ -186,8 +204,11 @@ const StudySet = () => {
     // User was wrong so record data and set the count to show the next question
     const userWrong = () => {
         setTheCount(theCount => theCount + 1)
-        flashcardSetData.wrongAnswers += 1;
-        flashcardSetData.EXPgained += 2;
+        
+        const studyData = {...flashcardSetData}
+        studyData.wrongAnswers += 1;
+        studyData.EXPgained += 2;
+        setFlashcardSetData(studyData)
 
         if(hiddenAnswer === false)
         {

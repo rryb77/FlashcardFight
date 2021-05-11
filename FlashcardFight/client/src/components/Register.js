@@ -3,20 +3,12 @@ import { useHistory } from "react-router-dom";
 import { UserProfileContext } from "../providers/UserProfileProvider";
 import { CharacterImageContext } from "../providers/CharacterImageProvider";
 import {
-    Badge,
-    Button,
-    Card,
-    CardBody,
-    CardFooter,
-    CardHeader,
-    CardTitle,
-    CardSubtitle,
     Form, 
     FormGroup, 
     Label, 
     Input
 } from "reactstrap";
-import { Container } from "nes-react"
+import { Container, Button } from "nes-react"
 import "./login.css"
 import "./Register.css"
 
@@ -73,8 +65,8 @@ export default function Register() {
         <div className="mainContainer" id="mainContainer">
             <div className="container pt-4">
                 <div className="row justify-content-center">
-                    <Container className="login">
-                    <Form onSubmit={registerClick}>
+                    <Container className="register is-dark">
+                    <Form className="registerForm" onSubmit={registerClick}>
                         <fieldset>
                             <FormGroup>
                                 <Label htmlFor="displayName">Username</Label>
@@ -110,7 +102,7 @@ export default function Register() {
                                 <Input id="confirmPassword" type="password" onChange={e => setConfirmPassword(e.target.value)} />
                             </FormGroup>
                             <FormGroup>
-                                <Button>Register</Button>   
+                                <Button className="is-primary">Register</Button>   
                             </FormGroup>
                         </fieldset>
                     </Form>
