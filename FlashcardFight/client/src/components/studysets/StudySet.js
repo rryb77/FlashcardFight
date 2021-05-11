@@ -45,22 +45,6 @@ const StudySet = () => {
 
     // Initial load
     useEffect(() => {
-        
-        // // reset the flashcard set data object on load
-        // const dataReset = {...flashcardSetData}
-            
-        // dataReset.questionAmount = 0
-        // dataReset.correctAnswers = 0
-        // dataReset.wrongAnswers = 0
-        // dataReset.dmgDone = 0
-        // dataReset.dmgTaken = 0
-        // dataReset.setId = 0
-        // dataReset.EXPgained = 0
-        // dataReset.HP = 0
-        // dataReset.Level = 0
-        // dataReset.ExpToNextLevel = 0
-
-        // setFlashcardSetData(dataReset)
 
         getFlashcardSetWithQandA(id)
             .then(setStudySet)
@@ -77,9 +61,7 @@ const StudySet = () => {
     useEffect(() => {
         if(serverUser.id > 0)
         {
-            
-            serverUser.experience += flashcardSetData.EXPgained
-            
+                        
             const studyData = {...flashcardSetData}
             studyData.userId = serverUser.id
             setFlashcardSetData(studyData)
@@ -137,6 +119,8 @@ const StudySet = () => {
         {
             const characterData = {...profile}
 
+            characterData.experience += flashcardSetData.EXPgained
+            
             if(characterData.experience >= characterData.expToNextLevel)
             {
                 let levelScale = characterData.expToNextLevel * 2.1

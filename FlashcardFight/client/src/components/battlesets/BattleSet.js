@@ -11,7 +11,7 @@ import { Progress } from 'reactstrap';
 
 const BattleSet = () => {
     
-    const { getFlashcardSetWithQandA, flashcardSetData } = useContext(FlashCardSetContext);
+    const { getFlashcardSetWithQandA, flashcardSetData, setFlashcardSetData } = useContext(FlashCardSetContext);
     const { updateUserCharacter, getUserProfile } = useContext(UserProfileContext);
     let { theCount, setTheCount } = useContext(QuestionContext);
     const [battleSet, setBattleSet] = useState({});
@@ -34,18 +34,6 @@ const BattleSet = () => {
 
     // Initial load
     useEffect(() => {
-        // reset the flashcard set data object on load
-        flashcardSetData.questionAmount = 0
-        flashcardSetData.correctAnswers = 0
-        flashcardSetData.wrongAnswers = 0
-        flashcardSetData.dmgDone = 0
-        flashcardSetData.dmgTaken = 0
-        flashcardSetData.setId = 0
-        flashcardSetData.EXPgained = 0
-        flashcardSetData.HP = 0
-        flashcardSetData.Level = 0
-        flashcardSetData.ExpToNextLevel = 0
-
         getFlashcardSetWithQandA(id)
             .then(setBattleSet)
             .then(() => getUserProfile(currentUser.firebaseUserId))
@@ -54,7 +42,11 @@ const BattleSet = () => {
 
     // Profile is loaded
     useEffect(() => {
-        flashcardSetData.hp = profile.hp;
+        
+        const battleData = {...flashcardSetData}
+        battleData.hp = profile.hp
+        setFlashcardSetData(battleData)
+
         setHP(profile.hp)
         setHeroAction(profile?.characterImage?.imageLocation)
         setBossAction(battleSet?.bossImage?.imageLocation)
@@ -64,23 +56,7 @@ const BattleSet = () => {
     useEffect(() => {
         if(serverUser.id > 0)
         {
-            //Build out the user object with new info
-            serverUser.experience += flashcardSetData.EXPgained
-            serverUser.hp = flashcardSetData.hp
-            serverUser.maxHP = profile.maxHP
-            serverUser.email = profile.email
-            serverUser.userName = profile.userName
-
-            // Check for character level up
-            if(serverUser.experience >= serverUser.expToNextLevel)
-            {
-                let levelScale = serverUser.expToNextLevel * 2.1
-                let hpScale = serverUser.hp * 1.4
-                serverUser.expToNextLevel = Math.round(levelScale)
-                serverUser.hp = Math.round(hpScale)
-                serverUser.maxHP = Math.round(hpScale)
-                serverUser.level += 1
-            }
+            
 
             // Send the update and push user to results
             updateUserCharacter(serverUser)
@@ -112,10 +88,14 @@ const BattleSet = () => {
             setDmg(currentUser.hp / questions.length)
             setBossHP(questions.length * 1000)
             setMaxBossHP(questions.length * 1000)
+            
+            const battleData = {...flashcardSetData}
             // Populate the flashcard data for details screen
-            flashcardSetData.questionAmount = questions.length;
-            flashcardSetData.setId = id;
-            flashcardSetData.flashcard = battleSet;
+            battleData.questionAmount = questions.length;
+            battleData.setId = id;
+            battleData.flashcard = battleSet;
+            setFlashcardSetData(battleData)
+
             // Assign the first question
             setQuestion(questions[theCount]);
             // Shuffle the answers
@@ -138,19 +118,41 @@ const BattleSet = () => {
         // Last question was answered
         else if(theCount === questions?.length)
         {
-            // Grab the user profile and set the serveruser
-            getUserProfile(currentUser.firebaseUserId)
-                .then(setServerUser)
+            const characterData = {...profile}
+
+            //Build out the user object with new info
+            characterData.experience += flashcardSetData.EXPgained
+            characterData.hp = flashcardSetData.hp
+            characterData.maxHP = profile.maxHP
+            characterData.email = profile.email
+            characterData.userName = profile.userName
+
+            // Check for character level up
+            if(characterData.experience >= characterData.expToNextLevel)
+            {
+                let levelScale = characterData.expToNextLevel * 2.1
+                let hpScale = characterData.hp * 1.4
+                characterData.expToNextLevel = Math.round(levelScale)
+                characterData.hp = Math.round(hpScale)
+                characterData.maxHP = Math.round(hpScale)
+                characterData.level += 1
+            }
+
+            setServerUser(characterData)
         }
     },[theCount])
 
     const heroAttack = () => {
         setTimeout(() => { 
-            setBossAction(battleSet.bossImage.hurt)
-            flashcardSetData.dmgDone += 1000
-            setBossHP(() => bossHP - 1000)
-            flashcardSetData.correctAnswers += 1;
-            flashcardSetData.EXPgained += 40;
+            setBossAction(battleSet.bossImage.hurt);
+            setBossHP(() => bossHP - 1000);
+
+            const battleData = {...flashcardSetData};
+            battleData.dmgDone += 1000;
+            battleData.correctAnswers += 1;
+            battleData.EXPgained += 40;
+            setFlashcardSetData(battleData);
+
             setHeroAction(profile.characterImage.imageLocation)
             
             
@@ -170,40 +172,47 @@ const BattleSet = () => {
 
     const bossAttack = () => {
         
+        const battleData = {...flashcardSetData}
+
         setTimeout(() => {
             // Character death check
-            if(flashcardSetData.hp <= 0)
+            if(battleData.hp <= 0)
             {
-                flashcardSetData.hp = 0
+                battleData.hp = 0
             }
             else
             {
                 setHeroAction(profile.characterImage.hurt)
-                serverUser.experience = profile.experience
-                serverUser.expToNextLevel = profile.expToNextLevel
-                serverUser.level = profile.level
-                serverUser.hp = flashcardSetData.hp
-                serverUser.maxHP = profile.maxHP
-                serverUser.email = profile.email
-                serverUser.userName = profile.userName
+
+                const battleData = {...flashcardSetData}
+                battleData.wrongAnswers += 1;
+                battleData.dmgTaken += dmg
+                battleData.hp -= Math.round(dmg)                
+                battleData.experience = profile.experience
+                battleData.expToNextLevel = profile.expToNextLevel
+                battleData.level = profile.level
+                battleData.maxHP = profile.maxHP
+                battleData.email = profile.email
+                battleData.userName = profile.userName
+                setFlashcardSetData(battleData)
                 
                 // Boss reset to idle animation
                 setBossAction(battleSet.bossImage.imageLocation)
 
                 // Update the HP on the DOM
-                setHP(flashcardSetData.hp)
+                setHP(battleData.hp)
 
                 // Increase count so the next question can be put on the DOM
                 setTheCount(theCount => theCount + 1)
 
                 // Update the serverside with current character state
-                updateUserCharacter(serverUser)
+                updateUserCharacter(battleData)
             }
         }, 700);
         
         setTimeout(() => {
             
-            if(flashcardSetData.hp === 0)
+            if(battleData.hp === 0)
             {
                 setHeroAction(profile.characterImage.death)
                 gameOver()
@@ -234,12 +243,6 @@ const BattleSet = () => {
         else if(answerChoice.correct === false)
         {
             setBossAction(battleSet.bossImage.attack)
-            // Update the flashcard set data object for results screen
-            flashcardSetData.wrongAnswers += 1;
-            flashcardSetData.dmgTaken += dmg
-            flashcardSetData.hp -= dmg
-            flashcardSetData.hp = Math.round(flashcardSetData.hp)
-
             bossAttack()
         }
     }
@@ -247,16 +250,18 @@ const BattleSet = () => {
     // User HP hit 0
     const gameOver = () => {
         
-        serverUser.experience = profile.experience
-        serverUser.expToNextLevel = profile.expToNextLevel
-        serverUser.level = profile.level
-        serverUser.hp = 0
-        serverUser.maxHP = profile.maxHP
-        serverUser.email = profile.email
-        serverUser.userName = profile.userName
+        const battleData = {...flashcardSetData}
+        battleData.experience = profile.experience
+        battleData.expToNextLevel = profile.expToNextLevel
+        battleData.level = profile.level
+        battleData.hp = 0
+        battleData.maxHP = profile.maxHP
+        battleData.email = profile.email
+        battleData.userName = profile.userName
+        setFlashcardSetData(battleData)
 
         setTimeout(() => {
-            updateUserCharacter(serverUser)
+            updateUserCharacter(battleData)
             history.push(`${id}/results`)
             setTheCount(0)
         }, 700)
@@ -280,7 +285,7 @@ const BattleSet = () => {
                         <p></p>
                         <div>
                             { 
-                                question?.answers?.map(a => (
+                                shuffled?.map(a => (
                                     <div key={a.id}>
                                         <label>
                                             <input type="radio" className="nes-radio" name="answer" onChange={() => setAnswerChoice(a)}/>

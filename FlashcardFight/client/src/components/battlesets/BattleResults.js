@@ -2,31 +2,44 @@ import React, { useContext, useEffect, useState } from "react";
 import {FlashCardSetContext} from "../../providers/FlashCardSetProvider"
 import { useHistory } from 'react-router-dom';
 import { Container } from "nes-react";
-import {
-    Badge,
-    Button,
-    Card,
-    CardBody,
-    CardFooter,
-    CardHeader,
-    CardTitle,
-    CardSubtitle,
-    Progress
-} from "reactstrap";
+import { Button} from "reactstrap";
 
 const BattleResults = () => {
-    const { flashcardSetData } = useContext(FlashCardSetContext);
+    const { flashcardSetData, setFlashcardSetData } = useContext(FlashCardSetContext);
 
     const history = useHistory();
-    const percentage = (100 * flashcardSetData.correctAnswers) / flashcardSetData.questionAmount
     const [heroAction, setHeroAction] = useState()
+    const [resultData, setResultData] = useState({})
 
     // This is returning JSON
     const userProfile = sessionStorage.getItem("userProfile");
     // Parsing the JSON returned above into an object so we can use it
     var currentUser = JSON.parse(userProfile);
     
+    const percentage = (100 * resultData.correctAnswers) / resultData.questionAmount
+
     useEffect(() => {
+        
+        const dataCopy = {...flashcardSetData}
+        setResultData(dataCopy)
+
+        // reset the flashcard set data object on load
+        const dataReset = {...flashcardSetData}
+            
+        dataReset.questionAmount = 0
+        dataReset.correctAnswers = 0
+        dataReset.wrongAnswers = 0
+        dataReset.dmgDone = 0
+        dataReset.dmgTaken = 0
+        dataReset.setId = 0
+        dataReset.EXPgained = 0
+        dataReset.HP = 0
+        dataReset.Level = 0
+        dataReset.ExpToNextLevel = 0
+        
+        setFlashcardSetData(dataReset)
+
+
         if(percentage === 0)
         {
             setHeroAction(currentUser.characterImage.death)
@@ -46,24 +59,20 @@ const BattleResults = () => {
                 
             <Container className="resultsContainer is-dark">
                 <div id="results">
-                    <h1>Training Results For {flashcardSetData.flashcard.title}</h1>
-                    {/* <img className="resultsHero" src={heroAction} alt="Player hero"></img> */}
+                    <h1>Training Results For {resultData?.flashcard?.title}</h1>
                     <br></br>
-                    You got {flashcardSetData.correctAnswers} out of {flashcardSetData.questionAmount} correct.
-                    <br></br>
-                    
-                    
-                    {/* <b>Item Found:</b> {itemFound.name} */}
+                    You got {resultData?.correctAnswers} out of {resultData?.questionAmount} correct.
+                    <br></br>       
                     <br></br>
                     <b>Accuracy:</b> {percentage}%
                     <br></br>
-                    <b>Damage Done:</b> {flashcardSetData.dmgDone}
+                    <b>Damage Done:</b> {resultData?.dmgDone}
                     <br></br>
-                    <b>Damage Taken:</b> {flashcardSetData.dmgTaken}
+                    <b>Damage Taken:</b> {resultData?.dmgTaken}
                     <br></br>
-                    <b>EXP Gained:</b> +{flashcardSetData.EXPgained}
+                    <b>EXP Gained:</b> +{resultData?.EXPgained}
                     <br></br>
-                    <Button type="button" color="info" onClick={() => history.push(`/study/${flashcardSetData.setId}`)}>Study More</Button> {'  '} <Button color="danger" onClick={() => history.push(`/battle/${flashcardSetData.setId}`)}>Battle Again</Button>
+                    <Button type="button" color="info" onClick={() => history.push(`/study/${resultData?.setId}`)}>Study More</Button> {'  '} <Button color="danger" onClick={() => history.push(`/battle/${resultData?.setId}`)}>Battle Again</Button>
                 </div>
             </Container>
 
