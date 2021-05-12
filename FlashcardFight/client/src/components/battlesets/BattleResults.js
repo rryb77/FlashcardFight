@@ -81,7 +81,6 @@ const BattleResults = () => {
 
             <div className="footerContainer">
                     <img className="studyHero" src={heroAction} alt="Player hero"></img>              
-                    {/* <img className="boss" src={bossAction} alt="Player hero"></img> */}
                     <Container className="battleFooterRight is-dark">
                         
                         <div className="footerStyle textSizer">

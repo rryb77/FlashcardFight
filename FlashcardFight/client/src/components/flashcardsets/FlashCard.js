@@ -1,15 +1,13 @@
-import React, {useContext} from "react";
+import React from "react";
 import {
     Badge,
     Button,
     Card,
     CardBody,
     CardFooter,
-    CardHeader,
     CardTitle,
     CardSubtitle,
 } from "reactstrap";
-import { Container } from "nes-react";
 import './FlashCard.css';
 import { useHistory } from 'react-router-dom';
 

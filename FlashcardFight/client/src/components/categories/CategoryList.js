@@ -14,7 +14,6 @@ import {
     ModalHeader, 
     ModalBody, 
     ModalFooter, } from 'reactstrap';
-import { useHistory } from 'react-router-dom';
 
 const CategoryList = () => {
 
