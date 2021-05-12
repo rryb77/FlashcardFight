@@ -58,10 +58,11 @@ GIFs coming soon!
 
 ## Design and Development
 * Miro - Wireframing
-![](Study-HeroWireframe.png)
+![](StudyHeroWireframe.png)
+
 * DbDiagram.io - Entity Relationship Diagram
 
-![](Study-HeroERD.png)
+![](StudyHeroERD.png)
 
 ### Running The App
 
