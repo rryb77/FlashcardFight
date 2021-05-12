@@ -64,31 +64,31 @@ GIFs coming soon!
 
 ![](StudyHeroERD.png)
 
-### Running The App
+## Running The App
 
-## Requirements
+### Requirements
 * Git
 * Visual Studio (configured to run server-side ASP.NET Web API C# code)
 * MS SQL Server (Express or higher)
 * NodeJS
 
-## Firebase
+### Firebase
 
 You will need to create a Firebase project to have working authentication and authorization.
 
 * Go to Firebase and create a project (can be named anything). Add authentication in the form of email/password to the project.
 * In the project settings, you will need your `Project Id` and `Web API Key`
 
-## Clone the project
+### Clone the project
 From a terminal window, in any directory you'd like, run: git clone `git@github.com:rryb77/FlashcardFight.git`
 
-## Back-end setup
+### Back-end setup
 * In `FlashcardFight/appsettings.json` change the `FirebaseProjectId` value to your Firebase `Project Id`
 * From `FlashcardFight/SQL`, run the scripts `01_Db_Create.sql` and then `02_Seed_Data` to generate the database
 * To use the default test account `test@example.com`, create a user account in your Firebase project's auth section with that email address (and any password) and replace the data in that user's `FirebaseUserId` column in the database with the id generated in your Firebase project
 * Load `FlashcardFight.sln` in Visual Studio and hit F5 to run the server (after ensuring that FlashcardFight is selected instead of the default IIS Express server)
 
-## Front-end Setup
+### Front-end Setup
 * Create a file in `FlashcardFight/client/` called `.env.local`
 * In this file, paste `REACT_APP_API_KEY=Web API Key`, replacing "Web API Key" with your unique key from your Firebase project's project settings
 * Run `npm install` in `FlashcardFight/client` to install all dependencies
