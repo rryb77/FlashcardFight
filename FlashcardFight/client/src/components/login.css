@@ -11,7 +11,21 @@ body {
 .login {
   max-width: 50vh;
   z-index: 1;
+  right: 40vh;
+  top: 8vh;
 }
 .loginForm {
   width: 40vh;
+}
+
+.loginBGContainer {
+  width: 100%;
+  height: 100vh;
+  padding: 0vh;
+  background-image: url(loginBG.png);
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+  z-index: -10;
 }

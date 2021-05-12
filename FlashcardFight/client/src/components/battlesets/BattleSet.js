@@ -35,6 +35,7 @@ const BattleSet = () => {
     useEffect(() => {
         getFlashcardSetWithQandA(id)
             .then(setBattleSet)
+            .then(() => setTheCount(0))
             .then(() => getUserProfile(currentUser.firebaseUserId))
             .then(setProfile)
     },[])
@@ -263,6 +264,7 @@ const BattleSet = () => {
             // User character death check
             if(battleData.hp <= 0)
             {
+                setHP(0)
                 // Set user character image to death
                 setHeroAction(profile.characterImage.death)
                 
