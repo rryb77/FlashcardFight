@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from "react";
-import { Button, Card, CardBody, CardFooter, CardHeader } from "reactstrap";
-import { Link, useHistory } from "react-router-dom";
+import { Button } from "reactstrap";
+import { useHistory } from "react-router-dom";
 import { UserProfileContext } from "../../providers/UserProfileProvider";
 import { UserTypeContext } from "../../providers/UserTypeProvider"
 
@@ -10,28 +10,49 @@ const UserList = () => {
     const {updateUserType} = useContext(UserTypeContext);
 
     const [profiles, setProfiles] = useState([]);
+    const [admins, setAdmins] = useState([]);
     const history = useHistory();
 
     useEffect(() => {
         getAllProfiles().then(setProfiles);
     }, []);
 
+    useEffect(() => {
+        if(profiles.length > 0)
+        {
+            const adminAccounts = profiles.filter(p => p.userTypeId === 1)
+            setAdmins(adminAccounts)
+        }
+    }, [profiles])
+
     const deactivate = (id) => {
-        deactivateUserById(id).then(getAllProfiles).then(setProfiles)
+        const user = profiles.find(p => p.id === id)
+
+        if(user.userTypeId === 1 && admins.length === 1)
+        {
+            alert("You must have at least one admin, please assign a different admin before deactivating this account.")
+        }
+        else
+        {
+            deactivateUserById(id).then(getAllProfiles).then(setProfiles)
+        }
     };
 
     const reactivate = (id) => {
         reactivateUserById(id).then(getAllProfiles).then(setProfiles)
     };
 
-    const viewDeactivated = () => {
-        history.push(`/deactivatedusers`)
-    }
-
     const changeAccountType = (profile) => {
         if(profile.userTypeId === 1)
         {
-            profile.userTypeId = 2
+            if(admins.length === 1)
+            {
+                alert("You must have at least one admin, please assign a different admin before demoting this account.")
+            }
+            else
+            {
+                profile.userTypeId = 2
+            }
         }
         else
         {
@@ -41,18 +62,14 @@ const UserList = () => {
         updateUserType(profile)
             .then(getAllProfiles).then(setProfiles);        
     }
-
-    console.log(profiles)
+    
     return (
         <>
-            <br></br>
+            <br></br>            
+            <div className="container pt-4">
             <h1>User Management</h1>
-            <div className="container pt-4">
-                <Button color="primary right" onClick={viewDeactivated}>View Deactivated Users</Button>
-            </div>
-            
-            <div className="container pt-4">
                 <div className="row justify-content-center">
+                
                     <table>
                         <thead>
                             <tr>
@@ -78,9 +95,8 @@ const UserList = () => {
                                                 `users/details/${p.id}`
                                             )
                                         }
-                                    >
-                                        View
-                                    </Button>
+                                        >View
+                                        </Button>
 
                                             {p.userTypeId === 1 ?
                                                 <Button color="warning" className="leftMargin" onClick={() => changeAccountType(p)}>Demote To User</Button>

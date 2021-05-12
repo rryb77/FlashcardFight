@@ -8,7 +8,6 @@ import {
     Card,
     CardBody,
     CardFooter,
-    CardHeader,
     CardTitle,
     CardSubtitle,
     Col,
@@ -23,7 +22,8 @@ const UserDetails = () => {
     const history = useHistory();
 
     useEffect(() => {
-        getUserProfileById().then(setProfile)
+        getUserProfileById()
+            .then(setProfile)
           .then(() => getAllByUserId(id))
           .then(setFlashcards)
     }, []);
@@ -44,9 +44,7 @@ const UserDetails = () => {
                 <CardBody>
                     <Row>
                         <Col sm="5" md="4" lg="3">
-                            <img
-                                src={profile.characterImage.imageLocation}
-                            />
+                            <img className="detailsHero" src={profile?.characterImage.imageLocation} alt="User Hero"/>
                         </Col>
                         <Col>
                             <h2>{profile.userName}</h2>
@@ -98,26 +96,24 @@ const UserDetails = () => {
                 {
                     flashcards.map((flashcard) => (
                         <Card className="m-4">
-                {/* <Link className="postLink" to={`/posts/${post.id}`}> */}
-                    <CardBody>
-                        <CardTitle tag="h2">
-                            <strong> {flashcard.title}</strong><Badge className="right pill">{flashcard.difficulty.name}</Badge>
-                        </CardTitle>
-                        <CardSubtitle tag="h6" className="mb-2 text-muted">
+                        <CardBody>
+                            <CardTitle tag="h2">
+                                <strong> {flashcard.title}</strong><Badge className="right pill">{flashcard.difficulty.name}</Badge>
+                            </CardTitle>
+                            <CardSubtitle tag="h6" className="mb-2 text-muted">
+                                <br></br>
+                                Creator: {flashcard.userProfile.userName}
+                            </CardSubtitle>
+                            <CardSubtitle tag="h6" className="mb-2 text-muted">
+                                Category: {flashcard.category.name}
+                            </CardSubtitle>
                             <br></br>
-                            Creator: {flashcard.userProfile.userName}
-                        </CardSubtitle>
-                        <CardSubtitle tag="h6" className="mb-2 text-muted">
-                            Category: {flashcard.category.name}
-                        </CardSubtitle>
-                        <br></br>
-                        Description: {flashcard.description}
-                    </CardBody>
-                    <CardFooter>
-                        <Button type="button" color="secondary" className="right" onClick={() => details(flashcard.id)}>Details</Button>
-                    </CardFooter>
-                {/* </Link> */}
-            </Card>
+                            Description: {flashcard.description}
+                        </CardBody>
+                        <CardFooter>
+                            <Button type="button" color="secondary" className="right" onClick={() => details(flashcard.id)}>Details</Button>
+                        </CardFooter>
+                     </Card>
                     ))
                 }
                 </div>
