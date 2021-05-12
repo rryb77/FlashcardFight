@@ -4,20 +4,8 @@ import { FlashCardSetContext } from '../../providers/FlashCardSetProvider';
 import { QuestionContext } from '../../providers/QuestionProvider';
 import {UserProfileContext} from '../../providers/UserProfileProvider'
 import './Study.css';
-import { Container, Button } from "nes-react";
+import { Container } from "nes-react";
 import { Progress } from 'reactstrap';
-
-import {
-    Badge,
-    Card,
-    CardBody,
-    CardFooter,
-    CardHeader,
-    CardTitle,
-    CardSubtitle,
-    Row,
-    Col
-} from "reactstrap";
 
 const StudySet = () => {
     const { getFlashcardSetWithQandA, flashcardSetData, setFlashcardSetData } = useContext(FlashCardSetContext);
@@ -61,7 +49,7 @@ const StudySet = () => {
     useEffect(() => {
         if(serverUser.id > 0)
         {
-                        
+             console.log('push is happening')           
             const studyData = {...flashcardSetData}
             studyData.userId = serverUser.id
             setFlashcardSetData(studyData)

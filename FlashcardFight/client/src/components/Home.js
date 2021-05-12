@@ -154,24 +154,6 @@ const Home = () => {
                 </div>
             </Container>
         </div>
-        {/* <div className="footerContainer">
-            <Container className="heroFooterRight footerStyle is-dark">
-            <b>Items:</b>
-                {
-                    userItems.map(item => {
-                        return (
-                            <button className="nes-btn" onClick={() => userItem(item)}>{item.name}</button>
-                        )
-                    })
-                }
-            </Container>
-            <Container className="heroFooterLeft is-dark">
-                <b>HP:</b> {'  '} {currentUser.hp} <br></br>
-                <b>EXP:</b>  {currentUser.experience} <br></br>
-                <b>Level:</b>  {currentUser.level}
-            </Container>
-        
-        </div> */}
         </>
     )
 }

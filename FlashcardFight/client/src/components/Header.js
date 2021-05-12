@@ -8,10 +8,6 @@ import {
   Nav,
   NavItem,
   NavLink,
-  UncontrolledDropdown,
-  DropdownToggle,
-  DropdownItem,
-  DropdownMenu
 } from 'reactstrap';
 import { UserProfileContext } from "../providers/UserProfileProvider";
 

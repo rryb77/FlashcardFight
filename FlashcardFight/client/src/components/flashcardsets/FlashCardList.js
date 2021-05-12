@@ -1,13 +1,11 @@
 import React, { useContext, useEffect, useState } from "react";
 import { FlashCardSetContext } from '../../providers/FlashCardSetProvider';
-import FlashCard from "./FlashCard";
 import { useHistory } from 'react-router-dom';
 import {
   Badge,
   Card,
   CardBody,
   CardFooter,
-  CardHeader,
   CardTitle,
   CardSubtitle,
   Tooltip

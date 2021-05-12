@@ -6,8 +6,6 @@ import {
   CardBody,
   Label,
   Input,
-  Row,
-  Col,
   Modal, 
   ModalHeader, 
   ModalBody, 
@@ -15,10 +13,9 @@ import {
 } from "reactstrap";
 import {FlashCardSetContext} from '../../providers/FlashCardSetProvider'
 import { useHistory } from 'react-router-dom';
-import { CardHeader } from "reactstrap";
 import { QuestionContext } from "../../providers/QuestionProvider";
 import { AnswerContext } from "../../providers/AnswerProvider";
-import { Container, Button } from "nes-react"
+import { Button } from "nes-react"
 
 export const FlashCardForm = () => {
     // Context
@@ -32,9 +29,6 @@ export const FlashCardForm = () => {
     const [modal, setModal] = useState(false);
     const toggleModal = () => setModal(!modal);
 
-    // Loading state
-    const [isLoading, setIsLoading] = useState(false);
-
     // Form state
     const [userQuestion, setUserQuestion] = useState("");
     const [correctAnswer, setCorrectAnswer] = useState("");
@@ -45,7 +39,7 @@ export const FlashCardForm = () => {
 
     // Onload
     useEffect(() => {
-        
+
     }, [])
 
     useEffect(() => {
@@ -171,7 +165,7 @@ export const FlashCardForm = () => {
                             </Form>
                             <button 
                                 className="nes-btn is-success nes-pointer"
-                                disabled={isLoading} 
+                                disabled={false} 
                                 onClick={submit}>
                                 Add Question
                             </button>

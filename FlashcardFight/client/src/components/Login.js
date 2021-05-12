@@ -30,7 +30,7 @@ export default function Login() {
               <fieldset>
                 <FormGroup>
                   <Label for="email">Email</Label>
-                  <Input id="email" type="text" classname="nes-input" onChange={e => setEmail(e.target.value)} />
+                  <Input id="email" type="text" className="nes-input" onChange={e => setEmail(e.target.value)} />
                 </FormGroup>
                 <FormGroup>
                   <Label for="password">Password</Label>

@@ -4,8 +4,6 @@
 
 .mainContainer {
   height: 100vh;
-  /* max-height: 600px; */
-
   width: 100%;
   background-color: hsla(200, 40%, 30%, 0.4);
   background-image: url(BGLayer5.png), url(BGLayer3.png), url(BGLayer4.png),

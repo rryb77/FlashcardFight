@@ -11,7 +11,6 @@ import { CategoryContext } from '../../providers/CategoryProvider';
 import { DifficultyContext } from '../../providers/DifficultyProvider';
 import {FlashCardSetContext} from '../../providers/FlashCardSetProvider'
 import { useHistory } from 'react-router-dom';
-import { CardHeader } from "reactstrap";
 import { Button } from "nes-react"
 import './FlashCard.css';
 
@@ -19,14 +18,11 @@ import './FlashCard.css';
 
 export const FlashCardForm = () => {
     // Context
-    const {addSet, flashcardSet, setFlashcardSet} = useContext(FlashCardSetContext);
+    const {addSet, setFlashcardSet} = useContext(FlashCardSetContext);
     const { categories, getAllCategories, setCategories } = useContext(CategoryContext);
     const { difficulties, getAllDifficulties, setDifficulties } = useContext(DifficultyContext);
 
     const history = useHistory();
-
-    // Loading state
-    const [isLoading, setIsLoading] = useState(false);
 
     // Form state
     const [title, setTitle] = useState("");
@@ -118,7 +114,7 @@ export const FlashCardForm = () => {
                         </Form>
                         <Button 
                             className="is-success"
-                            disabled={isLoading} 
+                            disabled={false} 
                             onClick={submit}>
                             SUBMIT
                         </Button>

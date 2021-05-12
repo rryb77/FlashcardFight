@@ -1,14 +1,12 @@
 import React, { useContext, useEffect, useState } from "react";
 import { FlashCardSetContext } from '../../providers/FlashCardSetProvider';
 import {UserProfileContext} from '../../providers/UserProfileProvider'
-import FlashCard from "./FlashCard";
 import './FlashCardList.css'
 import {
   Badge,
   Card,
   CardBody,
   CardFooter,
-  CardHeader,
   CardTitle,
   CardSubtitle,
   Tooltip

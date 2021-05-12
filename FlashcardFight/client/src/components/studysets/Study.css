@@ -32,7 +32,6 @@
 .dummyBoss {
   position: absolute;
   right: 10vh;
-  /* top: 60vh; */
   bottom: 25vh;
   width: 40vh;
 }
@@ -41,7 +40,6 @@
   position: absolute;
   left: -5vh;
   bottom: 10vh;
-  /* max-width: 600px; */
   width: 70vh;
   z-index: 1;
 }
@@ -86,11 +84,6 @@ text {
 }
 
 .questionContainer {
-  /* position: absolute;
-  bottom: 60vh;
-  padding: 20;
-  margin-top: 10vh;
-  width: 50%; */
   position: absolute;
   top: 50%;
   left: 50%;

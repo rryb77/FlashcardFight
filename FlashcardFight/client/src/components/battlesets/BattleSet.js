@@ -70,7 +70,7 @@ const BattleSet = () => {
 
     // Update the user character once the last card was studied
     useEffect(() => {
-        if(serverUser.id > 0)
+        if(serverUser.id > 0 && theCount > 0)
         {
             // Send the update and push user to results
             updateUserCharacter(serverUser)
@@ -324,7 +324,7 @@ const BattleSet = () => {
         setTimeout(() => {
             // Update the API with the new character properties and then push to the results
             updateUserCharacter(battleData)
-            history.push(`${id}/results`)
+            // history.push(`${id}/results`)
 
             // Reset the count
             setTheCount(0)

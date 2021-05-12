@@ -1,11 +1,9 @@
-import React, { useState, useContext } from "react";
-import { UserProfileContext } from "./UserProfileProvider";
+import React from "react";
 
 export const CharacterImageContext = React.createContext();
 
 export const CharacterImageProvider = (props) => {
     const apiUrl = "/api/characterimage";
-    const { getToken } = useContext(UserProfileContext);
 
     const getAllCharacterImages = () => {
           return fetch(`${apiUrl}`)
