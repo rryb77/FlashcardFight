@@ -3,7 +3,7 @@ import { useHistory, useParams } from "react-router-dom";
 import { FlashCardSetContext } from '../../providers/FlashCardSetProvider';
 import { QuestionContext } from '../../providers/QuestionProvider';
 import {UserProfileContext} from '../../providers/UserProfileProvider'
-import { Container, Radios, Button } from "nes-react";
+import { Container } from "nes-react";
 import './BattleSet.css'
 import '../studysets/Study.css'
 import { Progress } from 'reactstrap';
