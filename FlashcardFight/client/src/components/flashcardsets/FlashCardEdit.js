@@ -293,7 +293,7 @@ const FlashCardEdit = () => {
 
     return (
         <div className="background">
-        <div class="firefly"></div><div class="firefly"></div><div class="firefly"></div><div class="firefly"></div><div class="firefly"></div><div class="firefly"></div><div class="firefly"></div><div class="firefly"></div><div class="firefly"></div><div class="firefly"></div><div class="firefly"></div><div class="firefly"></div>
+        <div className="firefly"></div><div className="firefly"></div><div className="firefly"></div><div className="firefly"></div><div className="firefly"></div><div className="firefly"></div><div className="firefly"></div><div className="firefly"></div><div className="firefly"></div><div className="firefly"></div><div className="firefly"></div><div className="firefly"></div>
         
         <div className="container pt-4">
             <div className="justify-content-center">
@@ -327,7 +327,7 @@ const FlashCardEdit = () => {
                                 flashcardSet.questions.map(q => {
                                     return (
                                     <>
-                                        <div class="wrapper">
+                                        <div className="wrapper">
                                             <details>
                                                 <summary>
                                                     <b>{q.questionText}</b>
@@ -362,7 +362,7 @@ const FlashCardEdit = () => {
                                 flashcardSet.questions.map(q => {
                                     return (
                                     
-                                        <div class="wrapper">
+                                        <div className="wrapper">
                                             <details>
                                                 <summary>
                                                     <b>{q.questionText}</b>

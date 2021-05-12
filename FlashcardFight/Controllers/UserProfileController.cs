@@ -114,6 +114,12 @@ namespace FlashcardFight.Controllers
             return Ok(_userProfileRepository.GetUserProfileById(currentUserProfile.Id));
         }
 
+        [HttpGet("GetUserProfileDetailsById/{id}")]
+        public IActionResult GetUserProfileDetailsById(int id)
+        {
+            return Ok(_userProfileRepository.GetUserProfileById(id));
+        }
+
         private UserProfile GetCurrentUserProfile()
         {
             var firebaseUserId = User.FindFirst(ClaimTypes.NameIdentifier).Value;

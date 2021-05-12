@@ -34,17 +34,12 @@ export default function Register() {
     useEffect(() => {
         if(characterImageId > 0)
         {   
-            console.log(characterImages)
             let chosen = characterImages.find(c => c.id === parseInt(characterImageId))
-            console.log(chosen)
             setSelectedCharacter(chosen.run);
         }
-
-        console.log(characterImageId)
     }, [characterImageId])
 
     useEffect(() => {
-        console.log(characterImages)
     }, [characterImages])
 
     const registerClick = (e) => {

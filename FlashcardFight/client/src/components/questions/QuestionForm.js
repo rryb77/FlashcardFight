@@ -45,7 +45,7 @@ export const FlashCardForm = () => {
 
     // Onload
     useEffect(() => {
-        console.log(flashcardSet)
+        
     }, [])
 
     useEffect(() => {

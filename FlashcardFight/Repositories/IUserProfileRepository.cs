@@ -10,6 +10,7 @@ namespace FlashcardFight.Repositories
         UserProfile GetByFirebaseUserId(string firebaseUserId);
         List<UserProfile> GetLeaderBoard();
         UserProfile GetUserProfileById(int id);
+        UserProfile GetUserProfileDetailsById(int id);
         List<UserProfile> GetUserProfiles();
         void ReactivateUserById(int id);
         void UpdateUserCharacterStats(UserProfile userProfile);

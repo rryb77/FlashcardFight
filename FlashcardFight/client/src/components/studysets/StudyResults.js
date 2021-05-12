@@ -46,7 +46,6 @@ const StudyResults = () => {
     useEffect(() => {
         if(items.length > 0)
         {
-            console.log(items)
             const randomChance = Math.floor(Math.random() * 101);
             if(randomChance >= 90)
             {
@@ -120,7 +119,7 @@ const StudyResults = () => {
     return (
         
         <div className="resultsBackground row justify-content-center">
-        <div class="firefly"></div><div class="firefly"></div><div class="firefly"></div><div class="firefly"></div><div class="firefly"></div><div class="firefly"></div><div class="firefly"></div><div class="firefly"></div><div class="firefly"></div><div class="firefly"></div><div class="firefly"></div><div class="firefly"></div>
+        <div className="firefly"></div><div className="firefly"></div><div className="firefly"></div><div className="firefly"></div><div className="firefly"></div><div className="firefly"></div><div className="firefly"></div><div className="firefly"></div><div className="firefly"></div><div className="firefly"></div><div className="firefly"></div><div className="firefly"></div>
             
         <Container className="resultsContainer is-dark">
             <div id="results">

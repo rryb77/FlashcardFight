@@ -28,7 +28,6 @@ export function UserProfileProvider(props) {
         .then((userProfile) => {
             sessionStorage.setItem("userProfile", JSON.stringify(userProfile));
             setIsLoggedIn(true);
-            console.log(userProfile)
             if(userProfile.userTypeId === 1)
             {
                 setIsAdmin(true);
@@ -136,6 +135,17 @@ export function UserProfileProvider(props) {
         )
     }
 
+    const getUserProfileDetailsById = (id) => {
+        return getToken().then((token) =>
+          fetch(`${apiUrl}/GetUserProfileDetailsById/${id}`, {
+            method: "GET",
+            headers: {
+              Authorization: `Bearer ${token}`
+            }
+          }).then((res) => res.json())
+        )
+    }
+
     const reactivateUserById = (id) => {
         return getToken().then((token) =>
         fetch(`${apiUrl}/ReactivateUserById/${id}`, {
@@ -164,7 +174,7 @@ export function UserProfileProvider(props) {
 
   return (
     <UserProfileContext.Provider value={{ isLoggedIn, login, logout, register, getToken, getUserProfile, getAllProfiles, deactivateUserById, 
-                                        reactivateUserById, updateUserCharacter, isAdmin, getUserProfileById, getLeaderboard }}>
+                                        reactivateUserById, updateUserCharacter, isAdmin, getUserProfileById, getLeaderboard, getUserProfileDetailsById }}>
       {isFirebaseReady
         ? props.children
         : <Spinner className="app-spinner dark"/>}

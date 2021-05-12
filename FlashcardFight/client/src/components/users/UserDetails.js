@@ -15,14 +15,14 @@ import {
 } from "reactstrap";
 
 const UserDetails = () => {
-    const { getUserProfileById } = useContext(UserProfileContext);
+    const { getUserProfileDetailsById } = useContext(UserProfileContext);
     const { flashcards, setFlashcards, getAllByUserId } = useContext(FlashCardSetContext);
     const [profile, setProfile] = useState([]);
     const { id } = useParams();
     const history = useHistory();
 
     useEffect(() => {
-        getUserProfileById()
+        getUserProfileDetailsById(id)
             .then(setProfile)
           .then(() => getAllByUserId(id))
           .then(setFlashcards)
@@ -40,6 +40,7 @@ const UserDetails = () => {
     return (
         <>
         <div className="container">
+            <h1>User Profile Details</h1>
             <Card>
                 <CardBody>
                     <Row>

@@ -61,14 +61,14 @@ const FlashCardSubscriptions = () => {
     return (
         <div>
             <div className="background">
-                <div class="firefly"></div><div class="firefly"></div><div class="firefly"></div><div class="firefly"></div><div class="firefly"></div><div class="firefly"></div><div class="firefly"></div><div class="firefly"></div><div class="firefly"></div><div class="firefly"></div><div class="firefly"></div><div class="firefly"></div>
+                <div className="firefly"></div><div className="firefly"></div><div className="firefly"></div><div className="firefly"></div><div className="firefly"></div><div className="firefly"></div><div className="firefly"></div><div className="firefly"></div><div className="firefly"></div><div className="firefly"></div><div className="firefly"></div><div className="firefly"></div>
                     <div className="container">
                         <div className="row justify-content-center">
                             <div className="cards-column">
                             {
                                 flashcards.map((flashcard) => (
                                 
-                                    <Card className="m-4">
+                                    <Card key={flashcard.id} className="m-4">
                                         <CardBody>
                                             <CardTitle tag="h2">
                                                 <strong> {flashcard.title}</strong>

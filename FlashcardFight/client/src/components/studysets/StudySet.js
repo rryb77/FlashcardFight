@@ -83,7 +83,6 @@ const StudySet = () => {
 
     // When questions state changes...
     useEffect(() => {
-        console.log(flashcardSetData)
         // if questions isn't undefined and ONLY when the count is equal to 0 then..
         if(questions !== null && theCount === 0)
         {
