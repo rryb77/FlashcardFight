@@ -62,7 +62,7 @@ const BattleResults = () => {
                 
             <Container className="resultsContainer is-dark">
                 <div id="results">
-                    <h1>Training Results For {resultData?.flashcard?.title}</h1>
+                    <h1>Battle Results For {resultData?.flashcard?.title}</h1>
                     <br></br>
                     You got {resultData?.correctAnswers} out of {resultData?.questionAmount} correct.
                     <br></br>       
