@@ -69,9 +69,12 @@ const UserList = () => {
     
     return (
         <>
+        <div className="background">
+            <div className="firefly"></div><div className="firefly"></div><div className="firefly"></div><div className="firefly"></div><div className="firefly"></div><div className="firefly"></div><div className="firefly"></div><div className="firefly"></div><div className="firefly"></div><div className="firefly"></div><div className="firefly"></div><div className="firefly"></div>
+     
             <br></br>            
             <div className="container pt-4">
-            <h1>User Management</h1>
+            <h1 className="headers">User Management</h1>
                 <div className="row justify-content-center">
                 
                     <table>
@@ -123,7 +126,7 @@ const UserList = () => {
                     </table>
                 </div>
             </div>
-
+        </div>
             <div>
                 <Modal isOpen={modal} toggle={toggleModal} className="modal-dialog">
                     <ModalHeader toggle={toggleModal}>Warning - Not Enough Admins</ModalHeader>

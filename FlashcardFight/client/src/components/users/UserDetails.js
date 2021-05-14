@@ -39,8 +39,12 @@ const UserDetails = () => {
 
     return (
         <>
+        <div className="background">
+            <div className="firefly"></div><div className="firefly"></div><div className="firefly"></div><div className="firefly"></div><div className="firefly"></div><div className="firefly"></div><div className="firefly"></div><div className="firefly"></div><div className="firefly"></div><div className="firefly"></div><div className="firefly"></div><div className="firefly"></div>
+     
         <div className="container">
-            <h1>User Profile Details</h1>
+            <br></br>
+            <h1 className="headers">User Profile Details</h1>
             <Card>
                 <CardBody>
                     <Row>
@@ -119,6 +123,7 @@ const UserDetails = () => {
                 }
                 </div>
             </div>
+        </div>
         </div>
         </>
     );

@@ -85,9 +85,11 @@ const CategoryList = () => {
     }
 
     return (
+        <div className="background">
+        <div className="firefly"></div><div className="firefly"></div><div className="firefly"></div><div className="firefly"></div><div className="firefly"></div><div className="firefly"></div><div className="firefly"></div><div className="firefly"></div><div className="firefly"></div><div className="firefly"></div><div className="firefly"></div><div className="firefly"></div>
         <div className="container">
             <br></br>
-            <h1>Category Manager <Button color="success" className="" onClick={toggleAddCategoryModal}>Add Category</Button></h1>
+            <h1 className="headers">Category Manager <Button color="success" className="" onClick={toggleAddCategoryModal}>Add Category</Button></h1>
             
             <div className="row justify-content-center">
             
@@ -105,6 +107,7 @@ const CategoryList = () => {
                 ))}
                 
             </div>
+        </div>
         
 
                 {/* Modal to add new category */}
