@@ -55,6 +55,7 @@ GIFs coming soon!
 * .NET 5
 * ASP.NET Core
 * MS SQL Server
+* ADO.NET
 
 ## Design and Development
 * Miro - Wireframing
