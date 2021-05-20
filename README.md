@@ -40,7 +40,7 @@ Study Hero is a community-driven learning app that was created to help users stu
 
 ## See It In Action
 
-GIFs coming soon!
+![alt text](https://github.com/rryb77/FlashcardFight/blob/main/FlashcardFight/client/public/backgrounds/study-hero.gif "Study Hero")
 
 ## Technologies Used
 
