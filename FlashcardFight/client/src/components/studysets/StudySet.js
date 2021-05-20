@@ -102,7 +102,7 @@ const StudySet = () => {
         {
             setQuestion(questions[theCount])
         }
-        else if(theCount > 0 && theCount=== questions?.length)
+        else if(theCount > 0 && theCount === questions?.length)
         {
             const characterData = {...profile}
 

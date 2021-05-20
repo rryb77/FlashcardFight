@@ -131,6 +131,7 @@ const FlashCardList = () => {
 
     // Subscribe button was clicked
     const subscribe = (flashcard) => {
+        debugger
         const subscription = {
             UserId: parseInt(currentUser.id),
             FlashCardSetId: flashcard.id
